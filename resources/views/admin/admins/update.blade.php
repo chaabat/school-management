@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 
-@section('updateTeacher')
+@section('updateAdmin')
     <div class="p-4 sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
 
-            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Update Teachers
+            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Update Admins
                 Form
             </h2>
             <form action="" method="" enctype="multipart/form-data">
@@ -98,22 +98,7 @@
 
                             </div>
                         </div>
-                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
-                                for="grid-state">
-                                Course
-                            </label>
-                            <div class="relative">
-                                <select id="class" name="class"
-                                    class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected="">Select Class</option>
-                                    <option value="">math</option>
-                                    <option value="">svt</option>
 
-                                </select>
-
-                            </div>
-                        </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">

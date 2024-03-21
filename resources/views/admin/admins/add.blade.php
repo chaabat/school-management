@@ -1,11 +1,12 @@
 @extends('layouts.admin')
 
-@section('updateTeacher')
+@section('addAdmin')
+
     <div class="p-4 sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
 
-            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Update Teachers
+            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Add Admins
                 Form
             </h2>
             <form action="" method="" enctype="multipart/form-data">
@@ -19,7 +20,6 @@
                             </div>
                             <span class="sr-only ">Choose profile photo</span>
                             <input name="picture" type="file" onchange="loadFile(event)" class="hidden" />
-
                         </label>
                     </div>
                     <div class="-mx-3 md:flex mb-6">
@@ -98,22 +98,7 @@
 
                             </div>
                         </div>
-                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
-                                for="grid-state">
-                                Course
-                            </label>
-                            <div class="relative">
-                                <select id="class" name="class"
-                                    class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected="">Select Class</option>
-                                    <option value="">math</option>
-                                    <option value="">svt</option>
-
-                                </select>
-
-                            </div>
-                        </div>
+                     
                     </div>
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
@@ -127,8 +112,8 @@
                     </div>
                     <button type="button"
                         class="text-white  flex items-center justify-center  text-xl font-bold font-mono   bg-blue-700   rounded-lg  px-5 py-2.5  ">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        Update
+                        <i class="fa-solid fa-plus"></i>
+                        Ajouter
 
                     </button>
             </form>

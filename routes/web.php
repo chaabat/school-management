@@ -19,7 +19,14 @@ Route::get('/', function () {
 });
 
 Route::get('dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+Route::get('courses',[AdminController::class,'course'])->name('admin.course');
+
+
+
+
 Route::get('admins',[AdminController::class,'admin'])->name('admin.page');
+Route::get('admins/add',[AdminController::class,'addAdmin'])->name('add.admin');
+Route::get('admins/update',[AdminController::class,'updateAdmin'])->name('update.admin');
 
 
 Route::get('parents',[AdminController::class,'parent'])->name('parent.page');

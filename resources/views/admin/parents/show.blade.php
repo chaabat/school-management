@@ -3,7 +3,7 @@
     <div class="p-4 h-screen sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
-            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Parents
+            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Parents List
             </h2>
             <section class=" p-3 sm:p-5">
                 <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
@@ -57,48 +57,29 @@
                             </div>
                         </div>
                         <div class="overflow-x-auto">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead
-                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="px-4 py-3">Id</th>
-                                        <th scope="col" class="px-4 py-3">Nom Complet</th>
-                                        <th scope="col" class="px-4 py-3">email</th>
-                                        <th scope="col" class="px-4 py-3">Genre</th>
-                                        <th scope="col" class="px-4 py-3">Date</th>
-                                        <th scope="col" class="px-4 py-3">Téléphone</th>
-                                        <th scope="col" class="px-4 py-3">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            {{-- card start  --}}
+                            <div
+                                class="mx-auto grid max-w-6xl  grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                                <div class=" bg-blue-400 flex flex-col items-center p-8  rounded-xl">
+                                    <img class="object-cover w-32 h-32 rounded-full ring-4 ring-gray-300"
+                                        src="{{ asset('photos/administrateur.png') }}" alt="">
 
+                                    <h1
+                                        class="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">
+                                        Ayoub chaabat</h1>
 
-                                    <tr class="border-b dark:border-gray-700">
-                                        <th scope="row"
-                                            class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Xbox Series S</th>
-                                        <td class="px-4 py-3">Gaming/Console</td>
-                                        <td class="px-4 py-3">Microsoft</td>
-                                        <td class="px-4 py-3">56</td>
-                                        <td class="px-4 py-3">$299</td>
-                                        <td class="px-4 py-3">$299</td>
-                                        <td class="px-4 py-3">
-                                            <div class="flex space-x-4 items-right">
-                                                <a href=""><img src="{{ asset('photos/show.png') }}" class="h-6"
-                                                        alt=""></a>
-                                                <a href="{{ route('update.parent') }}"><img
-                                                        src="{{ asset('photos/update.png') }}" class="h-6"
-                                                        alt=""></a>
-                                                <a href=""><img src="{{ asset('photos/delete.png') }}" class="h-6"
-                                                        alt=""></a>
+                                    <div class="flex mt-3 -mx-2 space-x-4">
+                                        <a href=""><img src="{{ asset('photos/show.png') }}" class="h-6"
+                                                alt=""></a>
+                                        <a href="{{ route('update.parent') }}"><img src="{{ asset('photos/update.png') }}"
+                                                class="h-6" alt=""></a>
+                                        <a href=""><img src="{{ asset('photos/delete.png') }}" class="h-6"
+                                                alt=""></a>
+                                    </div>
+                                </div>
 
-                                            </div>
-                                        </td>
-
-                                    </tr>
-
-                                </tbody>
-                            </table>
+                            </div>
+                            {{-- card end  --}}
                         </div>
                         <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
                             aria-label="Table navigation">

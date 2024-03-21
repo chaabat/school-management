@@ -11,8 +11,25 @@ class AdminController extends Controller
         return view('admin/dashboard');
     }
 
+    public function course(){
+        return view('admin/course');
+    }
+
+
+
+
+
+
     public function admin(){
-        return view('admin/admin');
+        return view('admin/admins/show');
+    }
+
+    public function addAdmin(){
+        return view('admin/admins/add');
+    }
+
+    public function updateAdmin(){
+        return view('admin/admins/update');
     }
 
     

@@ -17,15 +17,8 @@
                                     src="{{ asset('photos/administrateur.png') }}" alt="Current profile photo" />
                             </div>
                             <span class="sr-only ">Choose profile photo</span>
-                            <input name="picture" type="file" onchange="loadFile(event)"
-                                class="block w-full text-sm text-slate-500
-                       file:mr-4 file:py-2 file:px-4
-                       file:rounded-full file:border-0
-                       file:text-sm file:font-semibold
-                       file:bg-violet-50 file:text-violet-700
-                       hover:file:bg-violet-100
-                       hidden
-                     " />
+                            <input name="picture" type="file" onchange="loadFile(event)" class="hidden" />
+
                         </label>
                     </div>
                     <div class="-mx-3 md:flex mb-6">
