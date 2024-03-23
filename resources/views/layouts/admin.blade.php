@@ -19,6 +19,7 @@
 
     @yield('dashboard')
     @yield('course')
+    @yield('class')
 
 
     @yield('admin')
@@ -34,6 +35,7 @@
     @yield('teacher')
     @yield('addTeacher')
     @yield('updateTeacher')
+    
 
     @yield('student')
     @yield('addStudent')

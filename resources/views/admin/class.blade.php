@@ -1,9 +1,9 @@
 @extends('layouts.admin')
-@section('course')
+@section('class')
     <div class="p-4 h-screen sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
-            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Courses
+            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">classes
             </h2>
             <section class=" p-3 sm:p-5">
                 <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
@@ -42,7 +42,7 @@
                                         <path clip-rule="evenodd" fill-rule="evenodd"
                                             d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                                     </svg>
-                                    Add Course
+                                    Add Class
                                 </button>
                                 <div class="flex items-center space-x-3 w-full md:w-auto">
                                     <button
@@ -63,11 +63,11 @@
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" class="px-4 py-3">Id</th>
-                                        <th scope="col" class="px-4 py-3">Titre</th>
-                                        <th scope="col" class="px-4 py-3">Prix</th>
+                                        <th scope="col" class="px-4 py-3">Name</th>
                                         <th scope="col" class="px-4 py-3">Status</th>
-                                        <th scope="col" class="px-4 py-3">Créateur</th>
-                                        <th scope="col" class="px-4 py-3">Date de création</th>
+                                        <th scope="col" class="px-4 py-3">filiére</th>
+                                        <th scope="col" class="px-4 py-3">teacher</th>
+                                        <th scope="col" class="px-4 py-3">Date de création </th>
                                         <th scope="col" class="px-4 py-3">Actions</th>
                                     </tr>
                                 </thead>
@@ -77,7 +77,7 @@
                                     <tr class="border-b dark:border-gray-700">
                                         <th scope="row"
                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Xbox Series S</th>
+                                            X1</th>
                                         <td class="px-4 py-3">Gaming/Console</td>
                                         <td class="px-4 py-3">Microsoft</td>
                                         <td class="px-4 py-3">56</td>
@@ -191,33 +191,35 @@
 
                             <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                 <div>
-                                    <label
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Titre</label>
-                                    <input type="text" name="titre" id="titre"
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+                                    <input type="text" name="name" id="name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Titre de cours" required="">
+                                        placeholder="le nom de class" required="">
                                 </div>
                                 <div>
                                     <label
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix</label>
-                                    <input type="number" name="price" id="price"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder=" Prix du cours" required="">
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Teacher</label>
+                                    <select id="teacher" name="teacher"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option disabled selected="">Select teacher</option>
+                                        <option value="masculin">Active</option>
+                                        <option value="feminin">desactiver</option>
+
+                                    </select>
                                 </div>
-                                <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date du
-                                        cours</label>
-                                    <input id="date" name="date" type="date"
-                                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder=" Date du cours">
-                                </div>
+
                                 <div>
                                     <label
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Créateur</label>
-                                    <input type="text" name="created_by" id="created_by"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder=" Créer par" required="">
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filiere</label>
+                                    <select id="filiere" name="filiere"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option disabled selected="">Select filiere</option>
+                                        <option value="masculin">Active</option>
+                                        <option value="feminin">desactiver</option>
+
+                                    </select>
                                 </div>
+
                                 <div>
                                     <label
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Statut</label>
@@ -261,7 +263,7 @@
                         <div
                             class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                Course Form
+                                Class Form
                             </h3>
                             <button type="button"
                                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -280,33 +282,35 @@
 
                             <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                 <div>
-                                    <label
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Titre</label>
-                                    <input type="text" name="titre" id="titre"
+                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+                                    <input type="text" name="name" id="name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Titre de cours" required="">
+                                        placeholder="le nom de class" required="">
                                 </div>
                                 <div>
                                     <label
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix</label>
-                                    <input type="number" name="price" id="price"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder=" Prix du cours" required="">
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Teacher</label>
+                                    <select id="teacher" name="teacher"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option disabled selected="">Select teacher</option>
+                                        <option value="masculin">Active</option>
+                                        <option value="feminin">desactiver</option>
+
+                                    </select>
                                 </div>
-                                <div>
-                                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Date du
-                                        cours</label>
-                                    <input id="date" name="date" type="date"
-                                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder=" Date du cours">
-                                </div>
+
                                 <div>
                                     <label
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Créateur</label>
-                                    <input type="text" name="created_by" id="created_by"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder=" Créer par" required="">
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filiere</label>
+                                    <select id="filiere" name="filiere"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                        <option disabled selected="">Select filiere</option>
+                                        <option value="masculin">Active</option>
+                                        <option value="feminin">desactiver</option>
+
+                                    </select>
                                 </div>
+
                                 <div>
                                     <label
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Statut</label>

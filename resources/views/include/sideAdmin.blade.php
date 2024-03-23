@@ -148,7 +148,7 @@
                             class="flex items-center w-full p-2 text-m font-bold font mono text-black transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">List</a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('admin.class') }}"
                             class="flex items-center w-full p-2 text-m font-bold font mono text-black transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 pl-11">Billing</a>
                     </li>
                     <li>

@@ -5,14 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\FlareClient\View;
 
-class AdminController extends Controller
+class AdminPagesController extends Controller
 {
-    public function dashboard(){
+    public function dashboard()
+    {
         return view('admin/dashboard');
     }
 
-    public function course(){
-        return view('admin/course');
+    public function course()
+    {
+        return view('admin/filiere');
+    }
+
+    public function class()
+    {
+        return view('admin/class');
     }
 
 
@@ -20,29 +27,35 @@ class AdminController extends Controller
 
 
 
-    public function admin(){
+    public function admin()
+    {
         return view('admin/admins/show');
     }
 
-    public function addAdmin(){
+    public function addAdmin()
+    {
         return view('admin/admins/add');
     }
 
-    public function updateAdmin(){
+    public function updateAdmin()
+    {
         return view('admin/admins/update');
     }
 
-    
-    
-    public function parent(){
+
+
+    public function parent()
+    {
         return view('admin/parents/show');
     }
 
-    public function addParent(){
+    public function addParent()
+    {
         return view('admin/parents/add');
     }
 
-    public function updateParent(){
+    public function updateParent()
+    {
         return view('admin/parents/update');
     }
 
@@ -51,32 +64,38 @@ class AdminController extends Controller
 
 
 
-    
-    public function teacher(){
+
+    public function teacher()
+    {
         return view('admin/teachers/show');
     }
 
-    public function addTeacher(){
+    public function addTeacher()
+    {
         return view('admin/teachers/add');
     }
 
-    public function updateTeacher(){
+    public function updateTeacher()
+    {
         return view('admin/teachers/update');
     }
-    
-    
 
 
 
 
-    public function student(){
+
+
+    public function student()
+    {
         return view('admin/students/show');
     }
-    public function addStudent(){
+    public function addStudent()
+    {
         return view('admin/students/add');
     }
 
-    public function updateStudent(){
+    public function updateStudent()
+    {
         return view('admin/students/update');
     }
 }

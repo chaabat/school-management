@@ -9,9 +9,18 @@
             <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Add Admins
                 Form
             </h2>
-            <form action="" method="" enctype="multipart/form-data">
+            <form action="{{route('ajouterAdmin')}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('post')
+                <div class="text-red-500 text-[20px]">
+                    @if ($errors->any())
+                        <div>{{ $errors->first() }}</div>
+                    @endif
+                </div>
                 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
                     <div class="flex justify-center items-center mb-4 space-x-6">
+
+                     <input type="text" value="admin" name="role" hidden>
 
                         <label class="block ">
                             <div class="shrink-0">
@@ -103,14 +112,14 @@
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
                             <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
-                                for="grid-password">
+                                >
                                 Description
                             </label>
-                            <textarea name="content"
+                            <textarea name="description"
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"></textarea>
                         </div>
                     </div>
-                    <button type="button"
+                    <button type="submit"
                         class="text-white  flex items-center justify-center  text-xl font-bold font-mono   bg-blue-700   rounded-lg  px-5 py-2.5  ">
                         <i class="fa-solid fa-plus"></i>
                         Ajouter

@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminPagesController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,27 +20,38 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
-Route::get('courses',[AdminController::class,'course'])->name('admin.course');
+Route::get('login', [LoginController::class, 'index'])->name('login.page');
+Route::post('login', [LoginController::class, 'store'])->name('login');
+
+
+Route::get('dashboard', [AdminPagesController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('courses', [AdminPagesController::class, 'course'])->name('admin.course');
+Route::get('classes', [AdminPagesController::class, 'class'])->name('admin.class');
 
 
 
 
-Route::get('admins',[AdminController::class,'admin'])->name('admin.page');
-Route::get('admins/add',[AdminController::class,'addAdmin'])->name('add.admin');
-Route::get('admins/update',[AdminController::class,'updateAdmin'])->name('update.admin');
+Route::prefix('admins')->group(function () {
+    Route::get('/', [AdminPagesController::class, 'admin'])->name('admin.page');
+    Route::post('/', [RegisterController::class, 'admin'])->name('ajouterAdmin');
+    Route::get('/add', [AdminPagesController::class, 'addAdmin'])->name('add.admin');
+    Route::get('/update', [AdminPagesController::class, 'updateAdmin'])->name('update.admin');
+});
 
+Route::prefix('parents')->group(function () {
+    Route::get('/', [AdminPagesController::class, 'parent'])->name('parent.page');
+    Route::get('/add', [AdminPagesController::class, 'addParent'])->name('add.parent');
+    Route::get('/update', [AdminPagesController::class, 'updateParent'])->name('update.parent');
+});
 
-Route::get('parents',[AdminController::class,'parent'])->name('parent.page');
-Route::get('parents/add',[AdminController::class,'addParent'])->name('add.parent');
-Route::get('parents/update',[AdminController::class,'updateParent'])->name('update.parent');
+Route::prefix('teachers')->group(function () {
+    Route::get('/', [AdminPagesController::class, 'teacher'])->name('teacher.page');
+    Route::get('/add', [AdminPagesController::class, 'addTeacher'])->name('add.teacher');
+    Route::get('/update', [AdminPagesController::class, 'updateTeacher'])->name('update.teacher');
+});
 
-
-Route::get('teachers',[AdminController::class,'teacher'])->name('teacher.page');
-Route::get('teachers/add',[AdminController::class,'addTeacher'])->name('add.teacher');
-Route::get('teachers/update',[AdminController::class,'updateTeacher'])->name('update.teacher');
-
-
-Route::get('students',[AdminController::class,'student'])->name('student.page');
-Route::get('students/add',[AdminController::class,'addStudent'])->name('add.student');
-Route::get('students/update',[AdminController::class,'updateStudent'])->name('update.student');
+Route::prefix('students')->group(function () {
+    Route::get('/', [AdminPagesController::class, 'student'])->name('student.page');
+    Route::get('/add', [AdminPagesController::class, 'addStudent'])->name('add.student');
+    Route::get('/update', [AdminPagesController::class, 'updateStudent'])->name('update.student');
+});
