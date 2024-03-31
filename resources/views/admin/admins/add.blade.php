@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('addAdmin')
-
     <div class="p-4 sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
@@ -9,7 +8,7 @@
             <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Add Admins
                 Form
             </h2>
-            <form action="{{route('ajouterAdmin')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('ajouterAdmin') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('post')
                 <div class="text-red-500 text-[20px]">
@@ -20,7 +19,7 @@
                 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
                     <div class="flex justify-center items-center mb-4 space-x-6">
 
-                     <input type="text" value="admin" name="role" hidden>
+                        <input type="text" value="admin" name="role" hidden>
 
                         <label class="block ">
                             <div class="shrink-0">
@@ -107,12 +106,11 @@
 
                             </div>
                         </div>
-                     
+
                     </div>
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">
-                            <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
-                                >
+                            <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">
                                 Description
                             </label>
                             <textarea name="description"
@@ -120,7 +118,7 @@
                         </div>
                     </div>
                     <button type="submit"
-                        class="text-white  flex items-center justify-center  text-xl font-bold font-mono   bg-blue-700   rounded-lg  px-5 py-2.5  ">
+                        class="text-white  flex items-center justify-center  text-xl font-bold font-mono   bg-blue-900  rounded-lg  px-5 py-2.5  ">
                         <i class="fa-solid fa-plus"></i>
                         Ajouter
 

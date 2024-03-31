@@ -8,7 +8,9 @@
             <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Update Admins
                 Form
             </h2>
-            <form action="" method="" enctype="multipart/form-data">
+            <form action="{{ route('modifierAdmin', ['id' => $admin->id]) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
                 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
                     <div class="flex justify-center items-center mb-4 space-x-6">
 
@@ -30,7 +32,8 @@
                                 complet</label>
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                                id="name" type="text" name="name" placeholder="Jane">
+                                value="{{ old('name', $admin->user->name) }}" id="name" type="text" name="name"
+                                placeholder="Jane">
                         </div>
                         <div class="md:w-1/2 px-3">
                             <label
@@ -39,7 +42,8 @@
 
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-                                id="date" type="date" name="date" placeholder="Doe">
+                                value="{{ old('name', $admin->user->date) }}" id="date" type="date" name="date"
+                                placeholder="Doe">
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">
@@ -49,7 +53,8 @@
                                 class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Email</label>
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                                id="email" type="email" name="email" placeholder="Jane">
+                                value="{{ old('name', $admin->user->email) }}" id="email" type="email" name="email"
+                                placeholder="Jane">
                         </div>
                         <div class="md:w-1/2 px-3">
                             <label
@@ -68,7 +73,8 @@
                                 class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Address</label>
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                                id="adress" type="text" name="adress" placeholder="Jane">
+                                value="{{ old('name', $admin->user->adress) }}" id="adress" type="text" name="adress"
+                                placeholder="Jane">
                         </div>
                         <div class="md:w-1/2 px-3">
                             <label
@@ -77,7 +83,8 @@
 
                             <input
                                 class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-                                id="phone" type="text" name="phone" placeholder="Doe">
+                                value="{{ old('name', $admin->user->phone) }}" id="phone" type="text" name="phone"
+                                placeholder="Doe">
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">
@@ -88,7 +95,7 @@
                                 Genre
                             </label>
                             <div class="relative">
-                                <select id="genre" name="genre"
+                                <select id="genre" name="genre" value="{{ old('name', $admin->user->genre) }}"
                                     class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
                                     <option disabled selected="">Select Genre</option>
                                     <option value="masculin">Masculin</option>
@@ -106,7 +113,7 @@
                                 for="grid-password">
                                 Description
                             </label>
-                            <textarea name="content"
+                            <textarea name="description" value="{{ old('name', $admin->user->description) }}"
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"></textarea>
                         </div>
                     </div>

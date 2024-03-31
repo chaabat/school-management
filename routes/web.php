@@ -1,8 +1,10 @@
 <?php
 
+
 use App\Http\Controllers\AdminPagesController;
+use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Route::resource('admin', AdminController::class);
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,9 +37,10 @@ Route::get('classes', [AdminPagesController::class, 'class'])->name('admin.class
 
 Route::prefix('admins')->group(function () {
     Route::get('/', [AdminPagesController::class, 'admin'])->name('admin.page');
-    Route::post('/', [RegisterController::class, 'admin'])->name('ajouterAdmin');
+    Route::post('/', [RegisterAdminController::class, 'store'])->name('ajouterAdmin');
     Route::get('/add', [AdminPagesController::class, 'addAdmin'])->name('add.admin');
-    Route::get('/update', [AdminPagesController::class, 'updateAdmin'])->name('update.admin');
+    Route::get('/update/{id}/edit/  ', [AdminPagesController::class, 'updateAdmin'])->name('update.admin');
+    Route::put('/update/{id}', [RegisterAdminController::class, 'update'])->name('modifierAdmin');
 });
 
 Route::prefix('parents')->group(function () {
