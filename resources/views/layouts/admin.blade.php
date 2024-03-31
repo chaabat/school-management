@@ -35,6 +35,7 @@
     @yield('teacher')
     @yield('addTeacher')
     @yield('updateTeacher')
+    @yield('teacherDetails')
     
 
     @yield('student')

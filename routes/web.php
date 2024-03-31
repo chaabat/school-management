@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\AdminPagesController;
+use App\Http\Controllers\AdminTeacherController;
 use App\Http\Controllers\RegisterAdminController;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -18,8 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::resource('admin', AdminController::class);
-
+Route::resource('teachers', AdminTeacherController::class);
+ 
 Route::get('/', function () {
     return view('welcome');
 });
@@ -35,13 +36,6 @@ Route::get('classes', [AdminPagesController::class, 'class'])->name('admin.class
 
 
 
-Route::prefix('admins')->group(function () {
-    Route::get('/', [AdminPagesController::class, 'admin'])->name('admin.page');
-    Route::post('/', [RegisterAdminController::class, 'store'])->name('ajouterAdmin');
-    Route::get('/add', [AdminPagesController::class, 'addAdmin'])->name('add.admin');
-    Route::get('/update/{id}/edit/  ', [AdminPagesController::class, 'updateAdmin'])->name('update.admin');
-    Route::put('/update/{id}', [RegisterAdminController::class, 'update'])->name('modifierAdmin');
-});
 
 Route::prefix('parents')->group(function () {
     Route::get('/', [AdminPagesController::class, 'parent'])->name('parent.page');
@@ -49,11 +43,11 @@ Route::prefix('parents')->group(function () {
     Route::get('/update', [AdminPagesController::class, 'updateParent'])->name('update.parent');
 });
 
-Route::prefix('teachers')->group(function () {
-    Route::get('/', [AdminPagesController::class, 'teacher'])->name('teacher.page');
-    Route::get('/add', [AdminPagesController::class, 'addTeacher'])->name('add.teacher');
-    Route::get('/update', [AdminPagesController::class, 'updateTeacher'])->name('update.teacher');
-});
+// Route::prefix('teachers')->group(function () {
+//     Route::get('/', [AdminPagesController::class, 'teacher'])->name('teacher.page');
+//     Route::get('/add', [AdminPagesController::class, 'addTeacher'])->name('add.teacher');
+//     Route::get('/update', [AdminPagesController::class, 'updateTeacher'])->name('update.teacher');
+// });
 
 Route::prefix('students')->group(function () {
     Route::get('/', [AdminPagesController::class, 'student'])->name('student.page');

@@ -29,22 +29,22 @@
                                             placeholder="Search" required="">
                                     </div>
                                     <button
-                                    class="ml-2 flex items-center justify-center text-white bg-[#03045e] hover:bg-[#fb5607] focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Search</button>
-                            </form>
-                        </div>
+                                        class="ml-2 flex items-center justify-center text-white bg-[#03045e] hover:bg-[#fb5607] focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Search</button>
+                                </form>
+                            </div>
 
-                        <div
-                            class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                            <a href="{{ route('add.teacher') }}"
-                                class="flex items-center justify-center text-white  bg-[#03045e] hover:bg-[#fb5607] focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                            <div
+                                class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                                <a href="{{ route('teachers.create') }}"
+                                    class="flex items-center justify-center text-white  bg-[#03045e] hover:bg-[#fb5607] focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
 
-                                <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
-                                    xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                    <path clip-rule="evenodd" fill-rule="evenodd"
-                                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
-                                </svg>
-                                Add Teacher
-                            </a>
+                                    <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewbox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path clip-rule="evenodd" fill-rule="evenodd"
+                                            d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                                    </svg>
+                                    Add Teacher
+                                </a>
                                 <div class="flex items-center space-x-3 w-full md:w-auto">
                                     <button
                                         class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -59,89 +59,50 @@
                             </div>
                         </div>
                         <div class="overflow-x-auto">
-                             {{-- card start  --}}
-                             <div
-                             class="mx-auto grid max-w-6xl  grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                              {{-- @foreach ($admins as $admin) --}}
-                              <div class="  bg-[#03045e] hover:bg-[#fb5607] flex flex-col items-center p-4  rounded-xl">
-                                <img class="object-cover w-14 h-14 rounded-full ring-4 ring-white" src=""
-                                    alt="">
+                            {{-- card start  --}}
+                            <div
+                                class="mx-auto grid max-w-6xl  grid-cols-1 gap-6 p-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                                @foreach ($teachers as $teacher)
+                                    <div
+                                        class="  bg-[#03045e] hover:bg-[#fb5607] flex flex-col items-center p-4  rounded-xl">
+                                        <img class="object-cover w-14 h-14 rounded-full ring-4 ring-white"
+                                            src="{{ asset('users/' . $teacher->user->picture) }}" alt="">
 
-                                <h1
-                                    class="mt-4 text-xl font-semibold font-mono text-white capitalize dark:text-white group-hover:text-white">
-                                    ayoub</h1>
+                                        <h1
+                                            class="mt-4 text-xl font-semibold font-mono text-white capitalize dark:text-white group-hover:text-white">
+                                            {{ $teacher->user->name }}</h1>
 
-                                <div class="flex mt-3 -mx-2 space-x-4">
-                                    <a href=""><img src="{{ asset('photos/show.png') }}" class="h-6"
-                                            alt=""></a>
+                                        <div class="flex mt-3 -mx-2 space-x-4">
+                                            <a href="{{ route('teachers.show', $teacher->id) }}"><img src="{{ asset('photos/show.png') }}" class="h-6"
+                                                    alt=""></a>
 
 
-                                    <a href=" "><img src="{{ asset('photos/update.png') }}" class="h-6"
-                                            alt=""></a>
+                                            <a href="{{route('teachers.edit', $teacher->id)}}"><img src="{{ asset('photos/update.png') }}" class="h-6"
+                                                    alt=""></a>
 
-                                    <a href=""><img src="{{ asset('photos/delete.png') }}" class="h-6"
-                                            alt=""></a>
-                                </div>
+                                                    <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this teacher?')) { document.getElementById('delete-form-{{ $teacher->id }}').submit(); }">
+                                                        <img src="{{ asset('photos/delete.png') }}" class="h-6" alt="">
+                                                    </a>
+                                                    
+                                                    <form id="delete-form-{{ $teacher->id }}" action="{{ route('teachers.destroy', $teacher->id) }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                    
+                                        </div>
+                                    </div>
+                                @endforeach
+
+
                             </div>
-                            {{-- @endforeach --}}
-
-                         </div>
-                         {{-- card end  --}}
+                            {{-- card end  --}}
                         </div>
-                        <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+                        <nav class="flex flex-col md:flex-row justify-end items-end md:items-center space-y-3 md:space-y-0 p-4"
                             aria-label="Table navigation">
-                            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                Showing
-                                <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
-                                of
-                                <span class="font-semibold text-gray-900 dark:text-white">1000</span>
-                            </span>
-                            <ul class="inline-flex items-stretch -space-x-px">
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-current="page"
-                                        class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </li>
-                            </ul>
+
+                            <div class="mt-8 flex justify-center bg-white font-mono">
+                                {{ $teachers->links('pagination::tailwind') }}
+                            </div>
                         </nav>
                     </div>
                 </div>
