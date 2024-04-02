@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
-
-
-class LoginController extends Controller
+class AuthentificationController extends Controller
 {
     public function index()
     {
@@ -59,3 +55,4 @@ class LoginController extends Controller
         return view('welcome');
     }
 }
+

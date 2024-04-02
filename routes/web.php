@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ParentController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
+use App\Http\Controllers\Auth\AuthentificationController;
 use App\Http\Controllers\Auth\LoginController;
 
 use Illuminate\Support\Facades\Route;
@@ -25,8 +26,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login', [LoginController::class, 'index'])->name('login.page');
-Route::post('login', [LoginController::class, 'store'])->name('login');
+Route::get('login', [AuthentificationController::class, 'index'])->name('login.page');
+Route::post('login', [AuthentificationController::class, 'store'])->name('login');
+Route::post('logout', [AuthentificationController::class, 'destroy'])->name('logout');
 
 
 Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');

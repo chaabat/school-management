@@ -43,15 +43,19 @@
                         <ul class="py-1" role="none">
                             <li>
                                 <a href="{{ route('admin.dashboard') }}"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                    class="w-full text-center block px-4 py-2 text-sm font-mono font-bold text-black hover:bg-[#fb5607] hover:text-white "
                                     role="menuitem">Dashboard</a>
                             </li>
 
 
                             <li>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                    role="menuitem">Sign out</a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <button type="submit"
+                                        class=" w-full block px-4 py-2 text-sm font-mono font-bold text-black hover:bg-red-800 hover:text-white ">Sign
+                                        out</button>
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -138,15 +142,20 @@
             </li>
 
             <li>
-                <a href="#"
-                    class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-red-600 dark:hover:bg-gray-700 group">
-                    <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
-                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3" />
-                    </svg>
-                    <span class="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
-                </a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit"
+                        class="w-full flex items-center text-left p-2 text-white rounded-lg dark:text-white hover:bg-red-600 dark:hover:bg-gray-700 group">
+                        <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
+                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 18 16">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M1 8h11m0 0L8 4m4 4-4 4m4-11h3a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3" />
+                        </svg>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Sign Out</span>
+                    </button>
+                </form>
             </li>
 
         </ul>
