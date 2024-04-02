@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pareent extends Model
+class Role extends Model
 {
     use HasFactory;
-    protected $fillabel=[
-        'user_id'
+    protected $fillable=[
+        'name'
     ];
 
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class);
     }
+
+   
 }

@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Controller;
-use App\Models\Teacher;
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
-class AdminTeacherController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $teachers = Teacher::orderBy('created_at', 'desc')->paginate(8);
-        return view('admin/teachers/show', compact('teachers'));
+        $students = Student::orderBy('created_at', 'desc')->paginate(8);
+        return view('admin/students/show',compact('students'));
     }
 
     /**
@@ -26,7 +26,7 @@ class AdminTeacherController extends Controller
      */
     public function create()
     {
-        return view('admin/teachers/add');
+        return view('admin/students/add');
     }
 
     /**
@@ -36,7 +36,7 @@ class AdminTeacherController extends Controller
     {
 
         try {
-            $teacher = $request->validate([
+            $student = $request->validate([
                 'name' => 'required | min:4|unique:users,name',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required | min:8 ',
@@ -68,21 +68,21 @@ class AdminTeacherController extends Controller
             ]);
 
 
-            $teacher['password'] = Hash::make($request->password);
+            $student['password'] = Hash::make($request->password);
 
             $fileName = time() . '.' . $request->picture->extension();
             $request->picture->move(public_path('users'), $fileName);
-            $teacher = array_merge($teacher, ['picture' => $fileName]);
+            $student = array_merge($student, ['picture' => $fileName]);
 
-            $user = User::create($teacher);
+            $user = User::create($student);
 
 
-            $user->teacher()->create();
+            $user->student()->create();
             Auth::login($user);
 
-            return redirect()->route('teachers.index');
+            return redirect()->route('students.index');
         } catch (QueryException $e) {
-            dd($teacher);
+            dd($student);
         }
     }
 
@@ -90,20 +90,20 @@ class AdminTeacherController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(string $id)
     {
-        $teacher = User::findOrFail($id);
-        return view('admin/teachers/details', compact('teacher'));
+        $student = Student::findOrFail($id);
+        return view('admin/students/details', compact('student'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(string $id)
     {
-        $teacher = Teacher::findOrFail($id);
-        return view('admin/teachers/update', compact('teacher'));
+        $student = Student::findOrFail($id);
+        
+        return view('admin/students/update',compact('student'));
     }
 
     /**
@@ -111,11 +111,11 @@ class AdminTeacherController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $teacher = User::findOrFail($id);
+        $student = User::findOrFail($id);
 
-        $updateTeacher = $request->validate([
-            'name' => 'required|min:4|unique:users,name,' . $teacher->id,
-            'email' => 'required|email|unique:users,email,' . $teacher->id,
+        $updateStudent = $request->validate([
+            'name' => 'required|min:4|unique:users,name,' . $student->id,
+            'email' => 'required|email|unique:users,email,' . $student->id,
             'password' => 'nullable|min:8',
             'phone' => 'required|min:8|max:10',
             'adress' => 'required',
@@ -125,19 +125,19 @@ class AdminTeacherController extends Controller
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if (isset($updateTeacher['password'])) {
-            $updateTeacher['password'] = Hash::make($updateTeacher['password']);
+        if (isset($updateStudent['password'])) {
+            $updateStudent['password'] = Hash::make($updateStudent['password']);
         }
 
         if ($request->hasFile('picture')) {
             $fileName = time() . '.' . $request->picture->extension();
             $request->picture->move(public_path('users'), $fileName);
-            $updateTeacher['picture'] = $fileName;
+            $updateStudent['picture'] = $fileName;
         }
 
-        $teacher->update($updateTeacher);
+        $student->update($updateStudent);
 
-        return redirect()->route('teachers.index')->with('success', 'Teacher updated successfully');
+        return redirect()->route('students.index')->with('success', 'Student updated successfully');
     }
 
     /**
@@ -145,8 +145,9 @@ class AdminTeacherController extends Controller
      */
     public function destroy($id)
     {
-        $teacher = User::findOrFail($id);
-        $teacher->delete();
-        return redirect()->route('teachers.index')->with('success', 'Teacher deleted successfully');
+        $student = User::findOrFail($id);
+        $student->delete();
+        return redirect()->route('students.index')->with('success', 'Student deleted successfully');
     }
 }
+            

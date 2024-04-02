@@ -73,22 +73,26 @@
                                             {{ $teacher->user->name }}</h1>
 
                                         <div class="flex mt-3 -mx-2 space-x-4">
-                                            <a href="{{ route('teachers.show', $teacher->id) }}"><img src="{{ asset('photos/show.png') }}" class="h-6"
+                                            <a href="{{ route('teachers.show', $teacher->id) }}"><img
+                                                    src="{{ asset('photos/show.png') }}" class="h-6" alt=""></a>
+
+
+                                            <a href="{{ route('teachers.edit', $teacher->id) }}"><img
+                                                    src="{{ asset('photos/update.png') }}" class="h-6"
                                                     alt=""></a>
 
+                                            <a href="#"
+                                                onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this teacher?')) { document.getElementById('delete-form-{{ $teacher->id }}').submit(); }">
+                                                <img src="{{ asset('photos/delete.png') }}" class="h-6" alt="">
+                                            </a>
 
-                                            <a href="{{route('teachers.edit', $teacher->id)}}"><img src="{{ asset('photos/update.png') }}" class="h-6"
-                                                    alt=""></a>
+                                            <form id="delete-form-{{ $teacher->id }}"
+                                                action="{{ route('teachers.destroy', $teacher->id) }}" method="POST"
+                                                style="display: none;">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
 
-                                                    <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this teacher?')) { document.getElementById('delete-form-{{ $teacher->id }}').submit(); }">
-                                                        <img src="{{ asset('photos/delete.png') }}" class="h-6" alt="">
-                                                    </a>
-                                                    
-                                                    <form id="delete-form-{{ $teacher->id }}" action="{{ route('teachers.destroy', $teacher->id) }}" method="POST" style="display: none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-                                                    
                                         </div>
                                     </div>
                                 @endforeach

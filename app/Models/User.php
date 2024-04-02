@@ -27,7 +27,8 @@ class User extends Authenticatable
         'genre',
         'phone',
         'picture',
-        'description'
+        'description',
+        'role_id'
     ];
 
     /**
@@ -50,6 +51,14 @@ class User extends Authenticatable
     ];
 
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+
+
+
 
     public function admin()
     {
@@ -61,10 +70,7 @@ class User extends Authenticatable
         return $this->hasOne(Teacher::class);
     }
 
-    public function parent()
-    {
-        return $this->hasOne(Pareent::class);
-    }
+
 
     public function student()
     {

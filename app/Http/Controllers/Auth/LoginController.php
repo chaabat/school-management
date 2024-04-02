@@ -20,29 +20,32 @@ class LoginController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->only('email', 'password');
-    
+
         if (Auth::attempt($credentials)) {
             $user = auth()->user();
-            $redirect = 'login'; 
-    
-            if ($user->role === 'admin') {
+            $redirect = 'login';
+
+            $role = $user->role->name;
+
+            if ($role === 'admin') {
                 $redirect = 'admin.dashboard';
-            } elseif ($user->role === '') {
-                $redirect = 'teacher.page';  
-            } elseif ($user->role === 'student') {
-                $redirect = 'student.page';  
-            }elseif ($user->role === 'parent') {
-                $redirect = 'parent.page';  
+            } elseif ($role === 'teacher') {
+                $redirect = 'teachers.index';
+            } elseif ($role === 'student') {
+                $redirect = 'students.index';
+            } elseif ($role === 'parent') {
+                $redirect = 'parents.index';
             }
-    
-            return redirect()->route($redirect);  
+
+            return redirect()->route($redirect);
         }
-    
+
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);
     }
-    
+
+
 
 
 

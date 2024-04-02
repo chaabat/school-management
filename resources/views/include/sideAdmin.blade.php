@@ -13,10 +13,10 @@
                         </path>
                     </svg>
                 </button>
-                <a href="https://flowbite.com" class="flex ms-2 md:me-24">
-                    <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
+                <a href="/" class="flex ms-2 md:me-24">
+                    <img src="{{ asset('photos/mortier.png') }}" class="h-10 me-3" alt="Logo" />
                     <span
-                        class="self-center text-[#fb5607] text-xl font-mono font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
+                        class="self-center text-white text-xl font-mono font-semibold sm:text-xl whitespace-nowrap dark:text-white">School-M</span>
                 </a>
             </div>
             <div class="flex items-center">
@@ -34,7 +34,7 @@
                         id="dropdown-user">
                         <div class="px-4 py-3" role="none">
                             <p class="text-sm text-white dark:text-white" role="none">
-                                Neil Sims
+                                ana
                             </p>
                             <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                                 neil.sims@flowbite.com
@@ -93,7 +93,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('student.page') }}"
+                <a href="{{ route('students.index') }}"
                     class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#fb5607] dark:hover:bg-gray-700 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
@@ -104,7 +104,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('parent.page') }}"
+                <a href="{{ route('parents.index') }}"
                     class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#fb5607] dark:hover:bg-gray-700 group">
                     <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">

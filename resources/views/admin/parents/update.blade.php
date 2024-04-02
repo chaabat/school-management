@@ -8,16 +8,16 @@
             <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Update Parents
                 Form
             </h2>
-            <form action="{{route('modifierAdmin')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('parents.update', $parent->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
                     <div class="flex justify-center items-center mb-4 space-x-6">
-
+                        <input type="hidden" name="role_id" value="4">
                         <label class="block ">
                             <div class="shrink-0">
                                 <img id='preview_img' class="h-20 w-20 object-cover rounded-full"
-                                    src="{{ asset('photos/administrateur.png') }}" alt="Current profile photo" />
+                                    src="{{ asset('users/' . $parent->picture) }}" alt="Current profile photo" />
                             </div>
                             <span class="sr-only ">Choose profile photo</span>
                             <input name="picture" type="file" onchange="loadFile(event)" class="hidden" />
@@ -32,7 +32,7 @@
                                 complet</label>
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                                value="{{ old('name', $admin->user->name) }}" id="name" type="text" name="name" placeholder="Jane">
+                                value="{{ $parent->name }}" type="text" name="name" placeholder="Jane">
                         </div>
                         <div class="md:w-1/2 px-3">
                             <label
@@ -41,7 +41,7 @@
 
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-                                value="{{ old('name', $admin->user->date) }}" id="date" type="date" name="date" placeholder="Doe">
+                                value="{{ $parent->date }}" type="date" name="date" placeholder="Doe">
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">
@@ -51,7 +51,7 @@
                                 class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Email</label>
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                                value="{{ old('name', $admin->user->email) }}"  id="email" type="email" name="email" placeholder="Jane">
+                                value="{{ $parent->email }}" type="email" name="email" placeholder="Jane">
                         </div>
                         <div class="md:w-1/2 px-3">
                             <label
@@ -70,7 +70,7 @@
                                 class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Address</label>
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                                value="{{ old('name', $admin->user->adress) }}" id="adress" type="text" name="adress" placeholder="Jane">
+                                value="{{ $parent->adress }}" type="text" name="adress" placeholder="Jane">
                         </div>
                         <div class="md:w-1/2 px-3">
                             <label
@@ -79,7 +79,7 @@
 
                             <input
                                 class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-                                value="{{ old('name', $admin->user->phone) }}" id="phone" type="text" name="phone" placeholder="Doe">
+                                value="{{ $parent->phone }}" type="text" name="phone" placeholder="Doe">
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">
@@ -90,11 +90,11 @@
                                 Genre
                             </label>
                             <div class="relative">
-                                <select id="genre" name="genre" value="{{ old('name', $admin->user->genre) }}"
+                                <select name="genre" value="{{ $parent->genre }}"
                                     class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
                                     <option disabled selected="">Select Genre</option>
                                     <option value="masculin">Masculin</option>
-                                    <option value="feminin">Féminin</option>
+                                    <option value="feminine">Féminin</option>
 
                                 </select>
 
@@ -106,7 +106,7 @@
                                 Student
                             </label>
                             <div class="relative">
-                                <select id="class" name="class" value="{{ old('name', $admin->user->class) }}"
+                                <select id="class" name="class"
                                     class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
                                     <option disabled selected="">Select Student</option>
                                     <option value="">ayoub</option>
@@ -123,11 +123,11 @@
                                 for="grid-password">
                                 Description
                             </label>
-                            <textarea name="content"
+                            <textarea name="description" value="{{ $parent->description }}"
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"></textarea>
                         </div>
                     </div>
-                    <button type="button"
+                    <button type="submit"
                         class="text-white  flex items-center justify-center  text-xl font-bold font-mono   bg-blue-700   rounded-lg  px-5 py-2.5  ">
                         <i class="fa-solid fa-pen-to-square"></i>
                         Update

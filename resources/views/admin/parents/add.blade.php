@@ -8,10 +8,12 @@
             <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Add Parents
                 Form
             </h2>
-            <form action="" method="" enctype="multipart/form-data">
+            <form action="{{ route('parents.store') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('post')
                 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
+                    <input type="hidden" name="role_id" value="4">
                     <div class="flex justify-center items-center mb-4 space-x-6">
-
                         <label class="block ">
                             <div class="shrink-0">
                                 <img id='preview_img' class="h-20 w-20 object-cover rounded-full"
@@ -92,7 +94,7 @@
                                     class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
                                     <option disabled selected="">Select Genre</option>
                                     <option value="masculin">Masculin</option>
-                                    <option value="feminin">Féminin</option>
+                                    <option value="feminine">Féminin</option>
 
                                 </select>
 
@@ -121,11 +123,11 @@
                                 for="grid-password">
                                 Description
                             </label>
-                            <textarea name="content"
+                            <textarea name="description"
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"></textarea>
                         </div>
                     </div>
-                    <button type="button"
+                    <button type="submit"
                         class="text-white  flex items-center justify-center  text-xl font-bold font-mono   bg-blue-700   rounded-lg  px-5 py-2.5  ">
                         <i class="fa-solid fa-plus"></i>
                         Ajouter

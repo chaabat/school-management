@@ -8,7 +8,7 @@
             <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Update Teachers
                 Form
             </h2>
-            <form action="{{ route('teachers.update', $teacher->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('teachers.update', $teacher->user->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
