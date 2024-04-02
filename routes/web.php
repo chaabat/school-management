@@ -38,7 +38,13 @@ Route::resource('students', StudentController::class);
 Route::resource('parents', ParentController::class);
 
 
-Route::get('classes', [ClasseController::class, 'index'])->name('admin.class');
-Route::post('classes', [ClasseController::class, 'store'])->name('create.class');
-Route::delete('classes/{id}', [ClasseController::class, 'destroy'])->name('delete.class');
-Route::put('classes', [ClasseController::class, 'update'])->name('update.class');
+Route::group(['prefix' => 'classes'], function () {
+    Route::get('/', [ClasseController::class, 'index'])->name('admin.class');
+    Route::post('/', [ClasseController::class, 'store'])->name('create.class');
+    Route::delete('/{id}', [ClasseController::class, 'destroy'])->name('delete.class');
+    Route::put('/', [ClasseController::class, 'update'])->name('update.class');
+});
+
+
+Route::group(['middleware' => ['auth', 'role:parent']], function () {
+});
