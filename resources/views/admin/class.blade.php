@@ -81,14 +81,31 @@
 
                                             <td class="px-4 py-3">
                                                 <div class="flex space-x-4 items-right">
+                                                    <span data-modal-target="update-modal" data-modal-toggle="update-modal">
 
-                                                    <a id="defaultModalButton" data-modal-target="update-defaultModal"
-                                                        data-modal-toggle="update-defaultModal" href="#"><img
-                                                            src="{{ asset('photos/update.png') }}" class="h-6"alt=""></a>
+                                                        <a href="#" id="defaultModalButton" data-modal-target="update"
+                                                            data-modal-toggle="update" class="edit-class"
+                                                            data-class-id="{{ $class->id }}"
+                                                            data-class-name="{{ $class->name }}"><img
+                                                                src="{{ asset('photos/update.png') }}"
+                                                                class="h-6"alt=""></a>
+                                                    </span>
 
 
-                                                    <a href=""><img src="{{ asset('photos/delete.png') }}"
-                                                            class="h-6" alt=""></a>
+
+
+                                                    <a href="#"
+                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Class ?')) { document.getElementById('delete-form-{{ $class->id }}').submit(); }">
+                                                        <img src="{{ asset('photos/delete.png') }}" class="h-6"
+                                                            alt="">
+                                                    </a>
+
+                                                    <form id="delete-form-{{ $class->id }}"
+                                                        action="{{ route('delete.class', $class->id) }}" method="POST"
+                                                        style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
 
                                                 </div>
                                             </td>
@@ -153,7 +170,6 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Statut</label>
                                     <select name="statut"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option disabled selected="">Select Statut</option>
                                         <option value="activer">Activer</option>
                                         <option value="desactiver">Desactiver</option>
 
@@ -182,7 +198,7 @@
 
             {{-- Modifier course  --}}
 
-            <div id="update-defaultModal" tabindex="-1" aria-hidden="true"
+            <div id="update" tabindex="-1" aria-hidden="true"
                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                 <div class="relative p-2 w-full max-w-2xl h-full md:h-auto">
 
@@ -195,7 +211,7 @@
                             </h3>
                             <button type="button"
                                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                data-modal-toggle="update-defaultModal">
+                                data-modal-toggle="update">
                                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
@@ -206,9 +222,12 @@
                             </button>
                         </div>
 
-                        <form action="#">
-
+                        <form action="{{ route('update.class') }}" method="POST">
+                            @csrf
+                            @method('PUT')
                             <div class="grid gap-4 mb-4 sm:grid-cols-2">
+
+                                <input type="hidden" name="id" id="id">
                                 <div>
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
                                     <input type="text" name="name" id="name"
@@ -217,39 +236,16 @@
                                 </div>
                                 <div>
                                     <label
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Teacher</label>
-                                    <select id="teacher" name="teacher"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option disabled selected="">Select teacher</option>
-                                        <option value="masculin">Active</option>
-                                        <option value="feminin">desactiver</option>
-
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Filiere</label>
-                                    <select id="filiere" name="filiere"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option disabled selected="">Select filiere</option>
-                                        <option value="masculin">Active</option>
-                                        <option value="feminin">desactiver</option>
-
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Statut</label>
-                                    <select id="genre" name="genre"
+                                    <select name="statut" id="statut"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option disabled selected="">Select Statut</option>
-                                        <option value="masculin">Active</option>
-                                        <option value="feminin">desactiver</option>
+                                        <option value="activer">Activer</option>
+                                        <option value="desactiver">Desactiver</option>
 
                                     </select>
                                 </div>
+
+
 
 
                             </div>
@@ -267,4 +263,26 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const editButtons = document.querySelectorAll('.edit-class');
+                    const idInput = document.getElementById('id');
+                    const nameInput = document.getElementById('name');
+
+                    editButtons.forEach(function(button) {
+                        button.addEventListener('click', function(event) {
+                            event.preventDefault();
+
+                            const classId = this.getAttribute('data-class-id');
+                            const className = this.getAttribute('data-class-name');
+
+                            idInput.value = classId;
+                            nameInput.value = className;
+
+                            console.log(classId, className);
+                        });
+                    });
+                });
+            </script>
         @endsection

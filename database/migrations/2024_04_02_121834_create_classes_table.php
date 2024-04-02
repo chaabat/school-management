@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->enum('statut', ['activer', 'desactiver'])->default('activer');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

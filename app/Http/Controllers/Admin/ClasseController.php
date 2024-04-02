@@ -69,9 +69,27 @@ class ClasseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        try {
+            $class = $request->validate([
+                'name' => 'required|min:4|unique:classes,name,',
+                'statut' => 'required|in:activer,desactiver',
+            ], [
+                'name.min' => 'Le nom doit comporter au moins 4 caractères.',
+                'name.unique' => 'Ce nom est déjà pris.',
+                'statut.required' => 'Le statut est requis.',
+                'statut.in' => 'Le statut doit être "active" ou "desactiver".',
+            ]);
+    
+            $classToUpdate =Classe::findOrFail($request->id);
+
+            $classToUpdate->update($class);
+    
+            return redirect()->route('admin.class');
+        } catch (QueryException $e) {
+            dd($e->getMessage());
+        }
     }
 
     /**
@@ -79,6 +97,9 @@ class ClasseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $class = Classe::findOrFail($id);
+        $class->delete();
+
+        return redirect()->route('admin.class');
     }
 }
