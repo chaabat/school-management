@@ -13,7 +13,7 @@
                 @method('post')
                 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
                     <div class="flex justify-center items-center mb-4 space-x-6">
-
+                        <input type="hidden" name="role_id" value="3">
                         <label class="block ">
                             <div class="shrink-0">
                                 <img id='preview_img' class="h-20 w-20 object-cover rounded-full"

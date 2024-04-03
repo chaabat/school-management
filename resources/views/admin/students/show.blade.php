@@ -65,11 +65,11 @@
                                     <div
                                         class="  bg-[#03045e] hover:bg-[#fb5607] flex flex-col items-center p-4  rounded-xl">
                                         <img class="object-cover w-14 h-14 rounded-full ring-4 ring-white"
-                                            src="{{ asset('users/' . $student->user->picture) }}" alt="">
+                                            src="{{ asset('users/' . $student->picture) }}" alt="">
 
                                         <h1
                                             class="mt-4 text-xl font-semibold font-mono text-white capitalize dark:text-white group-hover:text-white">
-                                            {{ $student->user->name }}</h1>
+                                            {{ $student->name }}</h1>
 
                                         <div class="flex mt-3 -mx-2 space-x-4">
                                             <a href="{{ route('students.show', $student->id) }}"><img
@@ -86,7 +86,7 @@
                                             </a>
 
                                             <form id="delete-form-{{ $student->id }}"
-                                                action="{{ route('students.destroy', $student->user->id) }}" method="POST"
+                                                action="{{ route('students.destroy', $student->id) }}" method="POST"
                                                 style="display: none;">
                                                 @csrf
                                                 @method('DELETE')

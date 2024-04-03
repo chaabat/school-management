@@ -8,7 +8,7 @@
             <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Update Teachers
                 Form
             </h2>
-            <form action="{{ route('teachers.update', $teacher->user->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('teachers.update', $teacher->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col my-2">
@@ -17,7 +17,7 @@
                         <label class="block ">
                             <div class="shrink-0">
                                 <img id='preview_img' class="h-20 w-20 object-cover rounded-full"
-                                    src="{{ asset('users/' . $teacher->user->picture) }}" alt="Current profile photo" />
+                                    src="{{ asset('users/' . $teacher->picture) }}" alt="Current profile photo" />
                             </div>
                             <span class="sr-only ">Choose profile photo</span>
                             <input name="picture" type="file" onchange="loadFile(event)" class="hidden" />
@@ -32,7 +32,7 @@
                                 complet</label>
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                                value="{{ $teacher->user->name }}" type="text" name="name" placeholder="Jane">
+                                value="{{ $teacher->name }}" type="text" name="name" placeholder="Jane">
                         </div>
                         <div class="md:w-1/2 px-3">
                             <label
@@ -41,7 +41,7 @@
 
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-                                value="{{ $teacher->user->date }}" type="date" name="date" placeholder="Doe">
+                                value="{{ $teacher->date }}" type="date" name="date" placeholder="Doe">
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">
@@ -51,7 +51,7 @@
                                 class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Email</label>
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                                value="{{ $teacher->user->email }}" type="email" name="email" placeholder="Jane">
+                                value="{{ $teacher->email }}" type="email" name="email" placeholder="Jane">
                         </div>
                         <div class="md:w-1/2 px-3">
                             <label
@@ -70,7 +70,7 @@
                                 class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Address</label>
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
-                                value="{{ $teacher->user->adress }}" type="text" name="adress" placeholder="Jane">
+                                value="{{ $teacher->adress }}" type="text" name="adress" placeholder="Jane">
                         </div>
                         <div class="md:w-1/2 px-3">
                             <label
@@ -79,7 +79,7 @@
 
                             <input
                                 class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-                                value="{{ $teacher->user->phone }}" type="text" name="phone" placeholder="Doe">
+                                value="{{ $teacher->phone }}" type="text" name="phone" placeholder="Doe">
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">
@@ -90,7 +90,7 @@
                                 Genre
                             </label>
                             <div class="relative">
-                                <select value="{{ $teacher->user->genre }}" name="genre"
+                                <select value="{{ $teacher->genre }}" name="genre"
                                     class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
                                     <option disabled selected="">Select Genre</option>
                                     <option value="masculin">Masculin</option>
@@ -123,7 +123,7 @@
                                 for="grid-password">
                                 Description
                             </label> 
-                            <textarea name="description" value="{{ $teacher->user->description }}"
+                            <textarea name="description" value="{{ $teacher->description }}"
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"></textarea>
                         </div>
                     </div>

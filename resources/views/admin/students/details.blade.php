@@ -11,10 +11,10 @@
                         class="w-full h-full rounded-tl-lg rounded-tr-lg">
                 </div>
                 <div class="flex flex-col items-center -mt-20">
-                    <img src="{{ asset('users/' . $student->user->picture) }}"
+                    <img src="{{ asset('users/' . $student->picture) }}"
                         class="w-40 h-40 border-4 border-white rounded-full">
                     <div class="flex items-center space-x-2 mt-2">
-                        <p class="text-2xl font-mono ">{{ $student->user->name }}</p>
+                        <p class="text-2xl font-mono ">{{ $student->name }}</p>
                         <span class="bg-blue-500 rounded-full p-1" title="Verified">
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-gray-100 h-2.5 w-2.5" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -30,11 +30,11 @@
                         <a href="{{ route('students.edit', $student->id) }}"><img src="{{ asset('photos/update.png') }}"
                                 class="h-6" alt=""></a>
                         <a href="#"
-                            onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this student?')) { document.getElementById('delete-form-{{ $student->user->id }}').submit(); }">
+                            onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this student?')) { document.getElementById('delete-form-{{ $student->id }}').submit(); }">
                             <img src="{{ asset('photos/delete.png') }}" class="h-6" alt="">
                         </a>
 
-                        <form id="delete-form-{{ $student->user->id }}" action="{{ route('students.destroy', $student->user->id) }}"
+                        <form id="delete-form-{{ $student->id }}" action="{{ route('students.destroy', $student->id) }}"
                             method="POST" style="display: none;">
                             @csrf
                             @method('DELETE')
@@ -51,23 +51,23 @@
                         <ul class="mt-2 text-gray-700">
                             <li class="flex border-y py-2">
                                 <span class="font-bold w-24">Full name:</span>
-                                <span class="text-gray-700">{{ $student->user->name }}</span>
+                                <span class="text-gray-700">{{ $student->name }}</span>
                             </li>
                             <li class="flex border-b py-2">
                                 <span class="font-bold w-24">Birthday:</span>
-                                <span class="text-gray-700">{{ $student->user->date }}</span>
+                                <span class="text-gray-700">{{ $student->date }}</span>
                             </li>
                             <li class="flex border-b py-2">
                                 <span class="font-bold w-24">Email:</span>
-                                <span class="text-gray-700">{{ $student->user->email }}</span>
+                                <span class="text-gray-700">{{ $student->email }}</span>
                             </li>
                             <li class="flex border-b py-2">
                                 <span class="font-bold w-24">Genre:</span>
-                                <span class="text-gray-700">{{ $student->user->genre }}</span>
+                                <span class="text-gray-700">{{ $student->genre }}</span>
                             </li>
                             <li class="flex border-b py-2">
                                 <span class="font-bold w-24">Mobile:</span>
-                                <span class="text-gray-700">{{ $student->user->phone }}</span>
+                                <span class="text-gray-700">{{ $student->phone }}</span>
                             </li>
                         </ul>
                     </div>
@@ -78,7 +78,7 @@
 
                         <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
                             <h4 class="text-xl text-gray-900 font-bold">Description</h4>
-                            <p class="mt-2 text-gray-700">{{ $student->user->description }}</p>
+                            <p class="mt-2 text-gray-700">{{ $student->description }}</p>
                         </div>
                     </div>
 

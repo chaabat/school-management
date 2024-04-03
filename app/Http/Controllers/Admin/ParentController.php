@@ -15,7 +15,7 @@ use App\RepositoriesInterfaces\parentRepositoryInterface;
 class ParentController extends Controller
 {
 
-       private $parentRepository;
+    private $parentRepository;
 
     public function __construct(parentRepositoryInterface $parentRepository)
     {
@@ -24,10 +24,7 @@ class ParentController extends Controller
 
     public function index()
     {
-        $parentRole = Role::where('name', 'parent')->first();
-        $parents = User::where('role_id', $parentRole->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(8);
+        $parents = $this->parentRepository->getAllParents(8);
 
         return view('admin/parents/show', compact('parents'));
     }
@@ -84,7 +81,7 @@ class ParentController extends Controller
             $request->picture->move(public_path('users'), $fileName);
             $parent = array_merge($parent, ['picture' => $fileName]);
 
-            $user = $this->parentRepository->createParent($parent) ;
+            $user = $this->parentRepository->createParent($parent);
 
             Auth::login($user);
 
@@ -109,7 +106,7 @@ class ParentController extends Controller
      */
     public function edit(string $id)
     {
-        $parent = User::findOrFail($id);
+        $parent = $this->parentRepository->getParentById($id);
 
         return view('admin/parents/update', compact('parent'));
     }
@@ -118,47 +115,52 @@ class ParentController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-    {
-        $parent = User::findOrFail($id);
-       try{
-        $updateParent = $request->validate([
-            'name' => 'required|min:4|unique:users,name,' . $parent->id,
-            'email' => 'required|email|unique:users,email,' . $parent->id,
-            'password' => 'nullable|min:8',
-            'phone' => 'required|min:8|max:10',
-            'adress' => 'required',
-            'date' => 'required',
-            'role_id' => 'required',
-            'genre' => 'required',
-            'description' => 'required',
-            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+    { 
+        $parent = $this->parentRepository->getParentById($id);
+        try {
+            $updateParent = $request->validate([
+                'name' => 'required|min:4|unique:users,name,' . $parent->id,
+                'email' => 'required|email|unique:users,email,' . $parent->id,
+                'password' => 'nullable|min:8',
+                'phone' => 'required|min:8|max:10',
+                'adress' => 'required',
+                'date' => 'required',
+                'role_id' => 'required',
+                'genre' => 'required',
+                'description' => 'required',
+                'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
 
-        if (isset($updateParent['password'])) {
-            $updateParent['password'] = Hash::make($updateParent['password']);
+            if (isset($updateParent['password'])) {
+                $updateParent['password'] = Hash::make($updateParent['password']);
+            }
+
+            if ($request->hasFile('picture')) {
+                $fileName = time() . '.' . $request->picture->extension();
+                $request->picture->move(public_path('users'), $fileName);
+                $updateParent['picture'] = $fileName;
+            }
+
+            $this->parentRepository->updateParent($id, $request->all());
+
+            return redirect()->route('parents.index')->with('success', 'parent updated successfully');
+        } catch (QueryException $e) {
+            dd($e->getMessage());
         }
-
-        if ($request->hasFile('picture')) {
-            $fileName = time() . '.' . $request->picture->extension();
-            $request->picture->move(public_path('users'), $fileName);
-            $updateParent['picture'] = $fileName;
-        }
-
-        $parent->update($updateParent);
-
-        return redirect()->route('parents.index')->with('success', 'parent updated successfully');
-    } catch (QueryException $e) {
-        dd($e->getMessage());
     }
-}
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        $parent = User::findOrFail($id);
-        $parent->delete();
-        return redirect()->route('parents.index')->with('success', 'parent deleted successfully');
+        try {
+            $this->parentRepository->destroyParent($id);
+
+            return redirect()->route('parents.index')->with('success', 'Parent deleted successfully');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
     }
-}
+    }
+ 

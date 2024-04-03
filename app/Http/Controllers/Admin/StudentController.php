@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Role;
 
 class StudentController extends Controller
 {
@@ -17,7 +17,10 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::orderBy('created_at', 'desc')->paginate(8);
+        $studentRole = Role::where('name', 'student')->first();
+        $students = User::where('role_id', $studentRole->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(8);
         return view('admin/students/show',compact('students'));
     }
 
@@ -42,8 +45,8 @@ class StudentController extends Controller
                 'password' => 'required | min:8 ',
                 'phone' => 'required|min:8|max:10',
                 'adress' => 'required',
+                'role_id' => 'required',
                 'date' => 'required',
-                // 'role' => 'required',
                 'genre' => 'required',
                 'description' => 'required',
                 'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -75,14 +78,11 @@ class StudentController extends Controller
             $student = array_merge($student, ['picture' => $fileName]);
 
             $user = User::create($student);
-
-
-            $user->student()->create();
             Auth::login($user);
 
             return redirect()->route('students.index');
         } catch (QueryException $e) {
-            dd($student);
+            dd($e->getMessage());
         }
     }
 
@@ -92,7 +92,7 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        $student = Student::findOrFail($id);
+        $student = User::findOrFail($id);
         return view('admin/students/details', compact('student'));
     }
 
@@ -101,7 +101,7 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        $student = Student::findOrFail($id);
+        $student = User::findOrFail($id);
         
         return view('admin/students/update',compact('student'));
     }

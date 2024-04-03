@@ -66,11 +66,11 @@
                                     <div
                                         class="  bg-[#03045e] hover:bg-[#fb5607] flex flex-col items-center p-4  rounded-xl">
                                         <img class="object-cover w-14 h-14 rounded-full ring-4 ring-white"
-                                            src="{{ asset('users/' . $teacher->user->picture) }}" alt="">
+                                            src="{{ asset('users/' . $teacher->picture) }}" alt="">
 
                                         <h1
                                             class="mt-4 text-xl font-semibold font-mono text-white capitalize dark:text-white group-hover:text-white">
-                                            {{ $teacher->user->name }}</h1>
+                                            {{ $teacher->name }}</h1>
 
                                         <div class="flex mt-3 -mx-2 space-x-4">
                                             <a href="{{ route('teachers.show', $teacher->id) }}"><img

@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Teacher;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Role;
+
 
 class TeacherController extends Controller
 {
@@ -17,7 +18,10 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        $teachers = Teacher::orderBy('created_at', 'desc')->paginate(8);
+        $teacherRole = Role::where('name', 'teacher')->first();
+        $teachers = User::where('role_id', $teacherRole->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(8);
         return view('admin/teachers/show', compact('teachers'));
     }
 
@@ -43,7 +47,7 @@ class TeacherController extends Controller
                 'phone' => 'required|min:8|max:10',
                 'adress' => 'required',
                 'date' => 'required',
-                // 'role' => 'required',
+                'role_id' => 'required',
                 'genre' => 'required',
                 'description' => 'required',
                 'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -76,8 +80,6 @@ class TeacherController extends Controller
 
             $user = User::create($teacher);
 
-
-            $user->teacher()->create();
             Auth::login($user);
 
             return redirect()->route('teachers.index');
@@ -92,7 +94,7 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        $teacher = Teacher::findOrFail($id);
+        $teacher = User::findOrFail($id);
         return view('admin/teachers/details', compact('teacher'));
     }
 
@@ -102,7 +104,7 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        $teacher = Teacher::findOrFail($id);
+        $teacher = User::findOrFail($id);
         return view('admin/teachers/update', compact('teacher'));
     }
 
