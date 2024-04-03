@@ -9,16 +9,22 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
+use App\RepositoriesInterfaces\parentRepositoryInterface;
+
 
 class ParentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+       private $parentRepository;
+
+    public function __construct(parentRepositoryInterface $parentRepository)
+    {
+        $this->parentRepository = $parentRepository;
+    }
+
     public function index()
     {
         $parentRole = Role::where('name', 'parent')->first();
-        // dd($parentRole);
         $parents = User::where('role_id', $parentRole->id)
             ->orderBy('created_at', 'desc')
             ->paginate(8);
@@ -78,7 +84,7 @@ class ParentController extends Controller
             $request->picture->move(public_path('users'), $fileName);
             $parent = array_merge($parent, ['picture' => $fileName]);
 
-            $user = User::create($parent);
+            $user = $this->parentRepository->createParent($parent) ;
 
             Auth::login($user);
 
