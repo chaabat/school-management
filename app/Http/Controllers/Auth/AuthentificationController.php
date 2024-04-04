@@ -5,6 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class AuthentificationController extends Controller
 {
@@ -12,6 +18,22 @@ class AuthentificationController extends Controller
     {
         return view('auth.login');
     }
+
+    public function resetPassword($token)
+    {
+        return view("auth.reset-password", compact('token'));
+    }
+
+    public function forgotPassword()
+    {
+        return view("auth.forgot-password");
+    }
+
+    public function waitPage()
+    {
+        return view('auth.waitPage');
+    }
+
 
     public function store(Request $request)
     {
@@ -42,17 +64,78 @@ class AuthentificationController extends Controller
     }
 
 
+    public function forgotPasswordPost(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users',
+        ]);
+
+        $token = Str::random(64);
+
+        $existingToken = DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->first();
+
+        if ($existingToken) {
+            // If a token already exists for this email, update the token
+            DB::table('password_reset_tokens')
+                ->where('email', $request->email)
+                ->update([
+                    'token' => $token,
+                    'created_at' => Carbon::now()
+                ]);
+        } else {
+            // If no token exists, insert a new record
+            DB::table('password_reset_tokens')->insert([
+                'email' => $request->email,
+                'token' => $token,
+                'created_at' => Carbon::now()
+            ]);
+        }
+
+        Mail::send(
+            "auth.sendForgotEmail",
+            ['token' => $token],
+            function ($message) use ($request) {
+                $message->to($request->email);
+                $message->subject("Reset Password");
+            }
+        );
+
+        return redirect()->to(route("waitPage"))
+            ->with('success', 'We have sent an email to reset your password');
+    }
 
 
+    public function resetPasswordPost(Request $request)
+    {
+        $validator = $request->validate([
+            'email' => 'required|email|exists:users',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+        $updatePassword = DB::table('password_reset_tokens')
+            ->where([
+                'email' => $request->email,
+                'token' => $request->token
+            ])->first();
+
+        if (!$updatePassword) {
+            return redirect()->to(route('reset', ['token' => $request->token]))
+                ->with('error', 'invalid');
+        }
+
+        User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
+        DB::table('password_reset_tokens')->where(['email' => $request->email])->delete();
+        return view('auth.login')->with('success', 'password was reseted successfully');
+    }
 
     public function destroy(Request $request)
     {
-
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return view('welcome');
+        return redirect()->route('welcome');
     }
 }
-

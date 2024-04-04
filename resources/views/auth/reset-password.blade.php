@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('login')
+@section('reset')
     <div class="w-full flex flex-wrap">
 
         <div class="w-full md:w-1/2 flex flex-col">
@@ -10,9 +10,10 @@
 
             <div class="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                 <p class="text-center text-3xl">Welcome.</p>
-                <form action="{{ route('login') }}" method="post" class="flex flex-col pt-3 md:pt-8">
+                <form action="{{ route('reset') }}" method="post" class="flex flex-col pt-3 md:pt-8">
                     @csrf
                     @method('post')
+                    <input type="text" hidden value="{{ $token }}" name="token">
                     <div class="flex flex-col pt-4">
                         <label class="text-lg">Email</label>
                         <input type="email" id="email" name="email" placeholder="your@email.com"
@@ -25,15 +26,18 @@
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
                     </div>
 
+                    <div class="flex flex-col pt-4">
+                        <label class="text-lg">Password Confirmation</label>
+                        <input type="password" id="password_confirmation" name="password_confirmation"
+                            placeholder="Password Confirmation"
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+
                     <button type="submit"
                         class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">Login</button>
                 </form>
 
-                <div class="text-center pt-12 pb-12">
-                    <p>Forgot Password ? <a href="{{ route('forgotPassword') }}" class="underline font-semibold">Reset
-                            here.</a>
-                    </p>
-                </div>
+
             </div>
 
         </div>

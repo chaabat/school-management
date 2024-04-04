@@ -22,12 +22,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
+
+
+Route::get('/', function () {   
     return view('welcome');
 });
 
 Route::get('login', [AuthentificationController::class, 'index'])->name('login.page');
 Route::post('login', [AuthentificationController::class, 'store'])->name('login');
+
+Route::get('/forgot-password', [AuthentificationController::class, 'forgotPassword'])->name('forgotPassword');
+Route::post('/forgot-password', [AuthentificationController::class, 'forgotPasswordPost'])->name('forgot');
+Route::get('/reset-password/{token}', [AuthentificationController::class, 'resetPassword'])->name('resetPassword');
+Route::post('/reset-password', [AuthentificationController::class, 'resetPasswordPost'])->name('reset');
+
+Route::get('/check-your-email', [AuthentificationController::class, 'waitPage'])->name('waitPage');
 Route::post('logout', [AuthentificationController::class, 'destroy'])->name('logout');
 
 
