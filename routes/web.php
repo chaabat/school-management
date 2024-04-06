@@ -6,7 +6,6 @@ use App\Http\Controllers\Admin\ParentController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Auth\AuthentificationController;
-use App\Http\Controllers\Auth\LoginController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {   
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('login', [AuthentificationController::class, 'index'])->name('login.page');
@@ -47,6 +46,9 @@ Route::get('courses', [DashboardController::class, 'course'])->name('admin.cours
 Route::resource('teachers', TeacherController::class);
 Route::resource('students', StudentController::class);
 Route::resource('parents', ParentController::class);
+Route::get('/search-parents', [ParentController::class, 'search'])->name('search.parents');
+
+
 
 
 Route::group(['prefix' => 'classes'], function () {

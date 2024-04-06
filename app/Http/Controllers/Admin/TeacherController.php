@@ -3,25 +3,29 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\teacherRequest;
+use App\Http\Requests\UpdateteacherRequest;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\Role;
+ 
+use App\RepositoriesInterfaces\teacherRepositoryInterface;
 
 
 class TeacherController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private $teacherRepository;
+
+    public function __construct(teacherRepositoryInterface $teacherRepository)
+    {
+        $this->teacherRepository = $teacherRepository;
+    }
+
     public function index()
     {
-        $teacherRole = Role::where('name', 'teacher')->first();
-        $teachers = User::where('role_id', $teacherRole->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(8);
+        $teachers = $this->teacherRepository->getAllTeachers(8);
+
         return view('admin/teachers/show', compact('teachers'));
     }
 
@@ -36,40 +40,11 @@ class TeacherController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(teacherRequest $request)
     {
 
         try {
-            $teacher = $request->validate([
-                'name' => 'required | min:4|unique:users,name',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required | min:8 ',
-                'phone' => 'required|min:8|max:10',
-                'adress' => 'required',
-                'date' => 'required',
-                'role_id' => 'required',
-                'genre' => 'required',
-                'description' => 'required',
-                'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-
-            ], [
-                'name.min' => 'Le nom doit comporter plus de 4 caractères.',
-                'name.unique' => 'Ce nom est déjà pris.',
-                'email.required' => 'L\'adresse e-mail est obligatoire.',
-                'email.email' => 'Structure d\'e-mail incorrecte.',
-                'email.unique' => 'Cet e-mail est déjà utilisé.',
-                'password.min' => 'Le mot de passe doit comporter plus de 8 caractères.',
-                'password.required' => 'Le mot de passe est obligatoire.',
-                'phone.required' => 'Le numéro de téléphone est obligatoire.',
-                'phone.min' => 'Le numéro de téléphone doit comporter au moins 8 chiffres.',
-                'phone.max' => 'Le numéro de téléphone doit comporter au maximum 10 chiffres.',
-                'date.required' => 'La date est obligatoire.',
-                'genre.required' => 'Le genre est obligatoire.',
-                'description.required' => 'La description est obligatoire.',
-                'picture.image' => 'L\'image doit être un fichier image.',
-                'picture.mimes' => 'L\'image doit être de type : jpeg, png, jpg, gif.',
-                'picture.max' => 'L\'image ne doit pas dépasser 2048 kilo-octets.',
-            ]);
+            $teacher = $request->validated();
 
 
             $teacher['password'] = Hash::make($request->password);
@@ -78,7 +53,7 @@ class TeacherController extends Controller
             $request->picture->move(public_path('users'), $fileName);
             $teacher = array_merge($teacher, ['picture' => $fileName]);
 
-            $user = User::create($teacher);
+            $user = $this->teacherRepository->createTeacher($teacher);
 
             Auth::login($user);
 
@@ -94,7 +69,7 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        $teacher = User::findOrFail($id);
+        $teacher = $this->teacherRepository->getTeacherById($id);
         return view('admin/teachers/details', compact('teacher'));
     }
 
@@ -104,28 +79,18 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        $teacher = User::findOrFail($id);
+        $teacher = $this->teacherRepository->getTeacherById($id);
         return view('admin/teachers/update', compact('teacher'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdateteacherRequest $request, $id)
     {
-        $teacher = User::findOrFail($id);
+        $teacher = $this->teacherRepository->getTeacherById($id);
 
-        $updateTeacher = $request->validate([
-            'name' => 'required|min:4|unique:users,name,' . $teacher->id,
-            'email' => 'required|email|unique:users,email,' . $teacher->id,
-            'password' => 'nullable|min:8',
-            'phone' => 'required|min:8|max:10',
-            'adress' => 'required',
-            'date' => 'required',
-            'genre' => 'required',
-            'description' => 'required',
-            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        $updateTeacher = $request->validated();
 
         if (isset($updateTeacher['password'])) {
             $updateTeacher['password'] = Hash::make($updateTeacher['password']);
@@ -137,7 +102,7 @@ class TeacherController extends Controller
             $updateTeacher['picture'] = $fileName;
         }
 
-        $teacher->update($updateTeacher);
+        $this->teacherRepository->updateTeacher($id, $request->all());
 
         return redirect()->route('teachers.index')->with('success', 'Teacher updated successfully');
     }
@@ -147,7 +112,7 @@ class TeacherController extends Controller
      */
     public function destroy($id)
     {
-        $teacher = User::findOrFail($id);
+        $teacher = $this->teacherRepository->getTeacherById($id);
         $teacher->delete();
         return redirect()->route('teachers.index')->with('success', 'Teacher deleted successfully');
     }

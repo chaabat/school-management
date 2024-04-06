@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\parentRequest;
+use App\Http\Requests\UpdateParentRequest;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\Role;
-use App\RepositoriesInterfaces\parentRepositoryInterface;
 
+use App\RepositoriesInterfaces\parentRepositoryInterface;
+use Illuminate\Http\Request;
 
 class ParentController extends Controller
 {
@@ -24,7 +25,7 @@ class ParentController extends Controller
 
     public function index()
     {
-        $parents = $this->parentRepository->getAllParents(8);
+        $parents = $this->parentRepository->getAllParents(5);
 
         return view('admin/parents/show', compact('parents'));
     }
@@ -40,45 +41,22 @@ class ParentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(parentRequest $request)
     {
 
         try {
-            $parent = $request->validate([
-                'name' => 'required | min:4|unique:users,name',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required | min:8 ',
-                'phone' => 'required|min:8|max:10',
-                'adress' => 'required',
-                'date' => 'required',
-                'role_id' => 'required',
-                'genre' => 'required',
-                'description' => 'required',
-                'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-
-            ], [
-                'name.min' => 'Le nom doit comporter plus de 4 caractères.',
-                'name.unique' => 'Ce nom est déjà pris.',
-                'email.required' => 'L\'adresse e-mail est obligatoire.',
-                'email.email' => 'Structure d\'e-mail incorrecte.',
-                'email.unique' => 'Cet e-mail est déjà utilisé.',
-                'password.min' => 'Le mot de passe doit comporter plus de 8 caractères.',
-                'password.required' => 'Le mot de passe est obligatoire.',
-                'phone.required' => 'Le numéro de téléphone est obligatoire.',
-                'phone.min' => 'Le numéro de téléphone doit comporter au moins 8 chiffres.',
-                'phone.max' => 'Le numéro de téléphone doit comporter au maximum 10 chiffres.',
-                'date.required' => 'La date est obligatoire.',
-                'genre.required' => 'Le genre est obligatoire.',
-                'description.required' => 'La description est obligatoire.',
-                'picture.image' => 'L\'image doit être un fichier image.',
-                'picture.mimes' => 'L\'image doit être de type : jpeg, png, jpg, gif.',
-                'picture.max' => 'L\'image ne doit pas dépasser 2048 kilo-octets.',
-            ]);
+            $parent = $request->validated();
 
             $parent['password'] = Hash::make($request->password);
+            $fileName = '';
 
-            $fileName = time() . '.' . $request->picture->extension();
-            $request->picture->move(public_path('users'), $fileName);
+            if ($request->hasFile('picture')) {
+                $fileName = time() . '.' . $request->picture->extension();
+                $request->picture->move(public_path('users'), $fileName);
+            } else {
+                $fileName = 'photos/logo.jpg';
+            }
+
             $parent = array_merge($parent, ['picture' => $fileName]);
 
             $user = $this->parentRepository->createParent($parent);
@@ -97,7 +75,7 @@ class ParentController extends Controller
      */
     public function show(string $id)
     {
-        $parent = User::findOrFail($id);
+        $parent = $this->parentRepository->getParentById($id);
         return view('admin/parents/details', compact('parent'));
     }
 
@@ -114,22 +92,11 @@ class ParentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
-    { 
+    public function update(UpdateParentRequest $request, $id)
+    {
         $parent = $this->parentRepository->getParentById($id);
         try {
-            $updateParent = $request->validate([
-                'name' => 'required|min:4|unique:users,name,' . $parent->id,
-                'email' => 'required|email|unique:users,email,' . $parent->id,
-                'password' => 'nullable|min:8',
-                'phone' => 'required|min:8|max:10',
-                'adress' => 'required',
-                'date' => 'required',
-                'role_id' => 'required',
-                'genre' => 'required',
-                'description' => 'required',
-                'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            ]);
+            $updateParent = $request->validated();
 
             if (isset($updateParent['password'])) {
                 $updateParent['password'] = Hash::make($updateParent['password']);
@@ -162,5 +129,23 @@ class ParentController extends Controller
             dd($e->getMessage());
         }
     }
+
+     
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+        
+        $parents = User::where('name', 'like', '%' . $searchTerm . '%')
+                       ->whereHas('role', function ($query) {
+                           $query->where('name', 'parent');
+                       })
+                       ->get();
+        
+        return response()->json($parents);
     }
- 
+    
+
+    
+    
+
+}

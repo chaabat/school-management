@@ -3,8 +3,21 @@
     <div class="p-4 h-screen sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
-            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">classes
-            </h2>
+            <div >
+                <div class="inline-block relative py-1 text-md w-24">
+                    <div class="absolute inset-0 text-[#fb5607] flex">
+                        <svg height="100%" viewBox="0 0 50 100">
+                            <path
+                                d="M49.9,0a17.1,17.1,0,0,0-12,5L5,37.9A17,17,0,0,0,5,62L37.9,94.9a17.1,17.1,0,0,0,12,5ZM25.4,59.4a9.5,9.5,0,1,1,9.5-9.5A9.5,9.5,0,0,1,25.4,59.4Z"
+                                fill="currentColor" />
+                        </svg>
+                        <div class="flex-grow h-full -ml-px bg-[#03045e]   rounded-md rounded-l-none"></div>
+                    </div>
+                    <span class="relative flex items-center justify-center text-white font-semibold">
+                        Classes  
+                    </span>
+                </div>
+            </div>
             <section class=" p-3 sm:p-5">
                 <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
 

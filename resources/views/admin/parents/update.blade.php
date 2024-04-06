@@ -24,8 +24,17 @@
 
                         </label>
                     </div>
+                    <div>
+                        @if ($errors->any())
+                            <h2 class="text-xl font-mono font-bold text-[#fb5607]">Validation errors:</h2>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
                     <div class="-mx-3 md:flex mb-6">
-
                         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
                             <label
                                 class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Nom

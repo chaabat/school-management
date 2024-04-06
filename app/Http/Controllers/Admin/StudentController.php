@@ -3,25 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\studentRequest;
+use App\Http\Requests\UpdatestudentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use App\Models\Role;
+use App\RepositoriesInterfaces\studentRepositoryInterface;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private $studentRepository;
+
+    public function __construct(studentRepositoryInterface $studentRepository)
+    {
+        $this->studentRepository = $studentRepository;
+    }
+
     public function index()
     {
-        $studentRole = Role::where('name', 'student')->first();
-        $students = User::where('role_id', $studentRole->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(8);
-        return view('admin/students/show',compact('students'));
+        $students = $this->studentRepository->getAllStudents(8);
+
+        return view('admin/students/show', compact('students'));
     }
 
     /**
@@ -35,40 +38,11 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(studentRequest $request)
     {
 
         try {
-            $student = $request->validate([
-                'name' => 'required | min:4|unique:users,name',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required | min:8 ',
-                'phone' => 'required|min:8|max:10',
-                'adress' => 'required',
-                'role_id' => 'required',
-                'date' => 'required',
-                'genre' => 'required',
-                'description' => 'required',
-                'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-
-            ], [
-                'name.min' => 'Le nom doit comporter plus de 4 caractères.',
-                'name.unique' => 'Ce nom est déjà pris.',
-                'email.required' => 'L\'adresse e-mail est obligatoire.',
-                'email.email' => 'Structure d\'e-mail incorrecte.',
-                'email.unique' => 'Cet e-mail est déjà utilisé.',
-                'password.min' => 'Le mot de passe doit comporter plus de 8 caractères.',
-                'password.required' => 'Le mot de passe est obligatoire.',
-                'phone.required' => 'Le numéro de téléphone est obligatoire.',
-                'phone.min' => 'Le numéro de téléphone doit comporter au moins 8 chiffres.',
-                'phone.max' => 'Le numéro de téléphone doit comporter au maximum 10 chiffres.',
-                'date.required' => 'La date est obligatoire.',
-                'genre.required' => 'Le genre est obligatoire.',
-                'description.required' => 'La description est obligatoire.',
-                'picture.image' => 'L\'image doit être un fichier image.',
-                'picture.mimes' => 'L\'image doit être de type : jpeg, png, jpg, gif.',
-                'picture.max' => 'L\'image ne doit pas dépasser 2048 kilo-octets.',
-            ]);
+            $student = $request->validated();
 
 
             $student['password'] = Hash::make($request->password);
@@ -77,7 +51,7 @@ class StudentController extends Controller
             $request->picture->move(public_path('users'), $fileName);
             $student = array_merge($student, ['picture' => $fileName]);
 
-            $user = User::create($student);
+            $user = $this->studentRepository->createStudent($student);
             Auth::login($user);
 
             return redirect()->route('students.index');
@@ -92,7 +66,7 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        $student = User::findOrFail($id);
+        $student = $this->studentRepository->getStudentById($id);
         return view('admin/students/details', compact('student'));
     }
 
@@ -101,29 +75,19 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
-        $student = User::findOrFail($id);
-        
-        return view('admin/students/update',compact('student'));
+        $student = $this->studentRepository->getStudentById($id);
+
+        return view('admin/students/update', compact('student'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdatestudentRequest $request, $id)
     {
-        $student = User::findOrFail($id);
+        $student = $this->studentRepository->getStudentById($id);
 
-        $updateStudent = $request->validate([
-            'name' => 'required|min:4|unique:users,name,' . $student->id,
-            'email' => 'required|email|unique:users,email,' . $student->id,
-            'password' => 'nullable|min:8',
-            'phone' => 'required|min:8|max:10',
-            'adress' => 'required',
-            'date' => 'required',
-            'genre' => 'required',
-            'description' => 'required',
-            'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        $updateStudent = $request->validated();
 
         if (isset($updateStudent['password'])) {
             $updateStudent['password'] = Hash::make($updateStudent['password']);
@@ -135,7 +99,8 @@ class StudentController extends Controller
             $updateStudent['picture'] = $fileName;
         }
 
-        $student->update($updateStudent);
+        $this->studentRepository->updateStudent($id, $request->all());
+
 
         return redirect()->route('students.index')->with('success', 'Student updated successfully');
     }
@@ -145,9 +110,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $student = User::findOrFail($id);
+        $student = $this->studentRepository->getStudentById($id);
         $student->delete();
         return redirect()->route('students.index')->with('success', 'Student deleted successfully');
     }
 }
-            

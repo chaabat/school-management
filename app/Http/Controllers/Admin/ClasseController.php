@@ -3,36 +3,36 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ClasseRequest;
+use App\Http\Requests\UpdateClasseRequest;
 use Illuminate\Http\Request;
-use App\Models\Classe;
 use Illuminate\Database\QueryException;
+use Illuminate\Validation\ValidationException;
+use App\RepositoriesInterfaces\classeRepositoryInterface;
+
 
 class ClasseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    private $classeRepository;
+
+    public function __construct(classeRepositoryInterface $classeRepository)
+    {
+        $this->classeRepository = $classeRepository;
+    }
+
     public function index()
     {
-        $classes = Classe::orderBy('created_at', 'desc')->paginate(8);
-        return view('admin/class', compact('classes'));
+        $classes = $this->classeRepository->getAllClasses(8);
+        return view('admin.class', compact('classes'));
     }
 
    
-    public function store(Request $request)
+    public function store(ClasseRequest $request)
     {
         try {
-            $class = $request->validate([
-                'name' => 'required|min:4|unique:classes,name',
-                'statut' => 'required|in:activer,desactiver',
-            ], [
-                'name.min' => 'Le nom doit comporter au moins 4 caractères.',
-                'name.unique' => 'Ce nom est déjà pris.',
-                'statut.required' => 'Le statut est requis.',
-                'statut.in' => 'Le statut doit être "active" ou "desactiver".',
-            ]);
+            $class = $request->validated();
 
-            Classe::create($class);
+            $this->classeRepository->createClasse($class);
 
             return redirect()->route('admin.class');
         } catch (QueryException $e) {
@@ -41,34 +41,26 @@ class ClasseController extends Controller
     }
 
    
-    public function update(Request $request)
+    public function update(UpdateClasseRequest $request)
     {
         try {
-            $class = $request->validate([
-                'name' => 'required|min:4|unique:classes,name,',
-                'statut' => 'required|in:activer,desactiver',
-            ], [
-                'name.min' => 'Le nom doit comporter au moins 4 caractères.',
-                'name.unique' => 'Ce nom est déjà pris.',
-                'statut.required' => 'Le statut est requis.',
-                'statut.in' => 'Le statut doit être "active" ou "desactiver".',
-            ]);
+            $class = $request->validated();
     
-            $classToUpdate =Classe::findOrFail($request->id);
-
-            $classToUpdate->update($class);
+            $this->classeRepository->updateClasse($request->id, $class);
     
             return redirect()->route('admin.class');
-        } catch (QueryException $e) {
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
             dd($e->getMessage());
         }
     }
+    
 
    
     public function destroy(string $id)
     {
-        $class = Classe::findOrFail($id);
-        $class->delete();
+        $this->classeRepository->destroyClasse($id);
 
         return redirect()->route('admin.class');
     }

@@ -4,26 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tailwind Login Template</title>
-    <meta name="author" content="David Grzyb">
-    <meta name="description" content="">
+    <title>School-M</title>
     @vite('resources/css/app.css')
+    <script src="https://kit.fontawesome.com/84d5a42f8d.js" crossorigin="anonymous"></script>
 
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
-
-        .font-family-karla {
-            font-family: karla;
-        }
-    </style>
 </head>
 
 <body class="bg-white font-family-karla h-screen">
 
+    @yield('home')
     @yield('login')
     @yield('forget')
     @yield('reset')
     @yield('waitPage')
+    @yield('email')
 
 </body>
 
