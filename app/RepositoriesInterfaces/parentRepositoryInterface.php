@@ -8,5 +8,6 @@ interface parentRepositoryInterface
     public function getParentById($id);
     public function updateParent($id, array $data);
     public function destroyParent($id);
+    public function searchParents($search);
    
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\parentRequest;
 use App\Http\Requests\UpdateParentRequest;
@@ -11,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 use App\RepositoriesInterfaces\parentRepositoryInterface;
-use Illuminate\Http\Request;
 
 class ParentController extends Controller
 {
@@ -97,24 +97,26 @@ class ParentController extends Controller
         $parent = $this->parentRepository->getParentById($id);
         try {
             $updateParent = $request->validated();
-
+    
             if (isset($updateParent['password'])) {
                 $updateParent['password'] = Hash::make($updateParent['password']);
             }
-
+    
             if ($request->hasFile('picture')) {
                 $fileName = time() . '.' . $request->picture->extension();
                 $request->picture->move(public_path('users'), $fileName);
                 $updateParent['picture'] = $fileName;
             }
-
-            $this->parentRepository->updateParent($id, $request->all());
-
-            return redirect()->route('parents.index')->with('success', 'parent updated successfully');
+    
+             
+            $this->parentRepository->updateParent($id, $updateParent);
+    
+            return redirect()->route('parents.index')->with('success', 'Parent updated successfully');
         } catch (QueryException $e) {
             dd($e->getMessage());
         }
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -133,19 +135,13 @@ class ParentController extends Controller
      
     public function search(Request $request)
     {
-        $searchTerm = $request->input('search');
-        
-        $parents = User::where('name', 'like', '%' . $searchTerm . '%')
-                       ->whereHas('role', function ($query) {
-                           $query->where('name', 'parent');
-                       })
-                       ->get();
-        
+        $search = $request->input('search');
+
+        $parents = $this->parentRepository->searchParents($search);
+
         return response()->json($parents);
     }
-    
 
-    
-    
+
 
 }

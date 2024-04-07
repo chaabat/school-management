@@ -89,23 +89,25 @@ class TeacherController extends Controller
     public function update(UpdateteacherRequest $request, $id)
     {
         $teacher = $this->teacherRepository->getTeacherById($id);
-
+    
         $updateTeacher = $request->validated();
-
+    
         if (isset($updateTeacher['password'])) {
             $updateTeacher['password'] = Hash::make($updateTeacher['password']);
         }
-
+    
         if ($request->hasFile('picture')) {
             $fileName = time() . '.' . $request->picture->extension();
             $request->picture->move(public_path('users'), $fileName);
             $updateTeacher['picture'] = $fileName;
         }
-
-        $this->teacherRepository->updateTeacher($id, $request->all());
-
+    
+        
+        $this->teacherRepository->updateTeacher($id, $updateTeacher);
+    
         return redirect()->route('teachers.index')->with('success', 'Teacher updated successfully');
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -115,5 +117,14 @@ class TeacherController extends Controller
         $teacher = $this->teacherRepository->getTeacherById($id);
         $teacher->delete();
         return redirect()->route('teachers.index')->with('success', 'Teacher deleted successfully');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $teachers = $this->teacherRepository->searchTeachers($search);
+
+        return response()->json($teachers);
     }
 }

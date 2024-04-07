@@ -18,7 +18,7 @@ return new class extends Migration
             // $table->string('role');
             $table->string('adress');
             $table->string('phone');
-            $table->enum('genre', ['masculin', 'feminine']);
+            $table->enum('genre', ['masculin', 'feminin']);
             $table->date('date');
             $table->string('description');
             $table->string('email')->unique();

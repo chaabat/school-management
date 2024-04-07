@@ -41,4 +41,13 @@ class parentRepository implements parentRepositoryInterface
         $parent = User::findOrFail($id);
         $parent->delete();
     }
+
+    public function searchParents($search)
+    {
+        return User::where('name', 'like', '%' . $search . '%')
+            ->whereHas('role', function ($query) {
+                $query->where('name', 'parent');
+            })
+            ->get();
+    }
 }

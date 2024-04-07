@@ -105,7 +105,7 @@
                                     class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
                                     <option disabled selected="">Select Genre</option>
                                     <option value="masculin">Masculin</option>
-                                    <option value="feminine">Féminin</option>
+                                    <option value="feminin">Féminin</option>
 
                                 </select>
 

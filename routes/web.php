@@ -44,7 +44,11 @@ Route::get('courses', [DashboardController::class, 'course'])->name('admin.cours
 
 
 Route::resource('teachers', TeacherController::class);
+Route::get('/search-teachers', [TeacherController::class, 'search'])->name('search.teachers');
+
 Route::resource('students', StudentController::class);
+Route::get('/search-students', [StudentController::class, 'search'])->name('search.students');
+
 Route::resource('parents', ParentController::class);
 Route::get('/search-parents', [ParentController::class, 'search'])->name('search.parents');
 

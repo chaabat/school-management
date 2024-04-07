@@ -41,4 +41,13 @@ class teacherRepository implements teacherRepositoryInterface
         $teacher = User::findOrFail($id);
         $teacher->delete();
     }
+
+    public function searchTeachers($search)
+    {
+        return User::where('name', 'like', '%' . $search . '%')
+            ->whereHas('role', function ($query) {
+                $query->where('name', 'teacher');
+            })
+            ->get();
+    }
 }

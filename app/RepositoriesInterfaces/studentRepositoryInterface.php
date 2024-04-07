@@ -8,5 +8,6 @@ interface studentRepositoryInterface
     public function getStudentById($id);
     public function updateStudent($id, array $data);
     public function destroyStudent($id);
+    public function searchStudents($search);
    
 }

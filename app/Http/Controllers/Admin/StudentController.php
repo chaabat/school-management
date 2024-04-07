@@ -86,24 +86,25 @@ class StudentController extends Controller
     public function update(UpdatestudentRequest $request, $id)
     {
         $student = $this->studentRepository->getStudentById($id);
-
+    
         $updateStudent = $request->validated();
-
+    
         if (isset($updateStudent['password'])) {
             $updateStudent['password'] = Hash::make($updateStudent['password']);
         }
-
+    
         if ($request->hasFile('picture')) {
             $fileName = time() . '.' . $request->picture->extension();
             $request->picture->move(public_path('users'), $fileName);
             $updateStudent['picture'] = $fileName;
         }
-
-        $this->studentRepository->updateStudent($id, $request->all());
-
-
+    
+        
+        $this->studentRepository->updateStudent($id, $updateStudent);
+    
         return redirect()->route('students.index')->with('success', 'Student updated successfully');
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -113,5 +114,14 @@ class StudentController extends Controller
         $student = $this->studentRepository->getStudentById($id);
         $student->delete();
         return redirect()->route('students.index')->with('success', 'Student deleted successfully');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $students = $this->studentRepository->searchStudents($search);
+
+        return response()->json($students);
     }
 }

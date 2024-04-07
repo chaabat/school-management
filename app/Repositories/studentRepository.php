@@ -41,4 +41,13 @@ class studentRepository implements studentRepositoryInterface
         $student = User::findOrFail($id);
         $student->delete();
     }
+    
+    public function searchStudents($search)
+    {
+        return User::where('name', 'like', '%' . $search . '%')
+            ->whereHas('role', function ($query) {
+                $query->where('name', 'student');
+            })
+            ->get();
+    }
 }
