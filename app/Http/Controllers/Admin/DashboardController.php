@@ -14,6 +14,11 @@ class DashboardController extends Controller
 
     public function course()
     {
-        return view('admin/filiere');
+        return view('admin/subject');
+    }
+
+    public function subjectToClass()
+    {
+        return view('admin/subjectToClass');
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ClasseController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ParentController;
 use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Auth\AuthentificationController;
 
@@ -40,7 +41,7 @@ Route::post('logout', [AuthentificationController::class, 'destroy'])->name('log
 
 
 Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
-Route::get('courses', [DashboardController::class, 'course'])->name('admin.course');
+Route::get('assign/subject-to-class', [DashboardController::class, 'subjectToClass'])->name('assignSubjectToClass');
 
 
 Route::resource('teachers', TeacherController::class);
@@ -60,6 +61,18 @@ Route::group(['prefix' => 'classes'], function () {
     Route::post('/', [ClasseController::class, 'store'])->name('create.class');
     Route::delete('/{id}', [ClasseController::class, 'destroy'])->name('delete.class');
     Route::put('/', [ClasseController::class, 'update'])->name('update.class');
+    Route::get('/search',[ClasseController::class, 'search'])->name('search.class');
+
+});
+
+
+Route::group(['prefix' => 'subjects'], function () {
+    Route::get('/', [SubjectController::class, 'index'])->name('admin.subject');
+    Route::post('/', [SubjectController::class, 'store'])->name('create.subject');
+    Route::delete('/{id}', [SubjectController::class, 'destroy'])->name('delete.subject');
+    Route::put('/', [SubjectController::class, 'update'])->name('update.subject');
+    Route::get('/search',[ClasseController::class, 'search'])->name('search.subject');
+
 });
 
 

@@ -9,6 +9,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <script src="https://kit.fontawesome.com/84d5a42f8d.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Document</title>
 </head>
 
@@ -18,6 +22,7 @@
     @yield('dashboard')
     @yield('course')
     @yield('class')
+    @yield('subjectToClass')
 
 
     @yield('admin')
@@ -45,8 +50,7 @@
 
 
     <script src="{{ asset('js/pictureInput.js') }}"></script>
-    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-    <script>CKEDITOR.replace('content');</script>
+
 </body>
 
 </html>

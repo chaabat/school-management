@@ -3,8 +3,21 @@
     <div class="p-4 h-screen sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
-            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Les Filiéres
-            </h2>
+            <div>
+                <div class="inline-block relative py-1 text-md w-24">
+                    <div class="absolute inset-0 text-[#fb5607] flex">
+                        <svg height="100%" viewBox="0 0 50 100">
+                            <path
+                                d="M49.9,0a17.1,17.1,0,0,0-12,5L5,37.9A17,17,0,0,0,5,62L37.9,94.9a17.1,17.1,0,0,0,12,5ZM25.4,59.4a9.5,9.5,0,1,1,9.5-9.5A9.5,9.5,0,0,1,25.4,59.4Z"
+                                fill="currentColor" />
+                        </svg>
+                        <div class="flex-grow h-full -ml-px bg-[#03045e]   rounded-md rounded-l-none"></div>
+                    </div>
+                    <span class="relative flex items-center justify-center text-white font-semibold">
+                        Subjects
+                    </span>
+                </div>
+            </div>
             <section class=" p-3 sm:p-5">
                 <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
 
@@ -13,22 +26,20 @@
                             class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                             <div class="w-72 md:w-1/2">
                                 <form class="flex items-center">
-                                    <label for="simple-search" class="sr-only">Search</label>
+                                    <label for="search" class="sr-only">Search</label>
                                     <div class="relative w-full">
                                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                             <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                 <path fill-rule="evenodd"
                                                     d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                                     clip-rule="evenodd" />
                                             </svg>
                                         </div>
-                                        <input type="text" id="simple-search"
+                                        <input type="text" id="search"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                             placeholder="Search" required="">
                                     </div>
-                                    <button
-                                        class="ml-2 flex items-center justify-center text-white bg-[#03045e] hover:bg-[#fb5607]  font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Search</button>
                                 </form>
                             </div>
 
@@ -52,8 +63,6 @@
                                         Actions
                                     </button>
 
-
-
                                 </div>
                             </div>
                         </div>
@@ -63,95 +72,70 @@
                                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" class="px-4 py-3">Id</th>
-                                        <th scope="col" class="px-4 py-3">Nom</th>
-                                        <th scope="col" class="px-4 py-3">Prix</th>
+                                        <th scope="col" class="px-4 py-3">Name</th>
                                         <th scope="col" class="px-4 py-3">Status</th>
-                                        <th scope="col" class="px-4 py-3">Date de création</th>
+                                        <th scope="col" class="px-4 py-3">Date de création </th>
                                         <th scope="col" class="px-4 py-3">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($subjects as $subject)
+                                        <tr class="class-row border-b dark:border-[#03045e]">
+                                            <th class="px-4 py-3 font-mono text-[#fb5607] font-bold">{{ $subject->id }}
+                                            </th>
+                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $subject->name }}</td>
+                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $subject->statut }}</td>
+                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $subject->created_at }}
+                                            </td>
+
+                                            <td class="px-4 py-3">
+                                                <div class="flex space-x-4 items-right">
+                                                    <span data-modal-target="update-modal" data-modal-toggle="update-modal">
+                                                        <button id="defaultModalButton" class="edit-subject"
+                                                            data-subject-id="{{ $subject->id }}"
+                                                            data-subject-name="{{ $subject->name }}">
+                                                            <img src="{{ asset('photos/update.png') }}" class="h-6"
+                                                                alt="">
+                                                        </button>
+                                                    </span>
 
 
-                                    <tr class="border-b dark:border-gray-700">
-                                        <th scope="row"
-                                            class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            Xbox Series S</th>
-                                        <td class="px-4 py-3">Gaming/Console</td>
-                                        <td class="px-4 py-3">Microsoft</td>
-                                        <td class="px-4 py-3">56</td>
-                                        <td class="px-4 py-3">56</td>
-                                        <td class="px-4 py-3">
-                                            <div class="flex space-x-4 items-right">
 
-                                                <a id="defaultModalButton" data-modal-target="update-defaultModal"
-                                                    data-modal-toggle="update-defaultModal" href="#"><img
-                                                        src="{{ asset('photos/update.png') }}" class="h-6"alt=""></a>
-                                                <a href=""><img src="{{ asset('photos/delete.png') }}" class="h-6"
-                                                        alt=""></a>
 
-                                            </div>
-                                        </td>
+                                                    <a href="#"
+                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Class ?')) { document.getElementById('delete-form-{{ $subject->id }}').submit(); }">
+                                                        <img src="{{ asset('photos/delete.png') }}" class="h-6"
+                                                            alt="">
+                                                    </a>
 
-                                    </tr>
+                                                    <form id="delete-form-{{ $subject->id }}"
+                                                        action="{{ route('delete.subject', $subject->id) }}" method="POST"
+                                                        style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
 
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+                        <!-- "Nothing found" message -->
+                        <div style="display: none;"
+                            class="search-not-found bg-white flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg">
+                            <p class="text-6xl md:text-7xl lg:text-9xl font-bold font-mono text-[#fb5607]">404</p>
+                            <p class="text-2xl md:text-3xl lg:text-5xl font-bold font-mono text-[#03045e] mt-4">Recherche
+                                introuvable</p>
+                        </div>
+                        <nav class="flex flex-col md:flex-row justify-end items-end md:items-center space-y-3 md:space-y-0 p-4"
                             aria-label="Table navigation">
-                            <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                                Showing
-                                <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
-                                of
-                                <span class="font-semibold text-gray-900 dark:text-white">1000</span>
-                            </span>
-                            <ul class="inline-flex items-stretch -space-x-px">
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-current="page"
-                                        class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-                                    </a>
-                                </li>
-                            </ul>
+
+                            <div class="mt-8 flex justify-center bg-white font-mono">
+                                {{ $subjects->links('pagination::tailwind') }}
+                            </div>
                         </nav>
                     </div>
                 </div>
@@ -184,31 +168,25 @@
                             </button>
                         </div>
 
-                        <form action="#">
-
+                        <form action="{{ route('create.subject') }}" method="post">
+                            @csrf
+                            @method('post')
                             <div class="grid gap-4 mb-4 sm:grid-cols-2">
                                 <div>
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
-                                    <input type="text" name="name" id="name"
+                                    <input type="text" name="name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Nom de filiére" required="">
                                 </div>
-                                <div>
-                                    <label
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix</label>
-                                    <input type="number" name="price" id="price"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder=" Prix du filiére" required="">
-                                </div>
+
 
                                 <div>
                                     <label
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Statut</label>
-                                    <select id="genre" name="genre"
+                                    <select name="statut"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option disabled selected="">Select Statut</option>
-                                        <option value="masculin">Active</option>
-                                        <option value="feminin">desactiver</option>
+                                        <option value="activer">Active</option>
+                                        <option value="desactiver">desactiver</option>
 
                                     </select>
                                 </div>
@@ -235,7 +213,7 @@
 
             {{-- Modifier course  --}}
 
-            <div id="update-defaultModal" tabindex="-1" aria-hidden="true"
+            <div id="update-modal" tabindex="-1" aria-hidden="true"
                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                 <div class="relative p-2 w-full max-w-2xl h-full md:h-auto">
 
@@ -248,7 +226,7 @@
                             </h3>
                             <button type="button"
                                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                data-modal-toggle="update-defaultModal">
+                                data-modal-toggle="update-modal">
                                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
@@ -259,31 +237,27 @@
                             </button>
                         </div>
 
-                        <form action="#">
-
+                        <form action="{{ route('update.subject') }}" method="POST">
+                            @csrf
+                            @method('PUT')
                             <div class="grid gap-4 mb-4 sm:grid-cols-2">
+
+                                <input type="hidden" name="id" id="id">
+
                                 <div>
                                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nom</label>
                                     <input type="text" name="name" id="name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                         placeholder="Nom de filiére" required="">
                                 </div>
-                                <div>
-                                    <label
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Prix</label>
-                                    <input type="number" name="price" id="price"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder=" Prix du filiére" required="">
-                                </div>
 
                                 <div>
                                     <label
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Statut</label>
-                                    <select id="genre" name="genre"
+                                    <select id="statut" name="statut"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option disabled selected="">Select Statut</option>
-                                        <option value="masculin">Active</option>
-                                        <option value="feminin">desactiver</option>
+                                        <option value="activer">Activer</option>
+                                        <option value="desactiver">Desactiver</option>
 
                                     </select>
                                 </div>
@@ -291,7 +265,7 @@
 
                             </div>
                             <button type="submit"
-                                class="text-white inline-flex items-center bg-[#03045e] hover:bg-[#fb5607]  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                class="text-white inline-flex items-center bg-blue-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                                 <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
@@ -304,4 +278,7 @@
                     </div>
                 </div>
             </div>
+
+            <script src="js/updateSubject.js"></script>
+            <script src="js/searchSubject.js"></script>
         @endsection
