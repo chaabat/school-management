@@ -66,12 +66,10 @@ class ClasseController extends Controller
         return redirect()->route('admin.class')->with('success','Classe supprimé avec success');
     }
 
-    // Controller method for handling class search
 public function search(Request $request)
 {
     $query = $request->input('search');
 
-    // Perform search query based on your requirements
     $classes = Classe::where('name', 'like', "%$query%")->get();
 
     return response()->json($classes);

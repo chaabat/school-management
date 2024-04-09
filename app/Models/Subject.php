@@ -14,4 +14,8 @@ class Subject extends Model
     protected $guarded = [];
     
     protected $dates = ['deleted_at']; 
+
+    public function subjectToClass(){
+        return $this->hasMany(SubjetToClass::class);
+    }
 }

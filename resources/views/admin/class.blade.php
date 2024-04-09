@@ -4,16 +4,16 @@
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
             @if (session('success'))
-            <script>
-                Swal.fire({
-                    icon: "success",
-                    title: "Success!",
-                    text: "{{ session('success') }}",
+                <script>
+                    Swal.fire({
+                        icon: "success",
+                        title: "Success!",
+                        text: "{{ session('success') }}",
 
-                });
-            </script>
-        @endif
-            <div >
+                    });
+                </script>
+            @endif
+            <div>
                 <div class="inline-block relative py-1 text-md w-24">
                     <div class="absolute inset-0 text-[#fb5607] flex">
                         <svg height="100%" viewBox="0 0 50 100">
@@ -24,7 +24,7 @@
                         <div class="flex-grow h-full -ml-px bg-[#03045e]   rounded-md rounded-l-none"></div>
                     </div>
                     <span class="relative flex items-center justify-center text-white font-semibold">
-                        Classes  
+                        Classes
                     </span>
                 </div>
             </div>
@@ -39,11 +39,16 @@
                                     <label for="search" class="sr-only">Search</label>
                                     <div class="relative w-full">
                                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                    clip-rule="evenodd" />
                                             </svg>
                                         </div>
-                                        <input type="text" id="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search" required="">
+                                        <input type="text" id="search"
+                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                            placeholder="Search" required="">
                                     </div>
                                 </form>
                             </div>
@@ -87,7 +92,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($classes as $class)
-                                        <tr class="border-b dark:border-[#03045e]">
+                                        <tr
+                                            class="class-row
+                                        border-b dark:border-[#03045e]">
                                             <th class="px-4 py-3 font-mono text-[#fb5607] font-bold">{{ $class->id }}
                                             </th>
                                             <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->name }}</td>
@@ -130,6 +137,13 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                        <!-- "Nothing found" message -->
+                        <div style="display: none;"
+                            class="search-not-found bg-white flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg">
+                            <p class="text-6xl md:text-7xl lg:text-9xl font-bold font-mono text-[#fb5607]">404</p>
+                            <p class="text-2xl md:text-3xl lg:text-5xl font-bold font-mono text-[#03045e] mt-4">Recherche
+                                introuvable</p>
                         </div>
                         <nav class="flex flex-col md:flex-row justify-end items-end md:items-center space-y-3 md:space-y-0 p-4"
                             aria-label="Table navigation">
@@ -280,7 +294,7 @@
                 </div>
             </div>
 
-       
+
 
             <script src="js/updateClasse.js"></script>
             <script src="js/searchClasse.js"></script>

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\subjectRequest;
 use App\Http\Requests\UpdateSubjectRequest;
+use App\Models\Subject;
 use Illuminate\Database\QueryException;
 use Illuminate\Validation\ValidationException;
 use App\RepositoriesInterfaces\subjectsRepositoryInterface;
+use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
@@ -62,4 +64,14 @@ class SubjectController extends Controller
 
         return redirect()->route('admin.subject');
     }
+
+    public function search(Request $request)
+{
+    $query = $request->input('search');
+
+    // Perform search query based on your requirements
+    $subjects = Subject::where('name', 'like', "%$query%")->get();
+
+    return response()->json($subjects);
+}
 }

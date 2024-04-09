@@ -2,7 +2,7 @@ $('#search').on('keyup', function() {
     var query = $(this).val();
 
     $.ajax({
-        url: "/subjects/search", // Set the URL directly without Blade syntax
+        url: "/subjects/search",   
         type: "GET",
         data: { 'search': query },
         success: function(data) {

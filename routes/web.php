@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ParentController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\Admin\SubjectToClasseController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Auth\AuthentificationController;
 
@@ -22,12 +23,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
 
 
 Route::get('/', function () {   
     return view('home');
 });
-
+/*************************************************** AUTHENTIFICATION ***********************************************************************/
 Route::get('login', [AuthentificationController::class, 'index'])->name('login.page');
 Route::post('login', [AuthentificationController::class, 'store'])->name('login');
 
@@ -39,21 +41,21 @@ Route::post('/reset-password', [AuthentificationController::class, 'resetPasswor
 Route::get('/check-your-email', [AuthentificationController::class, 'waitPage'])->name('waitPage');
 Route::post('logout', [AuthentificationController::class, 'destroy'])->name('logout');
 
-
-Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
-Route::get('assign/subject-to-class', [DashboardController::class, 'subjectToClass'])->name('assignSubjectToClass');
-
+/*************************************************** TEACHERS ***********************************************************************/
 
 Route::resource('teachers', TeacherController::class);
 Route::get('/search-teachers', [TeacherController::class, 'search'])->name('search.teachers');
+/*************************************************** STUDENTS ***********************************************************************/
 
 Route::resource('students', StudentController::class);
 Route::get('/search-students', [StudentController::class, 'search'])->name('search.students');
+/*************************************************** PARENTS ***********************************************************************/
 
 Route::resource('parents', ParentController::class);
 Route::get('/search-parents', [ParentController::class, 'search'])->name('search.parents');
 
 
+/*************************************************** ADMIN CLASSES ***********************************************************************/
 
 
 Route::group(['prefix' => 'classes'], function () {
@@ -65,15 +67,29 @@ Route::group(['prefix' => 'classes'], function () {
 
 });
 
+/*************************************************** ADMIN SUBJECTS ***********************************************************************/
 
 Route::group(['prefix' => 'subjects'], function () {
     Route::get('/', [SubjectController::class, 'index'])->name('admin.subject');
     Route::post('/', [SubjectController::class, 'store'])->name('create.subject');
     Route::delete('/{id}', [SubjectController::class, 'destroy'])->name('delete.subject');
     Route::put('/', [SubjectController::class, 'update'])->name('update.subject');
-    Route::get('/search',[ClasseController::class, 'search'])->name('search.subject');
+    Route::get('/search',[SubjectController::class, 'search'])->name('search.subject');
 
 });
+/*************************************************** ADMIN SUBJECT TO CLASSE ***********************************************************************/
+
+Route::group(['prefix' => 'subject-to-class'], function () {
+    Route::get('/', [SubjectToClasseController::class, 'index'])->name('assignSubjectToClass');
+    Route::post('/', [SubjectToClasseController::class, 'store'])->name('createSubjectToClasse');
+    Route::delete('/{id}', [SubjectToClasseController::class, 'destroy'])->name('deleteSubjectToClasse');
+    Route::put('/', [SubjectToClasseController::class, 'update'])->name('updateSubjectToClasse');
+    Route::get('/search',[SubjectToClasseController::class, 'search'])->name('searchSubjectToClasse');
+
+});
+
+
+
 
 
 Route::group(['middleware' => ['auth', 'role:parent']], function () {
