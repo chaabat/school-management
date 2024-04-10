@@ -67,61 +67,50 @@
                             </div>
                         </div>
                         <div class="overflow-x-auto">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead
-                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="px-4 py-3">Id</th>
-                                        <th scope="col" class="px-4 py-3">Name</th>
-                                        <th scope="col" class="px-4 py-3">Status</th>
-                                        <th scope="col" class="px-4 py-3">Date de création </th>
-                                        <th scope="col" class="px-4 py-3">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <div class="mx-auto max-w-screen-xl px-4 w-full mt-12 mb-12">
+                                <div class="grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                     @foreach ($subjects as $subject)
-                                        <tr class="class-row border-b dark:border-[#03045e]">
-                                            <th class="px-4 py-3 font-mono text-[#fb5607] font-bold">{{ $subject->id }}
-                                            </th>
-                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $subject->name }}</td>
-                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $subject->statut }}</td>
-                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $subject->created_at }}
-                                            </td>
+                                     
+                                        <div
+                                        class="  border-4 border-[#03045e] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+            
+                                        <div class="bg-white py-4 px-3"  style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe2.jpg') }}') no-repeat center;background-size:cover">
+                                            <h1 class="text-3xl text-white text-center mb-2 font-bold font-mono">{{ $subject->name }}
+                                            </h1>
+                                            <div class="flex justify-between">
+            
+                                                <span data-modal-target="update-modal" data-modal-toggle="update-modal">
 
-                                            <td class="px-4 py-3">
-                                                <div class="flex space-x-4 items-right">
-                                                    <span data-modal-target="update-modal" data-modal-toggle="update-modal">
-                                                        <button id="defaultModalButton" class="edit-subject"
-                                                            data-subject-id="{{ $subject->id }}"
-                                                            data-subject-name="{{ $subject->name }}">
-                                                            <img src="{{ asset('photos/update.png') }}" class="h-6"
-                                                                alt="">
-                                                        </button>
-                                                    </span>
-
-
+                                                    <a href="#" id="defaultModalButton" data-modal-target="update"
+                                                        data-modal-toggle="update" class="edit-subject"
+                                                        data-subject-id="{{ $subject->id }}"
+                                                        data-subject-name="{{ $subject->name }}"><img
+                                                            src="{{ asset('photos/update.png') }}"
+                                                            class="h-6"alt=""></a>
+                                                </span>
 
 
-                                                    <a href="#"
-                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Class ?')) { document.getElementById('delete-form-{{ $subject->id }}').submit(); }">
-                                                        <img src="{{ asset('photos/delete.png') }}" class="h-6"
-                                                            alt="">
-                                                    </a>
 
-                                                    <form id="delete-form-{{ $subject->id }}"
-                                                        action="{{ route('delete.subject', $subject->id) }}" method="POST"
-                                                        style="display: none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
 
-                                                </div>
-                                            </td>
+                                                <a href="#"
+                                                    onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Class ?')) { document.getElementById('delete-form-{{ $subject->id }}').submit(); }">
+                                                    <img src="{{ asset('photos/delete.png') }}" class="h-6"
+                                                        alt="">
+                                                </a>
 
-                                        </tr>
+                                                <form id="delete-form-{{ $subject->id }}"
+                                                    action="{{ route('delete.class', $subject->id) }}" method="POST"
+                                                    style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @endforeach
-                                </tbody>
-                            </table>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                         <!-- "Nothing found" message -->
                         <div style="display: none;"

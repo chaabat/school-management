@@ -79,64 +79,51 @@
                             </div>
                         </div>
                         <div class="overflow-x-auto">
-                            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                <thead
-                                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr>
-                                        <th scope="col" class="px-4 py-3">Id</th>
-                                        <th scope="col" class="px-4 py-3">Name</th>
-                                        <th scope="col" class="px-4 py-3">Status</th>
-                                        <th scope="col" class="px-4 py-3">Date de création </th>
-                                        <th scope="col" class="px-4 py-3">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                            <div class="mx-auto max-w-screen-xl px-4 w-full mt-12 mb-12">
+                                <div class="grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                     @foreach ($classes as $class)
-                                        <tr
-                                            class="class-row
-                                        border-b dark:border-[#03045e]">
-                                            <th class="px-4 py-3 font-mono text-[#fb5607] font-bold">{{ $class->id }}
-                                            </th>
-                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->name }}</td>
-                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->statut }}</td>
-                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->created_at }}
-                                            </td>
+                                     
+                                        <div
+                                        class="  border-4 border-[#fb5607] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+            
+                                        <div class="bg-white py-4 px-3"  style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe1.jpg') }}') no-repeat center;background-size:cover">
+                                            <h1 class="text-3xl text-white text-center mb-2 font-bold font-mono">{{ $class->name }}
+                                            </h1>
+                                            <div class="flex justify-between">
+            
+                                                <span data-modal-target="update-modal" data-modal-toggle="update-modal">
 
-                                            <td class="px-4 py-3">
-                                                <div class="flex space-x-4 items-right">
-                                                    <span data-modal-target="update-modal" data-modal-toggle="update-modal">
-
-                                                        <a href="#" id="defaultModalButton" data-modal-target="update"
-                                                            data-modal-toggle="update" class="edit-class"
-                                                            data-class-id="{{ $class->id }}"
-                                                            data-class-name="{{ $class->name }}"><img
-                                                                src="{{ asset('photos/update.png') }}"
-                                                                class="h-6"alt=""></a>
-                                                    </span>
+                                                    <a href="#" id="defaultModalButton" data-modal-target="update"
+                                                        data-modal-toggle="update" class="edit-class"
+                                                        data-class-id="{{ $class->id }}"
+                                                        data-class-name="{{ $class->name }}"><img
+                                                            src="{{ asset('photos/update.png') }}"
+                                                            class="h-6"alt=""></a>
+                                                </span>
 
 
 
 
-                                                    <a href="#"
-                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Class ?')) { document.getElementById('delete-form-{{ $class->id }}').submit(); }">
-                                                        <img src="{{ asset('photos/delete.png') }}" class="h-6"
-                                                            alt="">
-                                                    </a>
+                                                <a href="#"
+                                                    onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Class ?')) { document.getElementById('delete-form-{{ $class->id }}').submit(); }">
+                                                    <img src="{{ asset('photos/delete.png') }}" class="h-6"
+                                                        alt="">
+                                                </a>
 
-                                                    <form id="delete-form-{{ $class->id }}"
-                                                        action="{{ route('delete.class', $class->id) }}" method="POST"
-                                                        style="display: none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                    </form>
-
-                                                </div>
-                                            </td>
-
-                                        </tr>
+                                                <form id="delete-form-{{ $class->id }}"
+                                                    action="{{ route('delete.class', $class->id) }}" method="POST"
+                                                    style="display: none;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @endforeach
-                                </tbody>
-                            </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                         </div>
                         <!-- "Nothing found" message -->
                         <div style="display: none;"
