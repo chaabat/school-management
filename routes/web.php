@@ -55,6 +55,8 @@ Route::get('/student-parent/{id}', [StudentController::class, 'myParent'])->name
 
 Route::resource('parents', ParentController::class);
 Route::get('/search-parents', [ParentController::class, 'search'])->name('search.parents');
+Route::get('/parent-student/{id}', [ParentController::class, 'myStudent'])->name('myStudent');
+
 
 
 /*************************************************** ADMIN CLASSES ***********************************************************************/

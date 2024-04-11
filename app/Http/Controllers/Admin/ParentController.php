@@ -77,8 +77,11 @@ class ParentController extends Controller
      */
     public function show(string $id)
     {
+       $parents = User::find($id);
+        $child = $parents->child;
+
         $parent = $this->parentRepository->getParentById($id);
-        return view('admin/parents/details', compact('parent'));
+        return view('admin/parents/details', compact('parent', 'child', 'parents'));
     }
 
     /**
@@ -147,13 +150,15 @@ class ParentController extends Controller
     }
 
 
-    // public function myStudent($id)
-    // {
-    //     $child = User::find($id); // Assuming $id represents the child's ID
-    //     $parent = $child->parent; // Get the parent of the child
-
-    //     return view('admin.parents.parentStudent', compact('parent', 'child'));
-    // }
+    public function myStudent($id)
+    {
+        $parent = User::find($id);
+        $children = $parent->children;
+        
+    
+        return view('admin.parents.parentStudent', compact('parent', 'children'));
+    }
+    
 
  
 }

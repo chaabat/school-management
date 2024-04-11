@@ -47,6 +47,8 @@
     @yield('addStudent')
     @yield('updateStudent')
     @yield('studentDetails')
+    @yield('student-parent')
+
 
 
 

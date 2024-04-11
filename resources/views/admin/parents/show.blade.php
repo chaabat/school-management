@@ -90,7 +90,7 @@
                                             <a href="{{ route('parents.show', $parent->id) }}"><img
                                                     src="{{ asset('photos/show.png') }}" class="h-6" alt=""></a>
 
-                                                    <a href="{{ route('myParent', $parent->id) }}"><img
+                                                    <a href="{{ route('myStudent', $parent->id) }}"><img
                                                         src="{{ asset('photos/administrateur.png') }}" class="h-6" alt=""></a>
 
 

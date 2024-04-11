@@ -9,10 +9,10 @@
                 <div class="w-full h-[250px]">
                     <img src="https://vojislavd.com/ta-template-demo/assets/img/profile-background.jpg"
                         class="w-full h-full rounded-tl-lg rounded-tr-lg">
+
                 </div>
                 <div class="flex flex-col items-center -mt-20">
-                    <img src="{{ asset('users/' . $student->picture) }}"
-                        class="w-40 h-40 border-4 border-white rounded-full">
+                    <img src="{{ asset('users/' . $student->picture) }}" class="w-40 h-40 border-4 border-white rounded-full">
                     <div class="flex items-center space-x-2 mt-2">
                         <p class="text-2xl font-mono ">{{ $student->name }}</p>
                         <span class="bg-blue-500 rounded-full p-1" title="Verified">
@@ -23,6 +23,7 @@
                             </svg>
                         </span>
                     </div>
+
                     <p class="text-m text-black font-mono font-bold">student</p>
                 </div>
                 <div class="flex-1 flex flex-col items-center lg:items-end justify-end px-8 mt-2">
@@ -68,6 +69,11 @@
                             <li class="flex border-b py-2">
                                 <span class="font-bold w-24">Mobile:</span>
                                 <span class="text-gray-700">{{ $student->phone }}</span>
+                            </li>
+                            <li class="flex border-b py-2">
+                                <span class="font-bold w-24">Parent:</span>
+                                <span class="text-blue hover:text-orange font-mono font-bold underline">
+                                    <a href="{{ route('myParent', $student->id) }}">Details </a></span>
                             </li>
                         </ul>
                     </div>

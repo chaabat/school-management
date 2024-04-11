@@ -69,6 +69,12 @@
                                 <span class="font-bold w-24">Mobile:</span>
                                 <span class="text-gray-700">{{ $parent->phone }}</span>
                             </li>
+                            {{-- <li class="flex border-b py-2">
+                                <span class="font-bold w-24">Child:</span>
+                                <span class="text-blue hover:text-orange font-mono font-bold underline"> <a href="{{ route('students.show', $child->id) }}">
+                                        {{ $child->name }}
+                                    </a></span>
+                            </li> --}}
                         </ul>
                     </div>
 

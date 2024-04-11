@@ -71,8 +71,10 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
+        $child = User::find($id);
+        $parent = $child->parent;
         $student = $this->studentRepository->getStudentById($id);
-        return view('admin/students/details', compact('student'));
+        return view('admin/students/details', compact('student','parent','child'));
     }
 
     /**
