@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\parentRequest;
 use App\Http\Requests\UpdateParentRequest;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
@@ -35,7 +36,8 @@ class ParentController extends Controller
      */
     public function create()
     {
-        return view('admin/parents/add');
+       
+        return view('admin.parents.add');
     }
 
     /**
@@ -84,9 +86,11 @@ class ParentController extends Controller
      */
     public function edit(string $id)
     {
+        $studentRoleId = Role::where('name', 'student')->value('id');
+        $students = User::where('role_id', $studentRoleId)->get();
         $parent = $this->parentRepository->getParentById($id);
 
-        return view('admin/parents/update', compact('parent'));
+        return view('admin/parents/update', compact('parent', 'students'));
     }
 
     /**
@@ -97,26 +101,26 @@ class ParentController extends Controller
         $parent = $this->parentRepository->getParentById($id);
         try {
             $updateParent = $request->validated();
-    
+
             if (isset($updateParent['password'])) {
                 $updateParent['password'] = Hash::make($updateParent['password']);
             }
-    
+
             if ($request->hasFile('picture')) {
                 $fileName = time() . '.' . $request->picture->extension();
                 $request->picture->move(public_path('users'), $fileName);
                 $updateParent['picture'] = $fileName;
             }
-    
-             
+
+
             $this->parentRepository->updateParent($id, $updateParent);
-    
+
             return redirect()->route('parents.index')->with('success', 'Parent updated successfully');
         } catch (QueryException $e) {
             dd($e->getMessage());
         }
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -132,7 +136,7 @@ class ParentController extends Controller
         }
     }
 
-     
+
     public function search(Request $request)
     {
         $search = $request->input('search');
@@ -143,5 +147,13 @@ class ParentController extends Controller
     }
 
 
+    // public function myStudent($id)
+    // {
+    //     $child = User::find($id); // Assuming $id represents the child's ID
+    //     $parent = $child->parent; // Get the parent of the child
 
+    //     return view('admin.parents.parentStudent', compact('parent', 'child'));
+    // }
+
+ 
 }

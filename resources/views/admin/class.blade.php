@@ -84,7 +84,7 @@
                                     @foreach ($classes as $class)
                                      
                                         <div
-                                        class="  border-4 border-[#fb5607] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+                                        class=" class-card border-4 border-[#fb5607] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
             
                                         <div class="bg-white py-4 px-3"  style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe1.jpg') }}') no-repeat center;background-size:cover">
                                             <h1 class="text-3xl text-white text-center mb-2 font-bold font-mono">{{ $class->name }}

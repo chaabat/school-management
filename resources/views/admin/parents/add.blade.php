@@ -110,22 +110,8 @@
 
                             </div>
                         </div>
-                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
-                                for="grid-state">
-                                Student
-                            </label>
-                            <div class="relative">
-                                <select id="class" name="class"
-                                    class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected="">Select Student</option>
-                                    <option value="">ayoub</option>
-                                    <option value="">moad</option>
-
-                                </select>
-
-                            </div>
-                        </div>
+                     
+                        
                     </div>
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">

@@ -72,7 +72,7 @@
                                     @foreach ($subjects as $subject)
                                      
                                         <div
-                                        class="  border-4 border-[#03045e] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+                                        class=" border-4 border-[#03045e] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
             
                                         <div class="bg-white py-4 px-3"  style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe2.jpg') }}') no-repeat center;background-size:cover">
                                             <h1 class="text-3xl text-white text-center mb-2 font-bold font-mono">{{ $subject->name }}

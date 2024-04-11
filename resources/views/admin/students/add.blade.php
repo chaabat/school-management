@@ -114,17 +114,16 @@
                         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
                             <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
                                 for="grid-state">
-                                Course
+                                Parent
                             </label>
                             <div class="relative">
-                                <select id="class" name="class"
-                                    class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected="">Select Class</option>
-                                    <option value="">math</option>
-                                    <option value="">svt</option>
-
+                                <select name="parent_id"
+                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
+                                    <option disabled selected>Select Student</option>
+                                    @foreach($parents as $parent)
+                                        <option value="{{ $parent->id }}">{{ $parent->name }}</option>
+                                    @endforeach
                                 </select>
-
                             </div>
                         </div>
                     </div>

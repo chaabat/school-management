@@ -34,6 +34,7 @@
     @yield('addParent')
     @yield('updateParent')
     @yield('parentDetails')
+    @yield('parent-student')
 
 
     @yield('teacher')

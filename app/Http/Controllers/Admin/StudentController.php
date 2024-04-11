@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\studentRequest;
 use App\Http\Requests\UpdatestudentRequest;
 use Illuminate\Http\Request;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +34,10 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('admin/students/add');
+         
+        $parentRoleId = Role::where('name', 'parent')->value('id');
+        $parents = User::where('role_id', $parentRoleId)->get();
+        return view('admin/students/add', compact('parents'));
     }
 
     /**
@@ -75,9 +80,12 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
+        $parentRoleId = Role::where('name', 'parent')->value('id');
+        $parents = User::where('role_id', $parentRoleId)->get();
+        
         $student = $this->studentRepository->getStudentById($id);
 
-        return view('admin/students/update', compact('student'));
+        return view('admin/students/update', compact('student','parents'));
     }
 
     /**
@@ -86,25 +94,25 @@ class StudentController extends Controller
     public function update(UpdatestudentRequest $request, $id)
     {
         $student = $this->studentRepository->getStudentById($id);
-    
+
         $updateStudent = $request->validated();
-    
+
         if (isset($updateStudent['password'])) {
             $updateStudent['password'] = Hash::make($updateStudent['password']);
         }
-    
+
         if ($request->hasFile('picture')) {
             $fileName = time() . '.' . $request->picture->extension();
             $request->picture->move(public_path('users'), $fileName);
             $updateStudent['picture'] = $fileName;
         }
-    
-        
+
+
         $this->studentRepository->updateStudent($id, $updateStudent);
-    
+
         return redirect()->route('students.index')->with('success', 'Student updated successfully');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
@@ -123,5 +131,16 @@ class StudentController extends Controller
         $students = $this->studentRepository->searchStudents($search);
 
         return response()->json($students);
+    }
+
+    public function myParent($id)
+    {
+        $child = User::find($id);
+        $parent = $child->parent;
+
+        // $parent = User::find($id);
+        // $child = $parent->child;
+
+        return view('admin.students.studentParent', compact('parent', 'child'));
     }
 }

@@ -88,6 +88,9 @@
                                             <a href="{{ route('students.show', $student->id) }}"><img
                                                     src="{{ asset('photos/show.png') }}" class="h-6" alt=""></a>
 
+                                            <a href="{{ route('myParent', $student->id) }}"><img
+                                                    src="{{ asset('photos/administrateur.png') }}" class="h-6"
+                                                    alt=""></a>
 
                                             <a href="{{ route('students.edit', $student->id) }}"><img
                                                     src="{{ asset('photos/update.png') }}" class="h-6"
@@ -112,19 +115,22 @@
                             {{-- card end  --}}
                         </div>
                         {{-- Search not found  --}}
-                        <div style="display: none;" class="search-not-found bg-white flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg  ">
-                            <p class="text-6xl md:text-7xl lg:text-9xl font-bold font-mono text-[#fb5607]">4<span class="text-[#03045e]">0</span>4</p>
-                            <p class="text-2xl md:text-3xl lg:text-5xl font-bold font-mono text-[#03045e] mt-4">Recherche introuvable</p>
-                              
-                        </div>
-                        
-                        <nav class="flex flex-col md:flex-row justify-end items-end md:items-center space-y-3 md:space-y-0 p-4"
-                        aria-label="Table navigation">
+                        <div style="display: none;"
+                            class="search-not-found bg-white flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg  ">
+                            <p class="text-6xl md:text-7xl lg:text-9xl font-bold font-mono text-[#fb5607]">4<span
+                                    class="text-[#03045e]">0</span>4</p>
+                            <p class="text-2xl md:text-3xl lg:text-5xl font-bold font-mono text-[#03045e] mt-4">Recherche
+                                introuvable</p>
 
-                        <div class="mt-8 flex justify-center bg-white font-mono">
-                            {{ $students->links('pagination::tailwind') }}
                         </div>
-                    </nav>
+
+                        <nav class="flex flex-col md:flex-row justify-end items-end md:items-center space-y-3 md:space-y-0 p-4"
+                            aria-label="Table navigation">
+
+                            <div class="mt-8 flex justify-center bg-white font-mono">
+                                {{ $students->links('pagination::tailwind') }}
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </section>
@@ -134,7 +140,7 @@
                 $(document).ready(function() {
                     $('#search').on('keyup', function() {
                         var query = $(this).val();
-            
+
                         $.ajax({
                             url: "{{ route('search.students') }}",
                             type: "GET",
@@ -146,7 +152,7 @@
                                 $('.student-card').remove();
                                 // Hide the "Nothing found" message initially
                                 $('.search-not-found').hide();
-            
+
                                 if (data.length > 0) {
                                     data.forEach(function(student) {
                                         var cardHtml = `<div class="student-card bg-[#03045e] hover:bg-[#fb5607] flex flex-col items-center p-4  rounded-xl">
@@ -163,7 +169,7 @@
                                                 </form>
                                             </div>
                                         </div>`;
-            
+
                                         $('.grid').append(cardHtml);
                                     });
                                 } else {

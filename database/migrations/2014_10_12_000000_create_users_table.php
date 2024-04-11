@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('picture')->nullable();
-            // $table->string('role');
             $table->string('adress');
             $table->string('phone');
             $table->enum('genre', ['masculin', 'feminin']);
@@ -26,6 +25,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -34,6 +35,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['parent_id']);
+        });
         Schema::dropIfExists('users');
     }
 };

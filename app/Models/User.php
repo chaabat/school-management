@@ -28,7 +28,8 @@ class User extends Authenticatable
         'phone',
         'picture',
         'description',
-        'role_id'
+        'role_id',
+        'parent_id'
     ];
 
     /**
@@ -55,7 +56,15 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+    public function children()
+    {
+        return $this->hasMany(User::class, 'parent_id');
+    }
 
+    public function parent()
+    {
+        return $this->belongsTo(User::class, 'parent_id');
+    }
 
 
 

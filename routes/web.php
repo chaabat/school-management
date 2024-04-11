@@ -49,6 +49,8 @@ Route::get('/search-teachers', [TeacherController::class, 'search'])->name('sear
 
 Route::resource('students', StudentController::class);
 Route::get('/search-students', [StudentController::class, 'search'])->name('search.students');
+Route::get('/student-parent/{id}', [StudentController::class, 'myParent'])->name('myParent');
+
 /*************************************************** PARENTS ***********************************************************************/
 
 Route::resource('parents', ParentController::class);

@@ -115,14 +115,13 @@
                                 Student
                             </label>
                             <div class="relative">
-                                <select id="class" name="class"
-                                    class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected="">Select Student</option>
-                                    <option value="">ayoub</option>
-                                    <option value="">moad</option>
-
+                                <select name="child_id"
+                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
+                                    <option disabled selected>Select Student</option>
+                                    @foreach($students as $student)
+                                        <option value="{{ $student->id }}">{{ $student->name }}</option>
+                                    @endforeach
                                 </select>
-
                             </div>
                         </div>
                     </div>
