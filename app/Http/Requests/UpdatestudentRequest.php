@@ -32,6 +32,7 @@ class UpdatestudentRequest extends FormRequest
             'phone' => 'required|min:8',
             'description' => 'required',
             'parent_id' => 'nullable',
+            'classe_id' => 'nullable',
         ];
     }
     /**

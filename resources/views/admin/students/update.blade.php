@@ -100,14 +100,29 @@
                                 Genre
                             </label>
                             <div class="relative">
-                                <select  name="genre"
+                                <select  name="genre" value="{{ $student->genre }}"
                                     class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected=""  value="{{ $student->genre }}" >Select Genre</option>
+                                    <option disabled selected="">Select Genre</option>
                                     <option value="masculin">Masculin</option>
                                     <option value="feminin">Féminin</option>
 
                                 </select>
 
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
+                                for="grid-state">
+                                Classe
+                            </label>
+                            <div class="relative">
+                                <select name="classe_id"
+                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
+                                    <option disabled selected>Select Classe</option>
+                                    @foreach($classes as $classe)
+                                        <option value="{{ $classe->id }}">{{ $classe->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="md:w-1/2 px-3 mb-6 md:mb-0">

@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('class')
+
     <div class="p-4 h-screen sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
@@ -91,18 +92,15 @@
                                             </h1>
                                             <div class="flex justify-between">
             
-                                                <span data-modal-target="update-modal" data-modal-toggle="update-modal">
+                                                 
 
-                                                    <a href="#" id="defaultModalButton" data-modal-target="update"
+                                                    <button id="defaultModalButton" data-modal-target="update"
                                                         data-modal-toggle="update" class="edit-class"
                                                         data-class-id="{{ $class->id }}"
                                                         data-class-name="{{ $class->name }}"><img
                                                             src="{{ asset('photos/update.png') }}"
-                                                            class="h-6"alt=""></a>
-                                                </span>
-
-
-
+                                                            class="h-6"alt=""></button>
+                                               
 
                                                 <a href="#"
                                                     onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Class ?')) { document.getElementById('delete-form-{{ $class->id }}').submit(); }">
@@ -126,11 +124,10 @@
                     </div>
                         </div>
                         <!-- "Nothing found" message -->
-                        <div style="display: none;"
-                            class="search-not-found bg-white flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg">
-                            <p class="text-6xl md:text-7xl lg:text-9xl font-bold font-mono text-[#fb5607]">404</p>
-                            <p class="text-2xl md:text-3xl lg:text-5xl font-bold font-mono text-[#03045e] mt-4">Recherche
-                                introuvable</p>
+                        <div style="display: none;" class="search-not-found bg-white flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg  ">
+                            <p class="text-6xl md:text-7xl lg:text-9xl font-bold font-mono text-[#fb5607]">4<span class="text-[#03045e]">0</span>4</p>
+                            <p class="text-2xl md:text-3xl lg:text-5xl font-bold font-mono text-[#03045e] mt-4">Recherche introuvable</p>
+                              
                         </div>
                         <nav class="flex flex-col md:flex-row justify-end items-end md:items-center space-y-3 md:space-y-0 p-4"
                             aria-label="Table navigation">
@@ -210,7 +207,7 @@
                 </div>
             </div>
 
-
+        
 
 
             {{-- Modifier course  --}}
@@ -239,7 +236,7 @@
                             </button>
                         </div>
 
-                        <form action="{{ route('update.class') }}" method="POST">
+                        <form id="updateForm" action="{{ route('update.class') }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="grid gap-4 mb-4 sm:grid-cols-2">

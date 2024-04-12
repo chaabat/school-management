@@ -21,7 +21,7 @@ class CheckRole
         // Check if the user is authenticated
         if (Auth::check()) {
             // Check if the user has the required role
-            if (Auth::user()->role == $role) {
+            if (Auth::user()->role->name == $role) {
                 // User has the required role, allow access
                 return $next($request);
             }

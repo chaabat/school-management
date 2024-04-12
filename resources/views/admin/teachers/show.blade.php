@@ -130,51 +130,6 @@
                 </div>
             </section>
 
+            <script src="js/teacherSearch.js"></script>
 
-
-            <script>
-                $(document).ready(function() {
-                    $('#search').on('keyup', function() {
-                        var query = $(this).val();
-            
-                        $.ajax({
-                            url: "{{ route('search.teachers') }}",
-                            type: "GET",
-                            data: {
-                                'search': query
-                            },
-                            success: function(data) {
-                                // Clear existing teacher cards
-                                $('.teacher-card').remove();
-                                // Hide the "Nothing found" message initially
-                                $('.search-not-found').hide();
-            
-                                if (data.length > 0) {
-                                    data.forEach(function(teacher) {
-                                        var cardHtml = `<div class="teacher-card bg-[#03045e] hover:bg-[#fb5607] flex flex-col items-center p-4  rounded-xl">
-                                            <img class="object-cover w-14 h-14 rounded-full ring-4 ring-white"
-                                                src="{{ asset('users') }}/${teacher.picture}" alt="">
-                                            <h1 class="mt-4 text-xl font-semibold font-mono text-white capitalize dark:text-white group-hover:text-white">${teacher.name}</h1>
-                                            <div class="flex mt-3 -mx-2 space-x-4">
-                                                <a href="{{ route('teachers.show', '') }}/${teacher.id}"><img src="{{ asset('photos/show.png') }}" class="h-6" alt=""></a>
-                                                <a href="{{ url('teachers/${teacher.id}/edit') }}"><img src="{{ asset('photos/update.png') }}" class="h-6" alt=""></a>
-                                                <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this teacher?')) { document.getElementById('delete-form-${teacher.id}').submit(); }"><img src="{{ asset('photos/delete.png') }}" class="h-6" alt=""></a>
-                                                <form id="delete-form-${teacher.id}" action="{{ route('teachers.destroy', '') }}/${teacher.id}" method="POST" style="display: none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
-                                            </div>
-                                        </div>`;
-            
-                                        $('.grid').append(cardHtml);
-                                    });
-                                } else {
-                                    // Show "Nothing found" message if no results
-                                    $('.search-not-found').show();
-                                }
-                            }
-                        });
-                    });
-                });
-            </script>
         @endsection

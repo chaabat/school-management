@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\studentRequest;
 use App\Http\Requests\UpdatestudentRequest;
+use App\Models\Classe;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
@@ -34,10 +35,10 @@ class StudentController extends Controller
      */
     public function create()
     {
-         
+        $classes = Classe::where('statut','activer')->get();
         $parentRoleId = Role::where('name', 'parent')->value('id');
         $parents = User::where('role_id', $parentRoleId)->get();
-        return view('admin/students/add', compact('parents'));
+        return view('admin/students/add', compact('parents','classes'));
     }
 
     /**
@@ -82,12 +83,13 @@ class StudentController extends Controller
      */
     public function edit(string $id)
     {
+        $classes = Classe::where('statut','activer')->get();
         $parentRoleId = Role::where('name', 'parent')->value('id');
         $parents = User::where('role_id', $parentRoleId)->get();
         
         $student = $this->studentRepository->getStudentById($id);
 
-        return view('admin/students/update', compact('student','parents'));
+        return view('admin/students/update', compact('student','parents','classes'));
     }
 
     /**

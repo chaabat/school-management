@@ -8,7 +8,8 @@ use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\SubjectToClasseController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Auth\AuthentificationController;
-
+use App\Http\Controllers\Parent\ParentsController;
+use App\Http\Controllers\Student\StudentsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::get('/unauthorized', function () {
+    return response()->view('errors.403', [], 403);
+})->name('unauthorized');
 
 Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
 
@@ -96,5 +99,22 @@ Route::group(['prefix' => 'subject-to-class'], function () {
 
 
 
+
+
+
+
+
+
 Route::group(['middleware' => ['auth', 'role:parent']], function () {
+    Route::get('/parent/dashboard',[ParentsController::class, 'index'])->name('parentDashboard');
+    Route::get('/myChildren',[ParentsController::class, 'myChildren'])->name('myChildren');
+    Route::get('/myChildren/classe-subjects/{id}',[ParentsController::class, 'myChildrenSubjects'])->name('myChildrenSubjects');
 });
+
+
+Route::group(['middleware' => ['auth', 'role:student']], function () {
+Route::get('/student/dashboard',[StudentsController::class, 'index'])->name('studentDashboard');
+Route::get('/mySubjects',[StudentsController::class, 'mySubject'])->name('mySubject');
+});
+
+

@@ -33,6 +33,7 @@ class studentRequest extends FormRequest
             'description' => 'required',
             'role_id' => 'required',
             'parent_id' => 'nullable',
+            'classe_id' => 'nullable',
 
         ];
     }

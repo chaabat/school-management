@@ -50,9 +50,9 @@ class AuthentificationController extends Controller
             } elseif ($role === 'teacher') {
                 $redirect = 'teachers.index';
             } elseif ($role === 'student') {
-                $redirect = 'students.index';
+                $redirect = 'studentDashboard';
             } elseif ($role === 'parent') {
-                $redirect = 'parents.index';
+                $redirect = 'parentDashboard';
             }
 
             return redirect()->route($redirect);
@@ -136,6 +136,6 @@ class AuthentificationController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('welcome');
+        return redirect()->route('home');
     }
 }
