@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Classe extends Model
+
+class TeacherToClasse extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -15,17 +16,13 @@ class Classe extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function subjectToClass()
+    public function classe()
     {
-        return $this->hasMany(SubjetToClass::class);
-    }
-    public function user()
-    {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(Classe::class);
     }
 
-    public function teacherToClasse()
+    public function user()
     {
-        return $this->hasMany(TeacherToClasse::class);
+        return $this->belongsTo(User::class);
     }
 }

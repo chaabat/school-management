@@ -23,6 +23,8 @@
     @yield('course')
     @yield('class')
     @yield('subjectToClass')
+    @yield('teacherToClass')
+    
 
 
     @yield('admin')

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\SubjectToClasseController;
 use App\Http\Controllers\Admin\TeacherController;
+use App\Http\Controllers\Admin\TeacherToClasseController;
 use App\Http\Controllers\Auth\AuthentificationController;
 use App\Http\Controllers\Parent\ParentsController;
 use App\Http\Controllers\Student\StudentsController;
@@ -48,6 +49,10 @@ Route::post('logout', [AuthentificationController::class, 'destroy'])->name('log
 
 Route::resource('teachers', TeacherController::class);
 Route::get('/search-teachers', [TeacherController::class, 'search'])->name('search.teachers');
+
+
+
+
 /*************************************************** STUDENTS ***********************************************************************/
 
 Route::resource('students', StudentController::class);
@@ -96,14 +101,24 @@ Route::group(['prefix' => 'subject-to-class'], function () {
 });
 
 
+/*************************************************** ADMIN TEACHER TO CLASSE ***********************************************************************/
+
+
+
+Route::group(['prefix' => 'teacher-to-classe'], function () {
+    Route::get('/', [TeacherToClasseController::class, 'index'])->name('teacherToClasse');
+    Route::post('/', [TeacherToClasseController::class, 'store'])->name('createTeacherToClasse');
+    Route::delete('/{id}', [TeacherToClasseController::class, 'destroy'])->name('deleteTeacherToClasse');
+    Route::put('/', [TeacherToClasseController::class, 'update'])->name('updateTeacherToClasse');
+    Route::get('/search',[TeacherToClasseController::class, 'search'])->name('searchTeacherToClasse');
+
+});
 
 
 
 
 
-
-
-
+/*************************************************** PARENTS ***********************************************************************/
 
 Route::group(['middleware' => ['auth', 'role:parent']], function () {
     Route::get('/parent/dashboard',[ParentsController::class, 'index'])->name('parentDashboard');
@@ -111,6 +126,7 @@ Route::group(['middleware' => ['auth', 'role:parent']], function () {
     Route::get('/myChildren/classe-subjects/{id}',[ParentsController::class, 'myChildrenSubjects'])->name('myChildrenSubjects');
 });
 
+/*************************************************** STUDENTS ***********************************************************************/
 
 Route::group(['middleware' => ['auth', 'role:student']], function () {
 Route::get('/student/dashboard',[StudentsController::class, 'index'])->name('studentDashboard');

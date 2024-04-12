@@ -22,12 +22,12 @@ class SubjectToClasseController extends Controller
     {
         $validatedData = $request->validate([
             'classe_id' => 'required',
-            'subject_id' => 'required|array', // Ensure subject_id is an array
-            'subject_id.*' => 'exists:subjects,id', // Validate each subject_id exists in the subjects table
+            'subject_id' => 'required|array',  
+            'subject_id.*' => 'exists:subjects,id',  
             'statut' =>'required',
         ]);
     
-        // Create a new SubjetToClass record for each selected subject
+        
         foreach ($validatedData['subject_id'] as $subjectId) {
             SubjetToClass::create([
                 'classe_id' => $validatedData['classe_id'],
@@ -68,7 +68,7 @@ class SubjectToClasseController extends Controller
     {
         $searchQuery = $request->get('query');
     
-        // Perform your search logic here
+         
         $results = SubjetToClass::whereHas('classe', function ($query) use ($searchQuery) {
                     $query->where('name', 'like', '%' . $searchQuery . '%');
                 })
@@ -81,11 +81,6 @@ class SubjectToClasseController extends Controller
         return response()->json($results);
     }
     
-
-    
-    
-
-
 
     public function destroy($id)
     {
