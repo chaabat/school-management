@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\TeacherToClasseController;
 use App\Http\Controllers\Auth\AuthentificationController;
 use App\Http\Controllers\Parent\ParentsController;
 use App\Http\Controllers\Student\StudentsController;
+use App\Http\Controllers\Teacher\TeachersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -134,3 +135,11 @@ Route::get('/mySubjects',[StudentsController::class, 'mySubject'])->name('mySubj
 });
 
 
+/*************************************************** TEACHERS ***********************************************************************/
+
+
+
+Route::group(['middleware' => ['auth', 'role:teacher']], function () {
+    Route::get('/teacher/dashboard',[TeachersController::class, 'index'])->name('teacherDashboard');
+    Route::get('/myClasse',[TeachersController::class, 'myClasse'])->name('myClasse');
+});

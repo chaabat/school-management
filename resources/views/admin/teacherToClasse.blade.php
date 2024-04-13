@@ -83,9 +83,9 @@
                                         <tr class="class-row border-b dark:border-[#03045e]">
                                             <th class="px-4 py-3 font-mono text-[#fb5607] font-bold">{{ $class->id }}
                                             </th>
-                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->classe->name }}
-                                            </td>
                                             <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->user->name }}
+                                            </td>
+                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->classe->name }}
                                             </td>
                                             <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->statut }}</td>
                                             <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->created_at }}
