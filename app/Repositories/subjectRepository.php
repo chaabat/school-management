@@ -38,4 +38,8 @@ class subjectRepository implements subjectsRepositoryInterface
         $subjects = Subject::findOrFail($id);
         $subjects->delete();
     }
+    public function searchSubjects($query)
+    {
+        return Subject::where('name', 'like', "%$query%")->get();
+    }
 }

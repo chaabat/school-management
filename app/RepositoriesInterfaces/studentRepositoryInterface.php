@@ -1,6 +1,7 @@
 <?php
 
 namespace App\repositoriesInterfaces;
+
 interface studentRepositoryInterface
 {
     public function createStudent(array $data);
@@ -9,5 +10,8 @@ interface studentRepositoryInterface
     public function updateStudent($id, array $data);
     public function destroyStudent($id);
     public function searchStudents($search);
-   
+    public function getParents();
+    public function getActiveClasses();
+    public function getStudentWithParent($id);
+
 }

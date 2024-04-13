@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Classe;
 use App\RepositoriesInterfaces\studentRepositoryInterface;
 
 
@@ -41,7 +42,7 @@ class studentRepository implements studentRepositoryInterface
         $student = User::findOrFail($id);
         $student->delete();
     }
-    
+
     public function searchStudents($search)
     {
         return User::where('name', 'like', '%' . $search . '%')
@@ -49,5 +50,21 @@ class studentRepository implements studentRepositoryInterface
                 $query->where('name', 'student');
             })
             ->get();
+    }
+
+    public function getActiveClasses()
+    {
+        return Classe::where('statut', 'activer')->get();
+    }
+
+    public function getParents()
+    {
+        $parentRoleId = Role::where('name', 'parent')->value('id');
+        return User::where('role_id', $parentRoleId)->get();
+    }
+
+    public function getStudentWithParent($id)
+    {
+        return User::with('parent')->findOrFail($id);
     }
 }

@@ -4,60 +4,50 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Database\QueryException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\subjectToClasseRequest;
+use App\Http\Requests\UpdateSubjectToClasseRequest;
 use App\Models\Classe;
 use App\Models\Subject;
 use App\Models\SubjetToClass;
 use Illuminate\Http\Request;
-
+use App\RepositoriesInterfaces\subjectToClasseRepositoryInterface;
 class SubjectToClasseController extends Controller
 {
-    public function index(){
-        $classes = Classe::all();
-        $subjects = Subject::all();
-        $subjetToClasse=SubjetToClass::paginate(6);
-        return view('admin/subjectToClass',compact('subjetToClasse','subjects','classes'));
+
+    private $subjectToClassRepository;
+
+    public function __construct(subjectToClasseRepositoryInterface $subjectToClassRepository)
+    {
+        $this->subjectToClassRepository = $subjectToClassRepository;
     }
 
-    public function store(Request $request)
+    public function index()
     {
-        $validatedData = $request->validate([
-            'classe_id' => 'required',
-            'subject_id' => 'required|array',  
-            'subject_id.*' => 'exists:subjects,id',  
-            'statut' =>'required',
-        ]);
+        $classes = $this->subjectToClassRepository->getAllClasses();
+        $subjects = $this->subjectToClassRepository->getAllSubjects();
+        $subjetToClasse = $this->subjectToClassRepository->getAllSubjectToClassPaginated(6);
+        return view('admin.subjectToClass', compact('subjetToClasse', 'subjects', 'classes'));
+    }
+
+    public function store(subjectToClasseRequest $request)
+    {
+        $data = $request->validated();
     
-        
-        foreach ($validatedData['subject_id'] as $subjectId) {
-            SubjetToClass::create([
-                'classe_id' => $validatedData['classe_id'],
-                'subject_id' => $subjectId,
-                'statut' => $validatedData['statut'],
-            ]);
-        }
+         
+        $this->subjectToClassRepository->create($data);
     
         return redirect()->back()->with('success', 'Subjects added to class successfully.');
     }
     
-    
-   
 
-    public function update(Request $request)
+
+    public function update(UpdateSubjectToClasseRequest $request)
     {
         try {
-            $validatedData = $request->validate([
-                'classe_id' => 'required',
-                'subject_id' => 'required',
-                'statut' => 'required|in:activer,desactiver',
-            ], [
-                'classe_id.required' => 'Le champ "Classe" est requis.',
-                'subject_id.required' => 'Le champ "Subject" est requis.',
-                'statut.required' => 'Le statut est requis.',
-                'statut.in' => 'Le statut doit être "activer" ou "desactiver".',
-            ]);
+            $validatedData = $request->validated();
     
-            $subjetToClasse = SubjetToClass::findOrFail($request->id);
-            $subjetToClasse->update($validatedData);
+            $this->subjectToClassRepository->update($validatedData, $request->id);
+
     
             return redirect()->back()->with('success', 'La relation "Subject-to-class" a été mise à jour avec succès.');
         } catch (QueryException $e) {
@@ -67,25 +57,13 @@ class SubjectToClasseController extends Controller
     public function search(Request $request)
     {
         $searchQuery = $request->get('query');
-    
-         
-        $results = SubjetToClass::whereHas('classe', function ($query) use ($searchQuery) {
-                    $query->where('name', 'like', '%' . $searchQuery . '%');
-                })
-                ->orWhereHas('subject', function ($query) use ($searchQuery) {
-                    $query->where('name', 'like', '%' . $searchQuery . '%');
-                })
-                ->with('classe', 'subject')
-                ->get();
-    
+        $results = $this->subjectToClassRepository->search($searchQuery);
         return response()->json($results);
     }
-    
 
     public function destroy($id)
     {
-        $subjetToClasse = SubjetToClass::findOrFail($id);
-        $subjetToClasse->delete();
+        $this->subjectToClassRepository->delete($id);
 
         return redirect()->back()->with('success', 'Subject-to-class relationship deleted successfully.');
     }

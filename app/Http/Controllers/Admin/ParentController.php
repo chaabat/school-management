@@ -76,24 +76,23 @@ class ParentController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-       $parents = User::find($id);
-        $child = $parents->child;
+{
+    $parent = $this->parentRepository->getParentWithChildren($id);
+    $children = $parent->children;
 
-        $parent = $this->parentRepository->getParentById($id);
-        return view('admin/parents/details', compact('parent', 'child', 'parents'));
-    }
+    return view('admin.parents.details', compact('parent', 'children'));
+}
+
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $studentRoleId = Role::where('name', 'student')->value('id');
-        $students = User::where('role_id', $studentRoleId)->get();
+        $students = $this->parentRepository->getStudents();
         $parent = $this->parentRepository->getParentById($id);
-
-        return view('admin/parents/update', compact('parent', 'students'));
+    
+        return view('admin.parents.update', compact('parent', 'students'));
     }
 
     /**

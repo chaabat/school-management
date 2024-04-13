@@ -4,12 +4,10 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Models\Role;
-use App\RepositoriesInterfaces\parentRepositoryInterface;
+use App\RepositoriesInterfaces\ParentRepositoryInterface;
 
-
-class parentRepository implements parentRepositoryInterface
+class ParentRepository implements ParentRepositoryInterface
 {
-
     public function createParent(array $data)
     {
         return User::create($data);
@@ -49,5 +47,20 @@ class parentRepository implements parentRepositoryInterface
                 $query->where('name', 'parent');
             })
             ->get();
+    }
+
+    public function getStudents()
+    {
+        $studentRole = Role::where('name', 'student')->first();
+        if ($studentRole) {
+            return User::where('role_id', $studentRole->id)->get();
+        } else {
+            return collect();  
+        }
+    }
+
+    public function getParentWithChildren($id)
+    {
+        return User::with('children')->findOrFail($id);
     }
 }

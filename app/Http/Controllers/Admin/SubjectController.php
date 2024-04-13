@@ -66,12 +66,10 @@ class SubjectController extends Controller
     }
 
     public function search(Request $request)
-{
-    $query = $request->input('search');
+    {
+        $query = $request->input('search');
+        $subjects = $this->subjectRepository->searchSubjects($query);
 
-    // Perform search query based on your requirements
-    $subjects = Subject::where('name', 'like', "%$query%")->get();
-
-    return response()->json($subjects);
-}
+        return response()->json($subjects);
+    }
 }

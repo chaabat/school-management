@@ -8,5 +8,7 @@ interface subjectsRepositoryInterface
     public function getSubjectById($id);
     public function updateSubject($id, array $data);
     public function destroySubject($id);
+    public function searchSubjects($query);
+
    
 }

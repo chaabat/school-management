@@ -35,11 +35,11 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $classes = Classe::where('statut','activer')->get();
-        $parentRoleId = Role::where('name', 'parent')->value('id');
-        $parents = User::where('role_id', $parentRoleId)->get();
-        return view('admin/students/add', compact('parents','classes'));
+        $classes = $this->studentRepository->getActiveClasses();
+        $parents = $this->studentRepository->getParents();
+        return view('admin.students.add', compact('parents', 'classes'));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -50,13 +50,12 @@ class StudentController extends Controller
         try {
             $student = $request->validated();
 
-
             $student['password'] = Hash::make($request->password);
 
             $fileName = time() . '.' . $request->picture->extension();
             $request->picture->move(public_path('users'), $fileName);
             $student = array_merge($student, ['picture' => $fileName]);
-
+            
             $user = $this->studentRepository->createStudent($student);
             Auth::login($user);
 
@@ -72,25 +71,22 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        $child = User::find($id);
-        $parent = $child->parent;
-        $student = $this->studentRepository->getStudentById($id);
-        return view('admin/students/details', compact('student','parent','child'));
+        $student = $this->studentRepository->getStudentWithParent($id);
+        $child = $student;
+        $parent = $student->parent;
+        return view('admin/students/details', compact('student', 'parent', 'child'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {
-        $classes = Classe::where('statut','activer')->get();
-        $parentRoleId = Role::where('name', 'parent')->value('id');
-        $parents = User::where('role_id', $parentRoleId)->get();
-        
-        $student = $this->studentRepository->getStudentById($id);
-
-        return view('admin/students/update', compact('student','parents','classes'));
-    }
+{
+    $classes = $this->studentRepository->getActiveClasses();
+    $parents = $this->studentRepository->getParents();
+    $student = $this->studentRepository->getStudentById($id);
+    return view('admin.students.update', compact('student', 'parents', 'classes'));
+}
 
     /**
      * Update the specified resource in storage.
@@ -142,8 +138,6 @@ class StudentController extends Controller
         $child = User::find($id);
         $parent = $child->parent;
 
-        // $parent = User::find($id);
-        // $child = $parent->child;
 
         return view('admin.students.studentParent', compact('parent', 'child'));
     }
