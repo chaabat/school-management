@@ -13,6 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    
+
     <title>Document</title>
 </head>
 
@@ -24,8 +26,12 @@
     @yield('class')
     @yield('subjectToClass')
     @yield('teacherToClass')
-    
 
+
+    @yield('timeTable')
+    @yield('timeTable.create')
+    
+  
 
     @yield('admin')
     @yield('addAdmin')

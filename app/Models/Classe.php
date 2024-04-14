@@ -28,4 +28,9 @@ class Classe extends Model
     {
         return $this->hasMany(TeacherToClasse::class);
     }
+
+    public function timetable()
+    {
+        return $this->hasMany(TimeTable::class);
+    }
 }

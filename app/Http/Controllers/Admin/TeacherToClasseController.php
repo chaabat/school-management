@@ -48,9 +48,9 @@ class TeacherToClasseController extends Controller
     {
         try {
             $teacherToClasse = $request->validated();
-    
+
             $this->teacherToClassRepository->update($teacherToClasse, $request->id);
-    
+
             return redirect()->back()->with('success', 'La relation "Subject-to-class" a été mise à jour avec succès.');
         } catch (QueryException $e) {
             dd($e->getMessage());
@@ -60,11 +60,11 @@ class TeacherToClasseController extends Controller
 
     public function search(Request $request)
     {
-        $searchQuery = $request->get('query'); 
+        $searchQuery = $request->get('query');
         $results = $this->teacherToClassRepository->search($searchQuery);
         return response()->json($results);
     }
-    
+
 
 
     public function destroy($id)

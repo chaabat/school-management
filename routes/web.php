@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\SubjectToClasseController;
 use App\Http\Controllers\Admin\TeacherController;
 use App\Http\Controllers\Admin\TeacherToClasseController;
+use App\Http\Controllers\Admin\TimeTableController;
 use App\Http\Controllers\Auth\AuthentificationController;
 use App\Http\Controllers\Parent\ParentsController;
 use App\Http\Controllers\Student\StudentsController;
@@ -104,8 +105,6 @@ Route::group(['prefix' => 'subject-to-class'], function () {
 
 /*************************************************** ADMIN TEACHER TO CLASSE ***********************************************************************/
 
-
-
 Route::group(['prefix' => 'teacher-to-classe'], function () {
     Route::get('/', [TeacherToClasseController::class, 'index'])->name('teacherToClasse');
     Route::post('/', [TeacherToClasseController::class, 'store'])->name('createTeacherToClasse');
@@ -114,7 +113,12 @@ Route::group(['prefix' => 'teacher-to-classe'], function () {
     Route::get('/search',[TeacherToClasseController::class, 'search'])->name('searchTeacherToClasse');
 
 });
+/*************************************************** ADMIN TIME TABLE ***********************************************************************/
 
+// Route::resource('timeTable',TimeTableController::class);
+Route::get('/timeTable/{classId}', [TimeTableController::class,'create'])->name('timeTable.index');
+Route::get('/timeTable', [TimeTableController::class,'index'])->name('timeTable.create');
+Route::post('/timeTable', [TimeTableController::class,'store'])->name('timeTable.store');
 
 
 
