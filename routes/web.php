@@ -115,12 +115,14 @@ Route::group(['prefix' => 'teacher-to-classe'], function () {
 });
 /*************************************************** ADMIN TIME TABLE ***********************************************************************/
 
+Route::resource('timeTable',TimeTableController::class);
+// Route::get('/timeTable/{classId}', [TimeTableController::class,'show'])->name('timeTable.details');
+// Route::get('/timeTable', [TimeTableController::class,'index'])->name('timeTable.create');
+// Route::post('/timeTable', [TimeTableController::class,'store'])->name('timeTable.store');
+// Route::get('/timeTable/{id}/edit', [TimeTableController::class,'edit'])->name('timeTable.edit');
+// Route::put('/timeTable/{id}', [TimeTableController::class,'update'])->name('timeTable.update');
+
 // Route::resource('timeTable',TimeTableController::class);
-Route::get('/timeTable/{classId}', [TimeTableController::class,'create'])->name('timeTable.index');
-Route::get('/timeTable', [TimeTableController::class,'index'])->name('timeTable.create');
-Route::post('/timeTable', [TimeTableController::class,'store'])->name('timeTable.store');
-
-
 
 
 /*************************************************** PARENTS ***********************************************************************/

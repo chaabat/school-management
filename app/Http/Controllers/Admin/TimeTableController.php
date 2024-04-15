@@ -14,13 +14,9 @@ class TimeTableController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function create($classId)
+    public function create()
     {
-        $class = Classe::findOrFail($classId);
-        $timetable = TimeTable::where('class_id', $classId)->get();
-        $subjects = $class->subjectToClass()->get();
-
-        return view('admin.timeTable.index', compact('class', 'timetable', 'subjects'));
+      
 
     }
 
@@ -30,9 +26,11 @@ class TimeTableController extends Controller
     public function index()
     {
         $classSubjects = SubjetToClass::with('classe', 'subject')->get();
-        
-        return view('admin.timeTable.create', compact('classSubjects'));
+        $tables = TimeTable::with('classe')->paginate(5);
+    
+        return view('admin.timeTable.create', compact('classSubjects', 'tables'));
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -54,32 +52,53 @@ class TimeTableController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($classId)
     {
-        //
+        $class = Classe::findOrFail($classId);
+        $timetable = TimeTable::where('class_id', $classId)->get();
+        $subjects = Classe::findOrFail($classId)->subjectToClass()->get();
+     
+        return view('admin.timeTable.details', compact('class', 'timetable', 'subjects'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $timetable = TimeTable::findOrFail($id);
+        $class = Classe::findOrFail($timetable->class_id);  
+        $classSubjects = SubjetToClass::with('classe', 'subject')->get();
+        $subjects = $class->subjectToClass()->get();
+        return view('admin.timeTable.update', compact('timetable','class','subjects','classSubjects'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'class_id' => 'required|exists:classes,id',
+            'subject_id' => 'required|exists:subjects,id',
+            'days' => 'required|in:monday,tuesday,wednesday,thursday,friday',
+            'time' => 'required|regex:/^\d{2}:\d{2}$/'
+        ]);
+    
+        $timetable = TimeTable::findOrFail($id);
+        $timetable->update($request->all());
+    
+        return redirect()->route('timeTable.index')->with('success', 'Timetable entry updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $timetable = TimeTable::findOrFail($id);
+        $timetable->delete();
+    
+        return redirect()->route('timeTable.index')->with('success', 'Timetable entry deleted successfully.');
     }
 }

@@ -30,6 +30,7 @@
 
     @yield('timeTable')
     @yield('timeTable.create')
+    @yield('timeTable.update')
     
   
 
