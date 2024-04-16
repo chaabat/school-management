@@ -28,7 +28,7 @@ class teacherToClasseRepository implements teacherToClasseRepositoryInterface
         $teacherToClasse->delete();
     }
 
-    public function findOrFail($id)
+    public function teacherToClassID($id)
     {
         return TeacherToClasse::findOrFail($id);
     }

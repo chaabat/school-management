@@ -22,7 +22,7 @@ class UpdateSubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:4|unique:subjects,name,' . $this->id,
+            'name' => 'required|min:4|unique:subjects,name,' .$this->route('parent') ,
             'statut' => 'required|in:activer,desactiver',
         ];
     }

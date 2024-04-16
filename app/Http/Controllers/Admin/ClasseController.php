@@ -23,39 +23,41 @@ class ClasseController extends Controller
 
     public function index()
     {
-        $classes = $this->classeRepository->getAllClasses(8);
-        return view('admin.class', compact('classes'));
+        $classes = $this->classeRepository->getAllClasses(4);
+        return view('admin.classe.class', compact('classes'));
     }
 
    
     public function store(ClasseRequest $request)
     {
-        try {
+         
             $class = $request->validated();
 
             $this->classeRepository->createClasse($class);
 
             return redirect()->route('admin.class')->with('success','Classe créé avec success');
-        } catch (QueryException $e) {
-            dd($e->getMessage());
-        }
+        
     }
 
-   
-    public function update(UpdateClasseRequest $request)
+    public function edit($id)
     {
-        try {
-            $class = $request->validated();
+        $class = $this->classeRepository->getClasseById($id);
     
-            $this->classeRepository->updateClasse($request->id, $class);
-    
-            return redirect()->route('admin.class')->with('success','Classe modifié avec success');
-        } catch (ValidationException $e) {
-            return back()->withErrors($e->errors())->withInput();
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
+        return view('admin.classe.update', compact('class'));
     }
+    
+
+   
+    public function update(UpdateClasseRequest $request, $id)
+    {
+        $classData = $request->validated();
+        
+        $this->classeRepository->updateClasse($id, $classData);
+        
+        return redirect()->route('admin.class')->with('success', 'Classe modifiée avec succès');
+    }
+    
+    
     
 
    

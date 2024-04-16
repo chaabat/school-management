@@ -16,6 +16,7 @@
             
                                 <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Classe:</label>
                                 <select name="class_id" id="class_id" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                    <option value="monday">Monday</option>
                                     @foreach ($classSubjects as $classSubject)
                                         @if ($classSubject->classe)
                                             <option value="{{ $classSubject->classe->id }}">{{ $classSubject->classe->name }}</option>
@@ -55,7 +56,7 @@
             <table class="w-full mt-4">
                 <thead>
                   <tr class="text-md font-semibold tracking-wide text-left text-white bg-blue uppercase border-y  border-white">
-                    <th class="px-4 py-3 border-x ">Classe</th>
+                    {{-- <th class="px-4 py-3 border-x ">Classe</th> --}}
                     <th class="px-4 py-3 border-x ">Subject</th>
                     <th class="px-4 py-3 border-x ">Day</th>
                     <th class="px-4 py-3 border-x ">Time</th>
@@ -66,7 +67,8 @@
                  
                     <tbody  class="bg-white">
                         @foreach ($tables as $table)
-                            {{-- @dd($tables) --}}
+                           
+                     
                             <tr>
                                 {{-- <td>{{ $table->classe->name }}</td> --}}
 
@@ -74,13 +76,18 @@
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold  border">{{ ucfirst($table->days) }}</td>
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold  border">{{ $table->time }}</td>
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold border">
-                                    <a href="{{ route('timeTable.edit', $table->id) }}">Edit</a>
-                                    <a href="{{ route('timeTable.show', $table->class_id) }}">Show</a>
+                                    <div class="flex mt-3 -mx-2 space-x-4">
+                                        <a href="{{ route('timeTable.show', $table->class_id) }}"><img
+                                            src="{{ asset('photos/show.png') }}" class="h-6" alt=""></a>
+                                    <a href="{{ route('timeTable.edit', $table->id) }}"><img
+                                        src="{{ asset('photos/update.png') }}" class="h-6"
+                                        alt=""></a>
                                     <form action="{{ route('timeTable.destroy', $table->id) }}" method="POST" style="display: inline-block;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit">Delete</button>
+                                        <button type="submit"><img src="{{ asset('photos/delete.png') }}" class="h-6" alt=""></button>
                                     </form>
+                                    </div>
                                 </td>
                                 
                             </tr>

@@ -31,7 +31,7 @@ class SubjectToClasseRepository implements SubjectToClasseRepositoryInterface
         return $subjetToClasse;
     }
 
-    public function findOrFail($id)
+    public function subjetToClassID($id)
     {
         return SubjetToClass::findOrFail($id);
     }

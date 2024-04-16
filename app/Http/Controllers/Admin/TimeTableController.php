@@ -26,10 +26,11 @@ class TimeTableController extends Controller
     public function index()
     {
         $classSubjects = SubjetToClass::with('classe', 'subject')->get();
-        $tables = TimeTable::with('classe')->paginate(5);
+        $tables = TimeTable::paginate(5);
     
         return view('admin.timeTable.create', compact('classSubjects', 'tables'));
     }
+    
     
 
     /**

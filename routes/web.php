@@ -76,7 +76,8 @@ Route::group(['prefix' => 'classes'], function () {
     Route::get('/', [ClasseController::class, 'index'])->name('admin.class');
     Route::post('/', [ClasseController::class, 'store'])->name('create.class');
     Route::delete('/{id}', [ClasseController::class, 'destroy'])->name('delete.class');
-    Route::put('/', [ClasseController::class, 'update'])->name('update.class');
+    Route::get('{id}/edit', [ClasseController::class, 'edit'])->name('edit.class');
+    Route::put('/{id}', [ClasseController::class, 'update'])->name('update.class');
     Route::get('/search',[ClasseController::class, 'search'])->name('search.class');
 
 });
@@ -87,7 +88,8 @@ Route::group(['prefix' => 'subjects'], function () {
     Route::get('/', [SubjectController::class, 'index'])->name('admin.subject');
     Route::post('/', [SubjectController::class, 'store'])->name('create.subject');
     Route::delete('/{id}', [SubjectController::class, 'destroy'])->name('delete.subject');
-    Route::put('/', [SubjectController::class, 'update'])->name('update.subject');
+    Route::get('{id}/edit', [SubjectController::class, 'edit'])->name('edit.subject');
+    Route::put('/{id}', [SubjectController::class, 'update'])->name('update.subject');
     Route::get('/search',[SubjectController::class, 'search'])->name('search.subject');
 
 });
@@ -97,7 +99,8 @@ Route::group(['prefix' => 'subject-to-class'], function () {
     Route::get('/', [SubjectToClasseController::class, 'index'])->name('assignSubjectToClass');
     Route::post('/', [SubjectToClasseController::class, 'store'])->name('createSubjectToClasse');
     Route::delete('/{id}', [SubjectToClasseController::class, 'destroy'])->name('deleteSubjectToClasse');
-    Route::put('/', [SubjectToClasseController::class, 'update'])->name('updateSubjectToClasse');
+    Route::get('{id}/edit', [SubjectToClasseController::class, 'edit'])->name('editSubjectToClasse');
+    Route::put('/{id}', [SubjectToClasseController::class, 'update'])->name('updateSubjectToClasse');
     Route::get('/search',[SubjectToClasseController::class, 'search'])->name('searchSubjectToClasse');
 
 });
@@ -109,21 +112,14 @@ Route::group(['prefix' => 'teacher-to-classe'], function () {
     Route::get('/', [TeacherToClasseController::class, 'index'])->name('teacherToClasse');
     Route::post('/', [TeacherToClasseController::class, 'store'])->name('createTeacherToClasse');
     Route::delete('/{id}', [TeacherToClasseController::class, 'destroy'])->name('deleteTeacherToClasse');
-    Route::put('/', [TeacherToClasseController::class, 'update'])->name('updateTeacherToClasse');
+    Route::get('{id}/edit', [TeacherToClasseController::class, 'edit'])->name('editTeacherToClasse');
+    Route::put('/{id}', [TeacherToClasseController::class, 'update'])->name('updateTeacherToClasse');
     Route::get('/search',[TeacherToClasseController::class, 'search'])->name('searchTeacherToClasse');
 
 });
 /*************************************************** ADMIN TIME TABLE ***********************************************************************/
 
 Route::resource('timeTable',TimeTableController::class);
-// Route::get('/timeTable/{classId}', [TimeTableController::class,'show'])->name('timeTable.details');
-// Route::get('/timeTable', [TimeTableController::class,'index'])->name('timeTable.create');
-// Route::post('/timeTable', [TimeTableController::class,'store'])->name('timeTable.store');
-// Route::get('/timeTable/{id}/edit', [TimeTableController::class,'edit'])->name('timeTable.edit');
-// Route::put('/timeTable/{id}', [TimeTableController::class,'update'])->name('timeTable.update');
-
-// Route::resource('timeTable',TimeTableController::class);
-
 
 /*************************************************** PARENTS ***********************************************************************/
 

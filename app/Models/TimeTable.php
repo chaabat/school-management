@@ -16,7 +16,7 @@ class TimeTable extends Model
 
     // protected $dates = ['deleted_at'];
 
-    public function classe()
+    public function cla()
     {
         return $this->belongsTo(Classe::class);
     }

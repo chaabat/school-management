@@ -163,7 +163,7 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('timeTable.create') }}"
+            <a href="{{ route('timeTable.index') }}"
                 class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#fb5607] dark:hover:bg-gray-700 group">
                 <svg class="flex-shrink-0 w-5 h-5 text-white transition duration-75 dark:text-gray-400 group-hover:text-white dark:group-hover:text-white"
                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">

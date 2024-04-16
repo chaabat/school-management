@@ -26,7 +26,7 @@ class SubjectToClasseController extends Controller
         $classes = $this->subjectToClassRepository->getAllClasses();
         $subjects = $this->subjectToClassRepository->getAllSubjects();
         $subjetToClasse = $this->subjectToClassRepository->getAllSubjectToClassPaginated(6);
-        return view('admin.subjectToClass', compact('subjetToClasse', 'subjects', 'classes'));
+        return view('admin.subjectToClass.subjectToClass', compact('subjetToClasse', 'subjects', 'classes'));
     }
 
     public function store(subjectToClasseRequest $request)
@@ -38,22 +38,31 @@ class SubjectToClasseController extends Controller
     
         return redirect()->back()->with('success', 'Subjects added to class successfully.');
     }
-    
 
-
-    public function update(UpdateSubjectToClasseRequest $request)
+    public function edit($id)
     {
-        try {
-            $validatedData = $request->validated();
+        $classes = $this->subjectToClassRepository->getAllClasses();
+        $subjects = $this->subjectToClassRepository->getAllSubjects();
+        $subjetToClasse = $this->subjectToClassRepository->subjetToClassID($id);
     
-            $this->subjectToClassRepository->update($validatedData, $request->id);
+        return view('admin.subjectToClass.update', compact('subjects','classes','subjetToClasse'));
+    }
+  
+    public function update(UpdateSubjectToClasseRequest $request, $id)
+    {
+        $subjectData = $request->validated();
+        
+        
+        $this->subjectToClassRepository->update($subjectData, $id);
+        
+        return redirect()->route('assignSubjectToClass')->with('success', 'Subject-to-class relationship updated successfully');
+    }
+    
 
     
-            return redirect()->back()->with('success', 'La relation "Subject-to-class" a été mise à jour avec succès.');
-        } catch (QueryException $e) {
-            dd($e->getMessage());
-        }
-    }
+
+
+    
     public function search(Request $request)
     {
         $searchQuery = $request->get('query');

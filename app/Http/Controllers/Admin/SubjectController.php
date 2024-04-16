@@ -23,37 +23,35 @@ class SubjectController extends Controller
     public function index()
     {
         $subjects = $this->subjectRepository->getAllSubjects(8);
-        return view('admin.subject', compact('subjects'));
+        return view('admin.subject.subject', compact('subjects'));
     }
 
    
     public function store(subjectRequest $request)
     {
-        try {
+        
             $class = $request->validated();
 
             $this->subjectRepository->createSubject($class);
 
             return redirect()->route('admin.subject');
-        } catch (QueryException $e) {
-            dd($e->getMessage());
-        }
+       
     }
 
-   
-    public function update(UpdateSubjectRequest $request)
+    public function edit($id)
     {
-        try {
-            $class = $request->validated();
+        $subject = $this->subjectRepository->getSubjectById($id);
     
-            $this->subjectRepository->updateSubject($request->id, $class);
-    
-            return redirect()->route('admin.subject');
-        } catch (ValidationException $e) {
-            return back()->withErrors($e->errors())->withInput();
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
+        return view('admin.subject.update', compact('subject'));
+    }
+ 
+    public function update(UpdateSubjectRequest $request, $id)
+    {
+        $subjectData = $request->validated();
+        
+        $this->subjectRepository->updateSubject($id, $subjectData);
+        
+        return redirect()->route('admin.subject')->with('success', 'Classe modifiée avec succès');
     }
     
 
@@ -64,6 +62,7 @@ class SubjectController extends Controller
 
         return redirect()->route('admin.subject');
     }
+    
 
     public function search(Request $request)
     {

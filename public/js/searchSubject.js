@@ -31,7 +31,7 @@ $('#search').on('keyup', function() {
                             </div>
                         </div>
                     </div>`;
-                    $('.grid').append(rowHtml);
+                    $('.subject').append(rowHtml);
                 });
             } else {
                 $('.search-not-found').show();

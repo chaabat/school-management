@@ -17,9 +17,9 @@ $(document).ready(function() {
                                 <div class="bg-white py-4 px-3" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('photos/classe1.jpg') no-repeat center; background-size: cover;">
                                     <h1 class="text-3xl text-white text-center mb-2 font-bold font-mono">${classeData.name}</h1>
                                     <div class="flex justify-between">
-                                        <button id="defaultModalButton" data-modal-target="update" data-modal-toggle="update" class="edit-class" data-class-id=${classeData.id} data-class-name=${classeData.name}>
-                                            <img src="photos/update.png" class="h-6" alt="">
-                                        </button>
+                                    <a href="/classes/${classeData.id}">
+                                            <img src="/photos/update.png" class="h-6" alt="">
+                                        </a>
                                         <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Class ?')) { document.getElementById('delete-form-${classeData.id}').submit(); }">
                                             <img src="/photos/delete.png" class="h-6" alt="">
                                         </a>
@@ -33,7 +33,7 @@ $(document).ready(function() {
                         
                         `;
 
-                        $('.grid').append(rowHtml);
+                        $('.display').append(rowHtml);
                     });
                 } else {
                     $('.search-not-found').show();

@@ -30,7 +30,7 @@ class TeacherToClasseController extends Controller
         $teachers = $this->teacherToClassRepository->getAllTeachers();
         $teacherToClasse = $this->teacherToClassRepository->getAllTeachersToClassPaginated(6);
 
-        return view('admin.teacherToClasse', compact('classes', 'teachers', 'teacherToClasse'));
+        return view('admin.teacherToClasse.teacherToClasse', compact('classes', 'teachers', 'teacherToClasse'));
     }
 
 
@@ -44,18 +44,26 @@ class TeacherToClasseController extends Controller
         return redirect()->back()->with('success', 'Subjects added to class successfully.');
     }
 
-    public function update(updateTeacherToClasseRequest $request)
+    public function edit($id)
     {
-        try {
-            $teacherToClasse = $request->validated();
-
-            $this->teacherToClassRepository->update($teacherToClasse, $request->id);
-
-            return redirect()->back()->with('success', 'La relation "Subject-to-class" a été mise à jour avec succès.');
-        } catch (QueryException $e) {
-            dd($e->getMessage());
-        }
+        $classes = $this->teacherToClassRepository->getAllClasses();
+        $teachers = $this->teacherToClassRepository->getAllTeachers();
+        $teacherToClasse = $this->teacherToClassRepository->teacherToClassID($id);
+    
+        return view('admin.teacherToClasse.update', compact('teachers','classes','teacherToClasse'));
     }
+  
+    public function update(UpdateTeacherToClasseRequest $request, $id)
+    {
+        $teacherToClasse = $request->validated();
+        
+        
+        $this->teacherToClassRepository->update($teacherToClasse, $id);
+        
+        return redirect()->route('teacherToClasse')->with('success', 'Teacher-to-class relationship updated successfully');
+    }
+
+   
 
 
     public function search(Request $request)

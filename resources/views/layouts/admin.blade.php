@@ -22,10 +22,22 @@
     @include('include.sideAdmin')
 
     @yield('dashboard')
-    @yield('course')
-    @yield('class')
+
+    @yield('subject')
+    @yield('updateSubject')
+
     @yield('subjectToClass')
+    @yield('updateSubjectToClasse')
+    
+    
     @yield('teacherToClass')
+    @yield('updateTeacherToClasse')
+    
+
+    @yield('class')
+    @yield('updateClasse')
+
+    
 
 
     @yield('timeTable')

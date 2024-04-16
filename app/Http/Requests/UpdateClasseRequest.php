@@ -22,7 +22,7 @@ class UpdateClasseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:4|unique:classes,name,' . $this->id,
+            'name' => 'required|min:4|unique:classes,name,' . $this->route('parent'), 
             'statut' => 'required|in:activer,desactiver',
         ];
     }
