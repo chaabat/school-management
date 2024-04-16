@@ -4,10 +4,7 @@
     <div class="p-4 sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
-
-            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Add Parents
-                Form
-            </h2>
+ 
             <form action="{{ route('parents.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('post')
@@ -83,14 +80,17 @@
                                 id="adress" type="text" name="adress" placeholder="Jane">
                         </div>
                         <div class="md:w-1/2 px-3">
-                            <label
-                                class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Téléphone
+                            <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
+                                for="grid-state">
+                                Ville
                             </label>
-
-                            <input
-                                class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-                                id="phone" type="text" name="phone" placeholder="Doe">
+                            <div class="relative">
+                                <select id="ville" name="ville"
+                                    class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
+                                </select>
+                            </div>
                         </div>
+                        
                     </div>
                     <div class="-mx-3 md:flex mb-6">
 
@@ -110,7 +110,15 @@
 
                             </div>
                         </div>
-                     
+                        <div class="md:w-1/2 px-3  mb-6 md:mb-0">
+                            <label
+                                class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Téléphone
+                            </label>
+
+                            <input
+                                class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+                                id="phone" type="text" name="phone" placeholder="Doe">
+                        </div>
                         
                     </div>
                     <div class="-mx-3 md:flex mb-6">
@@ -133,4 +141,6 @@
 
         </div>
     </div>
+    <script src="{{ asset('js/ville.js') }}"></script>    
+
 @endsection

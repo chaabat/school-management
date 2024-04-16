@@ -4,10 +4,7 @@
     <div class="p-4 sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
-
-            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Update Parents
-                Form
-            </h2>
+ 
             <form action="{{ route('parents.update', $parent->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -81,6 +78,16 @@
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                                 value="{{ $parent->adress }}" type="text" name="adress" placeholder="Jane">
                         </div>
+                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono" for="grid-state">
+                                Ville
+                            </label>
+                            <div class="relative">
+                                <input id="ville" name="ville"  value="{{ $parent->ville }}"  class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
+                                    
+                           
+                            </div>
+                        </div> 
                         <div class="md:w-1/2 px-3">
                             <label
                                 class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Téléphone
@@ -136,7 +143,7 @@
                         </div>
                     </div>
                     <button type="submit"
-                        class="text-white  flex items-center justify-center  text-xl font-bold font-mono   bg-blue-700   rounded-lg  px-5 py-2.5  ">
+                        class="text-white  flex items-center justify-center  text-xl font-bold font-mono   bg-blue-900   rounded-lg  px-5 py-2.5  ">
                         <i class="fa-solid fa-pen-to-square"></i>
                         Update
 
@@ -145,4 +152,6 @@
 
         </div>
     </div>
+ 
+ 
 @endsection

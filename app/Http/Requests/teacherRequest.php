@@ -26,6 +26,7 @@ class teacherRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required | min:8 ',
             'phone' => 'required|min:8',
+            'ville' => 'required',
             'adress' => 'required',
             'role_id' => 'required',
             'date' => 'required',

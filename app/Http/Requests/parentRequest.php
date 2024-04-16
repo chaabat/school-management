@@ -28,6 +28,7 @@ class parentRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required | min:8 ',
             'adress' => 'required',
+            'ville' => 'required',
             'genre' => 'required',
             'phone' => 'required|min:8',
             'description' => 'required',

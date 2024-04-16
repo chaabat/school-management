@@ -28,6 +28,7 @@ class UpdatestudentRequest extends FormRequest
             'email' => 'required|email|unique:users,email,' .  $this->route('student'),
             'password' => 'required | min:8 ',
             'adress' => 'required',
+            'ville' => 'required',
             'genre' => 'required',
             'phone' => 'required|min:8',
             'description' => 'required',

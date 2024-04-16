@@ -78,6 +78,17 @@
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                                 id="adress" type="text" name="adress" placeholder="Jane">
                         </div>
+                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
+                                for="grid-state">
+                                Ville
+                            </label>
+                            <div class="relative">
+                                <select id="ville" name="ville"
+                                    class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
+                                </select>
+                            </div>
+                        </div>
                         <div class="md:w-1/2 px-3">
                             <label
                                 class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Téléphone
@@ -159,4 +170,6 @@
 
         </div>
     </div>
+    <script src="{{ asset('js/ville.js') }}"></script>    
+
 @endsection

@@ -27,6 +27,7 @@ class studentRequest extends FormRequest
             'date' => 'required',
             'email' => 'required|email|unique:users,email,',  
             'password' => 'required | min:8 ',
+            'ville' => 'required',
             'adress' => 'required',
             'genre' => 'required',
             'phone' => 'required|min:8',

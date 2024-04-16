@@ -5,9 +5,6 @@
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
 
-            <h2 class="flex items-center justify-center mb-4 mt-4 text-3xl font-bold font-mono text-white">Update Students
-                Form
-            </h2>
             <form action="{{ route('students.update', $student->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -82,6 +79,17 @@
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                                 value="{{ $student->adress }}"  type="text" name="adress" placeholder="Jane">
                         </div>
+                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
+                                for="grid-state">
+                                Ville
+                            </label>
+                            <div class="relative">
+                                <input id="ville" name="ville" value="{{ $student->ville }}"
+                                    class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
+                                
+                            </div>
+                        </div>
                         <div class="md:w-1/2 px-3">
                             <label
                                 class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Téléphone
@@ -100,9 +108,9 @@
                                 Genre
                             </label>
                             <div class="relative">
-                                <select  name="genre" value="{{ $student->genre }}"
+                                <select  name="genre" 
                                     class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected="">Select Genre</option>
+                                    <option> {{ $student->genre }}</option>
                                     <option value="masculin">Masculin</option>
                                     <option value="feminin">Féminin</option>
 

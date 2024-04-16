@@ -102,7 +102,7 @@
                             <div class="relative">
                                 <select value="{{ $teacher->genre }}" name="genre"
                                     class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected="">Select Genre</option>
+                                    <option >{{ $teacher->genre }}</option>
                                     <option value="masculin">Masculin</option>
                                     <option value="feminin">Féminin</option>
 
@@ -113,17 +113,12 @@
                         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
                             <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
                                 for="grid-state">
-                                Course
+                                Ville
                             </label>
                             <div class="relative">
-                                <select id="class" name="class"
+                                <input id="ville" name="ville" value="{{ $teacher->ville }}"
                                     class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected="">Select Class</option>
-                                    <option value="">math</option>
-                                    <option value="">svt</option>
-
-                                </select>
-
+                               
                             </div>
                         </div>
                     </div>
@@ -147,4 +142,5 @@
 
         </div>
     </div>
-@endsection
+    
+ @endsection

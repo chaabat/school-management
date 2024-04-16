@@ -20,21 +20,22 @@ class UpdateParentRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-{
-    return [
-        'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-        'name' => 'required|min:4|unique:users,name,' . $this->route('parent'),
-        'date' => 'required',
-        'email' => 'required|email|unique:users,email,' . $this->route('parent'),
-        'password' => 'required|min:8',
-        'adress' => 'required',
-        'genre' => 'required',
-        'phone' => 'required|min:8',
-        'description' => 'required',
-        'child_id' => 'required'
-        
-    ];
-}
+    {
+        return [
+            'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'name' => 'required|min:4|unique:users,name,' . $this->route('parent'),
+            'date' => 'required',
+            'email' => 'required|email|unique:users,email,' . $this->route('parent'),
+            'password' => 'required|min:8',
+            'adress' => 'required',
+            'ville' => 'required',
+            'genre' => 'required',
+            'phone' => 'required|min:8',
+            'description' => 'required',
+            'child_id' => 'required'
+
+        ];
+    }
 
     /**
      * Get the error messages for the defined validation rules.
@@ -45,10 +46,10 @@ class UpdateParentRequest extends FormRequest
     {
         return [
             'name.min' => 'Le nom doit comporter plus de 4 caractères.',
-            // 'name.unique' => 'Ce nom est déjà pris.',
+
             'email.required' => 'L\'adresse e-mail est obligatoire.',
             'email.email' => 'Structure d\'e-mail incorrecte.',
-            // 'email.unique' => 'Cet e-mail est déjà utilisé.',
+
             'password.min' => 'Le mot de passe doit comporter plus de 8 caractères.',
             'password.required' => 'Le mot de passe est obligatoire.',
             'phone.required' => 'Le numéro de téléphone est obligatoire.',
