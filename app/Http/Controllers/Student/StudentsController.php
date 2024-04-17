@@ -19,4 +19,12 @@ class StudentsController extends Controller
 
     return view('student.mySubject', compact('classes'));
     }
+
+    public function myTimeTable()
+    {
+        $student = Auth::user();  
+        $classeTable = $student->classe()->with('timetable')->get();
+
+        return view('student.myTimeTable', compact('classeTable'));
+    }
 }

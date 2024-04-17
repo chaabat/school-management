@@ -1,6 +1,5 @@
 @extends('layouts.admin')
-@section('class')
-
+@section('exam')
     <div class="p-4 h-screen sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
@@ -14,7 +13,7 @@
                     });
                 </script>
             @endif
-            <form action="{{ route('classes.index') }}" method="POST">
+            <form action="{{ route('exams.store') }}" method="POST">
                 @csrf
                 <div class="w-full flex items-center justify-center">
                     <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
@@ -41,7 +40,7 @@
                             <div class="grid grid-cols-1">
                                  
             
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Time:</label>
+                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Statut</label>
                                 <select name="statut"   class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                     <option value="activer">Activer</option>
                                         <option value="desactiver">Desactiver</option>
@@ -56,9 +55,6 @@
                     </div>
                 </div>
             </form>
-            
-            
-            </div>
             <section class=" p-3 sm:p-5">
                 <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
 
@@ -86,7 +82,7 @@
 
                             <div
                                 class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                              
+                           
                                 <div class="flex items-center space-x-3 w-full md:w-auto">
                                     <button
                                         class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -95,75 +91,111 @@
                                         Actions
                                     </button>
 
-
-
                                 </div>
                             </div>
                         </div>
                         <div class="overflow-x-auto">
                             <div class="mx-auto max-w-screen-xl px-4 w-full mt-12 mb-12">
-                                <div class="display grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                                    @foreach ($classes as $class)
-                                     
+                                <div class="exam grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                                    @foreach ($exams as $exam)
                                         <div
-                                        class=" class-card border-4 border-[#fb5607] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
-            
-                                        <div class="bg-white py-4 px-3"  style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe1.jpg') }}') no-repeat center;background-size:cover">
-                                            <h1 class="text-3xl text-white text-center mb-2 font-bold font-mono">{{ $class->name }}
-                                            </h1>
-                                            <div class="flex justify-between">
-            
-                                                 
+                                            class=" border-4 border-[#03045e] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
 
-                                                <a href="{{ route('classes.edit', $class->id) }}">
-                                                    <img src="{{ asset('photos/update.png') }}" class="h-6" alt="">
-                                                </a>
-                                                
-                                               
+                                            <div class="bg-white py-4 px-3"
+                                                style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe2.jpg') }}') no-repeat center;background-size:cover">
+                                                <h1 class="text-3xl text-white text-center mb-2 font-bold font-mono">
+                                                    {{ $exam->name }}
+                                                </h1>
+                                                <div class="flex justify-between">
 
-                                                <a href="#"
-                                                    onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Class ?')) { document.getElementById('delete-form-{{ $class->id }}').submit(); }">
-                                                    <img src="{{ asset('photos/delete.png') }}" class="h-6"
-                                                        alt="">
-                                                </a>
+                                                    <a href="{{ route('exams.edit',   $exam->id) }}">
+                                                        <img src="{{ asset('photos/update.png') }}" class="h-6" alt="">
+                                                    </a>
 
-                                                <form id="delete-form-{{ $class->id }}"
-                                                    action="{{ route('classes.destroy', $class->id) }}" method="POST"
-                                                    style="display: none;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
+
+
+
+                                                    <a href="#"
+                                                        onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Class ?')) { document.getElementById('delete-form-{{ $exam->id }}').submit(); }">
+                                                        <img src="{{ asset('photos/delete.png') }}" class="h-6"
+                                                            alt="">
+                                                    </a>
+
+                                                    <form id="delete-form-{{ $exam->id }}"
+                                                        action="{{ route('exams.destroy', $exam->id) }}" method="POST"
+                                                        style="display: none;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
-                        </div>
-                        <!-- "Nothing found" message -->
-                        <div style="display: none;" class="search-not-found bg-white flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg  ">
-                            <p class="text-6xl md:text-7xl lg:text-9xl font-bold font-mono text-[#fb5607]">4<span class="text-[#03045e]">0</span>4</p>
-                            <p class="text-2xl md:text-3xl lg:text-5xl font-bold font-mono text-[#03045e] mt-4">Recherche introuvable</p>
-                              
-                        </div>
-                        <nav class="flex flex-col md:flex-row justify-end items-end md:items-center space-y-3 md:space-y-0 p-4"
-                            aria-label="Table navigation">
-
-                            <div class="mt-8 flex justify-center bg-white font-mono">
-                                {{ $classes->links('pagination::tailwind') }}
-                            </div>
-                        </nav>
+                    <!-- "Nothing found" message -->
+                    <div style="display: none;"
+                        class="search-not-found bg-white flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg">
+                        <p class="text-6xl md:text-7xl lg:text-9xl font-bold font-mono text-[#fb5607]">404</p>
+                        <p class="text-2xl md:text-3xl lg:text-5xl font-bold font-mono text-[#03045e] mt-4">Recherche
+                            introuvable</p>
                     </div>
+                    {{-- <nav class="flex flex-col md:flex-row justify-end items-end md:items-center space-y-3 md:space-y-0 p-4"
+                        aria-label="Table navigation">
+
+                        <div class="mt-8 flex justify-center bg-white font-mono">
+                            {{ $exams->links('pagination::tailwind') }}
+                        </div>
+                    </nav> --}}
                 </div>
-            </section>
+        </div>
+        </section>
+  
+    </div>
+   
+    {{-- <script src="js/searchExam.js"></script> --}}
+    <script>
+        $('#search').on('keyup', function() {
+    var query = $(this).val();
 
+    $.ajax({
+        url: "/exams/search",   
+        type: "GET",
+        data: { 'search': query },
+        success: function(data) {
+            $('.exam').empty();  
+            $('.search-not-found').hide();
 
-      
+            if (data.length > 0) {
+                data.forEach(function(examData) {
+                    var rowHtml = `
+                    <div class="exam border-4 border-[#fb5607] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+                        <div class="bg-white py-4 px-3" style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('${examData.image}') no-repeat center;background-size:cover">
+                            <h1 class="text-3xl text-white text-center mb-2 font-bold font-mono">${examData.name}</h1>
+                            <div class="flex justify-between">
+                            <a href="/exams/${examData.id}">
+                            <img src="/photos/update.png" class="h-6" alt="">
+                                 </a>
+                                <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this Exam ?')) { document.getElementById('delete-form-${examData.id}').submit(); }">
+                                    <img src="/photos/delete.png" class="h-6" alt="">
+                                </a>
+                                <form id="delete-form-${examData.id}" action="/delete-class/${examData.id}" method="POST" style="display: none;">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                </form>
+                            </div>
+                        </div>
+                    </div>`;
+                    $('.exam').append(rowHtml);
+                });
+            } else {
+                $('.search-not-found').show();
+            }
+        }
+    });
+});
 
-
-
-            <script src="js/updateClasse.js"></script>
-            <script src="js/searchClasse.js"></script>
-        @endsection
+    </script>
+@endsection

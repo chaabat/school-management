@@ -77,7 +77,7 @@ class AuthentificationController extends Controller
             ->first();
 
         if ($existingToken) {
-            // If a token already exists for this email, update the token
+          
             DB::table('password_reset_tokens')
                 ->where('email', $request->email)
                 ->update([
@@ -85,7 +85,7 @@ class AuthentificationController extends Controller
                     'created_at' => Carbon::now()
                 ]);
         } else {
-            // If no token exists, insert a new record
+             
             DB::table('password_reset_tokens')->insert([
                 'email' => $request->email,
                 'token' => $token,
@@ -136,6 +136,6 @@ class AuthentificationController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->view('home');
+        return redirect()->route('/');
     }
 }

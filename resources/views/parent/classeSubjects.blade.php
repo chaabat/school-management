@@ -13,11 +13,23 @@
                         <div class="flex flex-col items-center mt-4">
                             <p class="text-m text-orange font-mono font-bold">Class Name:</p>
                             <div class="flex items-center space-x-2 mt-2">
-                                <p class="text-2xl font-mono font-bold text-white">{{ $class->name }}</p>
-                            </div>
+                                @if ($class->classe)
+                                <p class="text-2xl font-mono font-bold text-white">{{ $class->classe->name }}</p>
+                            @else
+                                <p class="text-2xl font-mono font-bold text-white">No class associated</p>
+                            @endif
+                        </div>
+                        <div class="flex mx-auto border-2 border-orange-500 rounded overflow-hidden mt-6">
+                            <button class="py-1 px-4 bg-orange-500 text-white "
+                                onclick="openTab(event, 'subject')">Subjects</button>
+                            <button class="py-1 px-4 text-white "
+                                onclick="openTab(event, 'time')">Time Table</button>
+                        </div>
+                             
                         </div>
                 </div>
                 <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
+                    <div id="subject" class="tabcontent hidden">
                     <div class="w-full flex flex-col 2xl:w-1/3">
                         <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
                             <h4 class="text-xl text-blue font-bold">Subjects</h4>
@@ -40,6 +52,16 @@
                         </div>
                     </div>
                 </div>
+
+                    <div id="time" class="tabcontent hidden">
+
+<p>date</p>
+                </div>
+
+
+
+
+            </div>
             @endforeach
         @else
             <p>No classes available.</p>
@@ -47,4 +69,21 @@
 
         </div>
     </div>
+    <script>
+    
+    function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].classList.add("hidden");
+    }
+    tablinks = document.getElementsByTagName("button");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("bg-orange-500");
+    }
+    document.getElementById(tabName).classList.remove("hidden");
+    evt.currentTarget.classList.add("bg-orange-500");
+}
+    </script>
+
 @endsection

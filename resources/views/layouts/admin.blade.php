@@ -23,6 +23,10 @@
 
     @yield('dashboard')
 
+    @yield('exam')
+    @yield('updateExam')
+
+
     @yield('subject')
     @yield('updateSubject')
 

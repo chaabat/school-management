@@ -8,18 +8,26 @@
                 @csrf
                 <div class="w-full flex items-center justify-center">
                     <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
-                       
+                        <div>
+                            @if ($errors->any())
+                                <h2 class="text-xl font-mono font-bold text-[#fb5607]">Validation errors:</h2>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
                         <hr class="border-1 border-gray-300">
             
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
                             <div class="grid grid-cols-1">
             
                                 <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Classe:</label>
-                                <select name="class_id" id="class_id" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
-                                    <option value="monday">Monday</option>
-                                    @foreach ($classSubjects as $classSubject)
-                                        @if ($classSubject->classe)
-                                            <option value="{{ $classSubject->classe->id }}">{{ $classSubject->classe->name }}</option>
+                                <select name="classe_id" id="class_id" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                    @foreach ($classSubjects->groupBy('classe_id') as $classId => $subjects)
+                                        @if ($subjects->first()->classe)
+                                            <option value="{{ $classId }}">{{ $subjects->first()->classe->name }}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -77,7 +85,7 @@
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold  border">{{ $table->time }}</td>
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold border">
                                     <div class="flex mt-3 -mx-2 space-x-4">
-                                        <a href="{{ route('timeTable.show', $table->class_id) }}"><img
+                                        <a href="{{ route('timeTable.show', $table->classe_id) }}"><img
                                             src="{{ asset('photos/show.png') }}" class="h-6" alt=""></a>
                                     <a href="{{ route('timeTable.edit', $table->id) }}"><img
                                         src="{{ asset('photos/update.png') }}" class="h-6"

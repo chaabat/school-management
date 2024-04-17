@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('updateSubject')
+@section('updateExam')
 <div class="p-4 h-screen sm:ml-64" style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
     <div class="p-4  rounded-lg  mt-24">
         @if (session('success'))
@@ -15,10 +15,10 @@
             <div class="w-full flex items-center justify-center">
                 <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
                     <div class="px-5 py-3 mb-3 text-3xl font-medium text-gray-800 mt-6">
-                        <div class="text-center font-mono font-bold text-blue">Update Subject : <span class="text-orange">{{$subject->name}}</span> </div>
+                        <div class="text-center font-mono font-bold text-blue">Update Exam : <span class="text-orange">{{$exam->name}}</span> </div>
                     </div>
 
-                    <form action="{{ route('subjects.update', $subject->id) }}" method="POST">
+                    <form action="{{ route('exams.update',  $exam->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div>
@@ -36,7 +36,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
                             <div class="grid grid-cols-1">
                                 <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Nom</label>
-                                <input type="text" value="{{ $subject->name }}" name="name" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                <input type="text" value="{{ $exam->name }}" name="name" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                             </div>
                             <div class="grid grid-cols-1">
                                 <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Statut</label>

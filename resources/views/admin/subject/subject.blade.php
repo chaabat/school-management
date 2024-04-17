@@ -13,11 +13,20 @@
                     });
                 </script>
             @endif
-            <form action="{{ route('create.subject') }}" method="POST">
+            <form action="{{ route('subjects.store') }}" method="POST">
                 @csrf
                 <div class="w-full flex items-center justify-center">
                     <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
-                       
+                        <div>
+                            @if ($errors->any())
+                                <h2 class="text-xl font-mono font-bold text-[#fb5607]">Validation errors:</h2>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
                         <hr class="border-1 border-gray-300">
             
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
@@ -99,7 +108,7 @@
                                                 </h1>
                                                 <div class="flex justify-between">
 
-                                                    <a href="{{ route('edit.subject', ['id' => $subject->id]) }}">
+                                                    <a href="{{ route('subjects.edit', $subject->id) }}">
                                                         <img src="{{ asset('photos/update.png') }}" class="h-6" alt="">
                                                     </a>
 
@@ -113,7 +122,7 @@
                                                     </a>
 
                                                     <form id="delete-form-{{ $subject->id }}"
-                                                        action="{{ route('delete.class', $subject->id) }}" method="POST"
+                                                        action="{{ route('subjects.destroy', $subject->id) }}" method="POST"
                                                         style="display: none;">
                                                         @csrf
                                                         @method('DELETE')

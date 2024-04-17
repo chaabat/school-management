@@ -23,7 +23,16 @@
                             <form action="{{ route('updateSubjectToClasse', ['id' => $subjetToClasse->id]) }}" method="POST">
                                 @csrf
                                 @method('PUT')
-
+                                <div>
+                                    @if ($errors->any())
+                                        <h2 class="text-xl font-mono font-bold text-[#fb5607]">Validation errors:</h2>
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </div>
                                 <hr class="border-1 border-gray-300">
 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">

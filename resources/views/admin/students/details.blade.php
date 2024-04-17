@@ -67,6 +67,14 @@
                                 <span class="text-gray-700">{{ $student->genre }}</span>
                             </li>
                             <li class="flex border-b py-2">
+                                <span class="font-bold w-24">Adress:</span>
+                                <span class="text-gray-700">{{ $student->adress }}</span>
+                            </li>
+                            <li class="flex border-b py-2">
+                                <span class="font-bold w-24">Ville:</span>
+                                <span class="text-gray-700">{{ $student->ville }}</span>
+                            </li>
+                            <li class="flex border-b py-2">
                                 <span class="font-bold w-24">Mobile:</span>
                                 <span class="text-gray-700">{{ $student->phone }}</span>
                             </li>

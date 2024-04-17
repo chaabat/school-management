@@ -35,7 +35,7 @@ class ClasseController extends Controller
 
             $this->classeRepository->createClasse($class);
 
-            return redirect()->route('admin.class')->with('success','Classe créé avec success');
+            return redirect()->route('classes.index')->with('success','Classe créé avec success');
         
     }
 
@@ -54,7 +54,7 @@ class ClasseController extends Controller
         
         $this->classeRepository->updateClasse($id, $classData);
         
-        return redirect()->route('admin.class')->with('success', 'Classe modifiée avec succès');
+        return redirect()->route('classes.index')->with('success', 'Classe modifiée avec succès');
     }
     
     
@@ -65,7 +65,7 @@ class ClasseController extends Controller
     {
         $this->classeRepository->destroyClasse($id);
 
-        return redirect()->route('admin.class')->with('success','Classe supprimé avec success');
+        return redirect()->route('classes.index')->with('success','Classe supprimé avec success');
     }
 
 public function search(Request $request)

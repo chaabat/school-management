@@ -39,7 +39,7 @@ class TimeTableController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'class_id' => 'required|exists:classes,id',
+            'classe_id' => 'required|exists:classes,id',
             'subject_id' => 'required|exists:subjects,id',
             'days' => 'required|in:monday,tuesday,wednesday,thursday,friday',
             'time' => 'required|regex:/^\d{2}:\d{2}$/'

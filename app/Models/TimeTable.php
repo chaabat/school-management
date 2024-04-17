@@ -16,10 +16,11 @@ class TimeTable extends Model
 
     // protected $dates = ['deleted_at'];
 
-    public function cla()
-    {
-        return $this->belongsTo(Classe::class);
-    }
+    public function classe()
+{
+    return $this->belongsTo(Classe::class);
+}
+
 
     public function subject()
     {

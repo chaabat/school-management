@@ -18,9 +18,19 @@
                         <div class="text-center font-mono font-bold text-blue">Update classe : <span class="text-orange">{{$class->name}}</span> </div>
                     </div>
 
-                    <form action="{{ route('update.class', ['id' => $class->id]) }}" method="POST">
+                    <form action="{{ route('classes.update', $class->id) }}" method="POST">
                         @csrf
                         @method('PUT')
+                        <div>
+                            @if ($errors->any())
+                                <h2 class="text-xl font-mono font-bold text-[#fb5607]">Validation errors:</h2>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
                         <hr class="border-1 border-gray-300">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
