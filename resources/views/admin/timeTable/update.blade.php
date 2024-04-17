@@ -32,7 +32,7 @@
                                     <div class="grid grid-cols-1">
                     
                                         <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Classe:</label>
-                                        <select name="class_id" id="class_id" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                        <select name="classe_id" id="class_id" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                             @foreach ($classSubjects as $classSubject)
                                                 @if ($classSubject->classe)
                                                     <option value="{{ $classSubject->classe->id }}">{{ $classSubject->classe->name }}</option>

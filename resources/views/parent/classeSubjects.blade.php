@@ -1,6 +1,6 @@
 @extends('layouts.parent')
 @section('myChildrenSubjects')
-    <div class="p-4 h-screen sm:ml-64"
+    <div class="p-4 min-h-full sm:ml-64"
         style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
         <div class="p-4  rounded-lg  mt-14">
 
@@ -13,11 +13,9 @@
                         <div class="flex flex-col items-center mt-4">
                             <p class="text-m text-orange font-mono font-bold">Class Name:</p>
                             <div class="flex items-center space-x-2 mt-2">
-                                @if ($class->classe)
-                                <p class="text-2xl font-mono font-bold text-white">{{ $class->classe->name }}</p>
-                            @else
-                                <p class="text-2xl font-mono font-bold text-white">No class associated</p>
-                            @endif
+                                 
+                                <p class="text-2xl font-mono font-bold text-white">{{ $class->name }}</p>
+                          
                         </div>
                         <div class="flex mx-auto border-2 border-orange-500 rounded overflow-hidden mt-6">
                             <button class="py-1 px-4 bg-orange-500 text-white "
@@ -55,7 +53,48 @@
 
                     <div id="time" class="tabcontent hidden">
 
-<p>date</p>
+                      
+                                @foreach ($classeTable as $class)
+               
+
+                @if ($class->timetable->count() > 0)
+                    <table class="w-full">
+                        <thead>
+                            <tr
+                                class="text-l font-bold tracking-wide text-left text-white bg-blue uppercase border border-white">
+                                <th class="px-6 py-4">Time / Days</th>
+                                <th class="px-6 py-4">Monday</th>
+                                <th class="px-6 py-4">Tuesday</th>
+                                <th class="px-6 py-4">Wednesday</th>
+                                <th class="px-6 py-4">Thursday</th>
+                                <th class="px-6 py-4">Friday</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            @for ($hour = 8; $hour <= 17; $hour++)
+                                <tr>
+                                    <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold border">
+                                        {{ $hour }}:00 - {{ $hour + 1 }}:00</td>
+                                    @foreach (['monday', 'tuesday', 'wednesday', 'thursday', 'friday'] as $day)
+                                        <td
+                                            class="px-4 py-3 text-m font-mono text-blue text-center uppercase font-bold border">
+                                            @foreach ($class->timetable as $event)
+                                                @if (date('H', strtotime($event->time)) == $hour && strtolower($event->days) == $day)
+                                                    {{ $event->subject->name }}
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+                @else
+                    <p class="font-mono font-bold text-white">No timetable available for this class.</p>
+                @endif
+            @endforeach
+
+                        
                 </div>
 
 

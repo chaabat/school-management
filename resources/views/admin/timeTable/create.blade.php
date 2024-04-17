@@ -25,6 +25,7 @@
             
                                 <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Classe:</label>
                                 <select name="classe_id" id="class_id" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                    <option>Choisir</option>
                                     @foreach ($classSubjects->groupBy('classe_id') as $classId => $subjects)
                                         @if ($subjects->first()->classe)
                                             <option value="{{ $classId }}">{{ $subjects->first()->classe->name }}</option>
@@ -80,7 +81,7 @@
                             <tr>
                                 {{-- <td>{{ $table->classe->name }}</td> --}}
 
-                                <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold  border">{{ $table->subject->name }}</td>
+                                <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold  border">{{ $table->subject->name ?? 'No Subject' }}</td>
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold  border">{{ ucfirst($table->days) }}</td>
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold  border">{{ $table->time }}</td>
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold border">
@@ -90,7 +91,7 @@
                                     <a href="{{ route('timeTable.edit', $table->id) }}"><img
                                         src="{{ asset('photos/update.png') }}" class="h-6"
                                         alt=""></a>
-                                    <form action="{{ route('timeTable.destroy', $table->id) }}" method="POST" style="display: inline-block;">
+                                    <form action="{{ route('timeTable.destroy', $table->id) }}" method="POST"  >
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"><img src="{{ asset('photos/delete.png') }}" class="h-6" alt=""></button>

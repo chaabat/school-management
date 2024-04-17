@@ -14,7 +14,7 @@
                     });
                 </script>
             @endif
-            <form action="{{ route('classes.index') }}" method="POST">
+            <form action="{{ route('create.class') }}" method="POST">
                 @csrf
                 <div class="w-full flex items-center justify-center">
                     <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
@@ -115,7 +115,7 @@
             
                                                  
 
-                                                <a href="{{ route('classes.edit', $class->id) }}">
+                                                <a href="{{ route('edit.class', ['id' => $class->id]) }}">
                                                     <img src="{{ asset('photos/update.png') }}" class="h-6" alt="">
                                                 </a>
                                                 
@@ -128,7 +128,7 @@
                                                 </a>
 
                                                 <form id="delete-form-{{ $class->id }}"
-                                                    action="{{ route('classes.destroy', $class->id) }}" method="POST"
+                                                    action="{{ route('delete.class', $class->id) }}" method="POST"
                                                     style="display: none;">
                                                     @csrf
                                                     @method('DELETE')

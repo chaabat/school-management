@@ -56,7 +56,7 @@ class TimeTableController extends Controller
     public function show($classId)
     {
         $class = Classe::findOrFail($classId);
-        $timetable = TimeTable::where('class_id', $classId)->get();
+        $timetable = TimeTable::where('classe_id', $classId)->get();
         $subjects = Classe::findOrFail($classId)->subjectToClass()->get();
      
         return view('admin.timeTable.details', compact('class', 'timetable', 'subjects'));
@@ -80,7 +80,7 @@ class TimeTableController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'class_id' => 'required|exists:classes,id',
+            'classe_id' => 'required|exists:classes,id',
             'subject_id' => 'required|exists:subjects,id',
             'days' => 'required|in:monday,tuesday,wednesday,thursday,friday',
             'time' => 'required|regex:/^\d{2}:\d{2}$/'

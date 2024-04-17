@@ -38,4 +38,8 @@ class classRepository implements classeRepositoryInterface
         $classe = Classe::findOrFail($id);
         $classe->delete();
     }
+    public function searchClasses($query)
+    {
+        return Classe::where('name', 'like', "%$query%")->get();
+    }
 }

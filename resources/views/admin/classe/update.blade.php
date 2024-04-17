@@ -18,7 +18,7 @@
                         <div class="text-center font-mono font-bold text-blue">Update classe : <span class="text-orange">{{$class->name}}</span> </div>
                     </div>
 
-                    <form action="{{ route('classes.update', $class->id) }}" method="POST">
+                    <form action="{{ route('update.class', ['id' => $class->id]) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div>

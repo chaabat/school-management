@@ -13,7 +13,7 @@
                     });
                 </script>
             @endif
-            <form action="{{ route('subjects.store') }}" method="POST">
+            <form action="{{ route('create.subject') }}" method="POST">
                 @csrf
                 <div class="w-full flex items-center justify-center">
                     <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
@@ -96,10 +96,10 @@
                         </div>
                         <div class="overflow-x-auto">
                             <div class="mx-auto max-w-screen-xl px-4 w-full mt-12 mb-12">
-                                <div class="subject grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                                <div class="display grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                     @foreach ($subjects as $subject)
                                         <div
-                                            class=" border-4 border-[#03045e] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+                                            class=" class-card border-4 border-[#03045e] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
 
                                             <div class="bg-white py-4 px-3"
                                                 style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe2.jpg') }}') no-repeat center;background-size:cover">
@@ -108,7 +108,7 @@
                                                 </h1>
                                                 <div class="flex justify-between">
 
-                                                    <a href="{{ route('subjects.edit', $subject->id) }}">
+                                                    <a href="{{ route('edit.subject', ['id' => $subject->id]) }}">
                                                         <img src="{{ asset('photos/update.png') }}" class="h-6" alt="">
                                                     </a>
 
@@ -122,7 +122,7 @@
                                                     </a>
 
                                                     <form id="delete-form-{{ $subject->id }}"
-                                                        action="{{ route('subjects.destroy', $subject->id) }}" method="POST"
+                                                        action="{{ route('delete.class', $subject->id) }}" method="POST"
                                                         style="display: none;">
                                                         @csrf
                                                         @method('DELETE')

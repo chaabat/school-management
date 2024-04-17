@@ -22,14 +22,15 @@ class ParentsController extends Controller
 
     public function myChildrenSubjects($id)
     {
-        // Retrieve the child's information
+       
         $child = User::findOrFail($id);
 
-        // Retrieve the classes associated with the child
+        $classeTable = $child->classe()->with('timetable')->get();
         $classes = $child->classe()->with('subjectToClass.subject')->get();
-
-        return view('parent.classeSubjects', compact('child', 'classes'));
+        return view('parent.classeSubjects', compact('child', 'classes','classeTable'));
     }
+
+    
 
 
 

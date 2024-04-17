@@ -22,7 +22,7 @@ class UpdateSubjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:4|unique:subjects,name,' .$this->route('parent') ,
+            'name' => 'required|min:4,' .$this->route('parent') ,
             'statut' => 'required|in:activer,desactiver',
         ];
     }
@@ -37,7 +37,6 @@ class UpdateSubjectRequest extends FormRequest
         return [
             'name.required' => 'Le nom est requis.',
             'name.min' => 'Le nom doit comporter au moins 4 caractères.',
-            'name.unique' => 'Ce nom est déjà pris.',
             'statut.required' => 'Le statut est requis.',
             'statut.in' => 'Le statut doit être "activer" ou "desactiver".',
         ];

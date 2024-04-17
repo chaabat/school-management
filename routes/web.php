@@ -73,32 +73,39 @@ Route::get('/parent-student/{id}', [ParentController::class, 'myStudent'])->name
 /*************************************************** ADMIN CLASSES ***********************************************************************/
 
 
-// Route::group(['prefix' => 'classes'], function () {
-//     Route::get('/', [ClasseController::class, 'index'])->name('admin.class');
-//     Route::post('/', [ClasseController::class, 'store'])->name('create.class');
-//     Route::delete('/{id}', [ClasseController::class, 'destroy'])->name('delete.class');
-//     Route::get('{id}/edit', [ClasseController::class, 'edit'])->name('edit.class');
-//     Route::put('/{id}', [ClasseController::class, 'update'])->name('update.class');
-//     Route::get('/search',[ClasseController::class, 'search'])->name('search.class');
+Route::group(['prefix' => 'classes'], function () {
+    Route::get('/', [ClasseController::class, 'index'])->name('admin.class');
+    Route::post('/', [ClasseController::class, 'store'])->name('create.class');
+    Route::delete('/{id}', [ClasseController::class, 'destroy'])->name('delete.class');
+    Route::get('{id}/edit', [ClasseController::class, 'edit'])->name('edit.class');
+    Route::put('/{id}', [ClasseController::class, 'update'])->name('update.class');
+    Route::get('/search',[ClasseController::class, 'search'])->name('search.class');
 
-// });
-
-Route::resource('classes', ClasseController::class);
-Route::get('/search',[ClasseController::class, 'search'])->name('search.subject');
+});
 
 /*************************************************** ADMIN SUBJECTS ***********************************************************************/
 
- 
-Route::resource('subjects', SubjectController::class);
-Route::get('/search',[SubjectController::class, 'search'])->name('search.subject');
+Route::group(['prefix' => 'subjects'], function () {
+    Route::get('/', [SubjectController::class, 'index'])->name('admin.subject');
+    Route::post('/', [SubjectController::class, 'store'])->name('create.subject');
+    Route::delete('/{id}', [SubjectController::class, 'destroy'])->name('delete.subject');
+    Route::get('{id}/edit', [SubjectController::class, 'edit'])->name('edit.subject');
+    Route::put('/{id}', [SubjectController::class, 'update'])->name('update.subject');
+    Route::get('/search',[SubjectController::class, 'search'])->name('search.subject');
 
+});
 
 /*************************************************** ADMIN EXAMS ***********************************************************************/
 
-Route::resource('exams', ExamController::class);
-Route::get('exams/search',[ExamController::class, 'search'])->name('searchExam');
 
- 
+Route::group(['prefix' => 'exams'], function () {
+    Route::get('/', [ExamController::class, 'index'])->name('exams.index');
+    Route::post('/', [ExamController::class, 'store'])->name('exams.store');
+    Route::delete('/{id}', [ExamController::class, 'destroy'])->name('exams.destroy');
+    Route::get('{id}/edit', [ExamController::class, 'edit'])->name('exams.edit');
+    Route::put('/{id}', [ExamController::class, 'update'])->name('exams.update');
+    Route::get('/search',[ExamController::class, 'search'])->name('search.exams');
+});
 
 /*************************************************** ADMIN SUBJECT TO CLASSE ***********************************************************************/
 

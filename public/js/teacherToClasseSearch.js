@@ -22,11 +22,9 @@ $("#search").on("keyup", function () {
                           <td class="px-4 py-3 font-mono text-black font-bold">${result.created_at}</td>
                                <td class="px-4 py-3">
                            <div class="flex space-x-4 items-right">
-                       <span data-modal-target="update-modal" data-modal-toggle="update-modal">
-                 <a href="#" class="edit-class" data-class-id="${result.id}" data-class-name="${result.classe.name}">
-        <img src="/photos/update.png" class="h-6" alt="">
-    </a>
-</span>
+                           <a href="/teacher-to-classe/${result.id}/edit">
+                           <img src="/photos/update.png" class="h-6" alt="">
+                       </a>
 <button class="delete-class" data-class-id="${result.id}">
     <img src="/photos/delete.png" class="h-6" alt="">
 </button>

@@ -16,7 +16,7 @@
                 <div class="w-full flex items-center justify-center">
                     <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
                         <div class="px-5 py-3 mb-3 text-3xl font-medium text-gray-800 mt-6">
-                            <div class="text-center font-mono font-bold text-blue">Update Subject To Classe  
+                            <div class="text-center font-mono font-bold text-blue">Update Teacher To Classe  
                                       </div>
                         </div>
 

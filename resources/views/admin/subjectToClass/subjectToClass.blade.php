@@ -44,10 +44,9 @@
 
                             </div>
                             <div class="grid grid-cols-1">
- 
+
                                 <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Subject</label>
-                                <select name="subject_id[]"  
-                                    class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                <select name="subject_id[]" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                     @foreach ($subjects as $subject)
                                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                                     @endforeach
@@ -99,7 +98,7 @@
 
                             <div
                                 class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                               
+
                                 <div class="flex items-center space-x-3 w-full md:w-auto">
                                     <button
                                         class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -107,7 +106,7 @@
 
                                         Actions
                                     </button>
- 
+
                                 </div>
                             </div>
                         </div>
@@ -129,10 +128,10 @@
                                         <tr class="class-row border-b dark:border-[#03045e]">
                                             <th class="px-4 py-3 font-mono text-[#fb5607] font-bold">{{ $class->id }}
                                             </th>
-                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->classe->name }}
-                                            </td>
-                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->subject->name }}
-                                            </td>
+                                            <td class="px-4 py-3 font-mono text-black font-bold">
+                                                {{ $class->classe->name ?? 'No Class' }}</td>
+                                            <td class="px-4 py-3 font-mono text-black font-bold">
+                                                {{ $class->subject->name ?? 'No Subject' }}</td>
                                             <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->statut }}</td>
                                             <td class="px-4 py-3 font-mono text-black font-bold">{{ $class->created_at }}
                                             </td>
@@ -140,7 +139,8 @@
                                             <td class="px-4 py-3">
                                                 <div class="flex space-x-4 items-right">
                                                     <a href="{{ route('editSubjectToClasse', ['id' => $class->id]) }}">
-                                                        <img src="{{ asset('photos/update.png') }}" class="h-6" alt="">
+                                                        <img src="{{ asset('photos/update.png') }}" class="h-6"
+                                                            alt="">
                                                     </a>
 
                                                     <a href="#"
@@ -182,7 +182,7 @@
                 </div>
             </section>
 
-            
+
 
 
 
