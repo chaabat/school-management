@@ -48,6 +48,8 @@ Route::post('/reset-password', [AuthentificationController::class, 'resetPasswor
 Route::get('/check-your-email', [AuthentificationController::class, 'waitPage'])->name('waitPage');
 Route::post('logout', [AuthentificationController::class, 'destroy'])->name('logout');
 
+Route::post('/send-message', [AuthentificationController::class, 'sendMessage'])->name('send-message');
+
 /*************************************************** TEACHERS ***********************************************************************/
 
 Route::resource('teachers', TeacherController::class);
@@ -120,6 +122,7 @@ Route::get('/student/dashboard',[StudentsController::class, 'index'])->name('stu
 Route::get('/mySubjects',[StudentsController::class, 'mySubject'])->name('mySubject');
 Route::get('/Student-TimeTable',[StudentsController::class, 'myTimeTable'])->name('StudentTimeTable');
 Route::get('/download-certificate', [StudentsController::class, 'downloadCertificate'])->name('certificate');
+Route::get('/administration', [StudentsController::class, 'administration'])->name('administration');
 
 
 });

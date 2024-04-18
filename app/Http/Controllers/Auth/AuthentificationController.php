@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactFormMail;
 
 class AuthentificationController extends Controller
 {
@@ -137,5 +138,22 @@ class AuthentificationController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function sendMessage(Request $request)
+    {
+        // Validate the form data
+        $data = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'role' => 'required|string',
+            'message' => 'required|string',
+        ]);
+
+        // Send email
+        Mail::to('smilemoreinfo@gmail.com')->send(new ContactFormMail($data));
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Message sent successfully!');
     }
 }

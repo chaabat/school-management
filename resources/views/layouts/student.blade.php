@@ -23,6 +23,7 @@
     @yield('mySubject')
     @yield('myTimeTable')
     @yield('certificate')
+    @yield('administration')
 
      
 
