@@ -55,7 +55,7 @@ class SubjectToClasseController extends Controller
         
         $this->subjectToClassRepository->update($subjectData, $id);
         
-        return redirect()->route('assignSubjectToClass')->with('success', 'Subject-to-class relationship updated successfully');
+        return redirect()->route('subject-to-class.index')->with('success', 'Subject-to-class relationship updated successfully');
     }
     
 

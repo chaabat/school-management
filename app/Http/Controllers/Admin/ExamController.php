@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ExamRequest;
 use App\Http\Requests\ExamUpdateRequest;
+use App\Models\Classe;
 use App\Models\Exam;
+use App\Models\Subject;
+use App\Models\SubjetToClass;
 use Illuminate\Http\Request;
 use App\RepositoriesInterfaces\examRepositoryInterface;
 
@@ -22,8 +25,9 @@ class ExamController extends Controller
     public function index()
     {
         
-        $exams = $this->examRepository->getAllExams(4);
-       return view('admin.exam.exam',compact('exams'));
+        $exams =  Exam::with('classe', 'subject')->paginate(4);
+        $classes = SubjetToClass::with('classe', 'subject')->get();
+       return view('admin.exam.exam',compact('exams','classes'));
     }
 
 

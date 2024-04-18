@@ -34,7 +34,7 @@ class SubjectController extends Controller
 
             $this->subjectRepository->createSubject($class);
 
-            return redirect()->route('admin.subject');
+            return redirect()->route('subjects.index');
        
     }
 
@@ -51,7 +51,7 @@ class SubjectController extends Controller
         
         $this->subjectRepository->updateSubject($id, $subjectData);
         
-        return redirect()->route('admin.subject')->with('success', 'Classe modifiée avec succès');
+        return redirect()->route('subjects.index')->with('success', 'Classe modifiée avec succès');
     }
     
 
@@ -60,7 +60,7 @@ class SubjectController extends Controller
     {
         $this->subjectRepository->destroySubject($id);
 
-        return redirect()->route('admin.subject');
+        return redirect()->route('subjects.index');
     }
     
 

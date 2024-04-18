@@ -11,17 +11,7 @@ class SubjectToClasseRepository implements SubjectToClasseRepositoryInterface
 {
     public function create(array $data)
     {
-        $subjects = [];
-
-        foreach ($data['subject_id'] as $subjectId) {
-            $subjects[] = SubjetToClass::create([
-                'classe_id' => $data['classe_id'],
-                'subject_id' => $subjectId,
-                'statut' => $data['statut'],
-            ]);
-        }
-
-        return $subjects;
+        return SubjetToClass::create($data);
     }
 
     public function update(array $data, $id)

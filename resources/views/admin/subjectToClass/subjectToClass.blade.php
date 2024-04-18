@@ -46,7 +46,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                             <div class="grid grid-cols-1">
 
                                 <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Subject</label>
-                                <select name="subject_id[]" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                <select name="subject_id" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                     @foreach ($subjects as $subject)
                                         <option value="{{ $subject->id }}">{{ $subject->name }}</option>
                                     @endforeach

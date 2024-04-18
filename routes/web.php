@@ -62,6 +62,8 @@ Route::resource('students', StudentController::class);
 Route::get('/search-students', [StudentController::class, 'search'])->name('search.students');
 Route::get('/student-parent/{id}', [StudentController::class, 'myParent'])->name('myParent');
 
+
+
 /*************************************************** PARENTS ***********************************************************************/
 
 Route::resource('parents', ParentController::class);
@@ -117,6 +119,8 @@ Route::group(['middleware' => ['auth', 'role:student']], function () {
 Route::get('/student/dashboard',[StudentsController::class, 'index'])->name('studentDashboard');
 Route::get('/mySubjects',[StudentsController::class, 'mySubject'])->name('mySubject');
 Route::get('/Student-TimeTable',[StudentsController::class, 'myTimeTable'])->name('StudentTimeTable');
+Route::get('/download-certificate', [StudentsController::class, 'downloadCertificate'])->name('certificate');
+
 
 });
 

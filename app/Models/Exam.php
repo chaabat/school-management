@@ -14,4 +14,14 @@ class Exam extends Model
     protected $guarded = [];
     
     protected $dates = ['deleted_at']; 
+
+    public function classe()
+    {
+        return $this->belongsTo(Classe::class);
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }

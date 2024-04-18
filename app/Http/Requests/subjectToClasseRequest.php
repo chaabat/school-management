@@ -23,8 +23,7 @@ class subjectToClasseRequest extends FormRequest
     {
         return [
             'classe_id' => 'required',
-            'subject_id' => 'required|array',
-            'subject_id.*' => 'exists:subjects,id',
+            'subject_id' => 'required',
             'statut' => 'required',
         ];
     }

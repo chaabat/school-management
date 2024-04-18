@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-    <title>Document</title>
+    <title>Student</title>
 </head>
 
 <body>
@@ -22,6 +22,7 @@
     @yield('dashboard')
     @yield('mySubject')
     @yield('myTimeTable')
+    @yield('certificate')
 
      
 

@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('exam')
-<div class="p-4 h-screen sm:ml-64"
-style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
-<div class="p-4 rounded-lg mt-14">
+    <div class="p-4 h-screen sm:ml-64"
+        style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
+        <div class="p-4 rounded-lg mt-14">
             @if (session('success'))
                 <script>
                     Swal.fire({
@@ -28,27 +28,54 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                             @endif
                         </div>
                         <hr class="border-1 border-gray-300">
-            
+                        <div class="grid grid-cols-1 mt-2">
+                            <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Nom</label>
+                            <input type="text" name="name"
+                                class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+
+                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
+
+
+
                             <div class="grid grid-cols-1">
-            
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Nom</label>
-                                <input type="text" name="name" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
-            
-                                 
+
+
+                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Classe</label>
+                                <select class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none" name="classe_id"
+                                    id="classe_id">
+                                    <option>Choisir</option>
+                                    @foreach ($classes->groupBy('classe_id') as $classId => $subjects)
+                                        @if ($subjects->first()->classe)
+                                            <option value="{{ $classId }}">{{ $subjects->first()->classe->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Date</label>
+                                <input type="date" name="date"
+                                    class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+
+
                             </div>
                             <div class="grid grid-cols-1">
-                                 
-            
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Statut</label>
-                                <select name="statut"   class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
-                                    <option value="activer">Activer</option>
-                                        <option value="desactiver">Desactiver</option>
+
+                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Subject</label>
+                                <select class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none" name="subject_id"
+                                    id="subject_id">
+                                  
                                 </select>
+
+                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Statut</label>
+                                <select name="statut" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                    <option value="activer">Activer</option>
+                                    <option value="desactiver">Desactiver</option>
+                                </select>
+
                             </div>
                         </div>
                         <div class="flex items-center justify-center  my-6">
-                            <button type="submit" class="font-mono font-bold py-2 px-8 bg-blue-900 rounded-full text-white  hover:bg-orange cursor-pointer">
+                            <button type="submit"
+                                class="font-mono font-bold py-2 px-8 bg-blue-900 rounded-full text-white  hover:bg-orange cursor-pointer">
                                 Ajouter
                             </button>
                         </div>
@@ -82,7 +109,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
 
                             <div
                                 class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                           
+
                                 <div class="flex items-center space-x-3 w-full md:w-auto">
                                     <button
                                         class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -95,21 +122,41 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                             </div>
                         </div>
                         <div class="overflow-x-auto">
-                            <div class="mx-auto max-w-screen-xl px-4 w-full mt-12 mb-12">
-                                <div class="display grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                            <table class="w-full text-sm text-left text-white">
+                                <thead
+                                    class="text-xs text-white uppercase bg-blue">
+                                    <tr>
+                                        <th scope="col" class="px-4 py-3">Id</th>
+                                        <th scope="col" class="px-4 py-3">Exam</th>
+                                        <th scope="col" class="px-4 py-3">Classe</th>
+                                        <th scope="col" class="px-4 py-3">Subject</th>
+                                        <th scope="col" class="px-4 py-3">Status</th>
+                                        <th scope="col" class="px-4 py-3">Date  </th>
+                                        <th scope="col" class="px-4 py-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     @foreach ($exams as $exam)
-                                        <div
-                                            class="class-card border-4 border-[#03045e] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
+                                        <tr class="class-row border-b dark:border-[#03045e]">
+                                            <th class="px-4 py-3 font-mono text-[#fb5607] font-bold">{{ $exam->id }}
+                                            </th>
+                                            <th class="px-4 py-3 font-mono text-black font-bold">{{ $exam->name }}
+                                            </th>
+                                          
+                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $exam->classe->name }}
+                                            </td>
+                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $exam->subject->name }}
+                                            </td>
+                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $exam->statut }}</td>
+                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $exam->date }}
+                                            </td>
 
-                                            <div class="bg-white py-4 px-3"
-                                                style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe2.jpg') }}') no-repeat center;background-size:cover">
-                                                <h1 class="text-3xl text-white text-center mb-2 font-bold font-mono">
-                                                    {{ $exam->name }}
-                                                </h1>
-                                                <div class="flex justify-between">
-
-                                                    <a href="{{ route('exams.edit',   $exam->id) }}">
-                                                        <img src="{{ asset('photos/update.png') }}" class="h-6" alt="">
+                                            <td class="px-4 py-3">
+                                                <div class="flex space-x-4 items-right">
+                                                   
+                                                    <a href="{{ route('exams.edit', $exam->id) }}">
+                                                        <img src="{{ asset('photos/update.png') }}" class="h-6"
+                                                            alt="">
                                                     </a>
 
 
@@ -127,12 +174,15 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                                         @csrf
                                                         @method('DELETE')
                                                     </form>
+
                                                 </div>
-                                            </div>
-                                        </div>
+                                            </td>
+
+                                        </tr>
                                     @endforeach
-                                </div>
-                            </div>
+                                </tbody>
+                            </table>
+                           
                         </div>
                     </div>
                     <!-- "Nothing found" message -->
@@ -152,9 +202,38 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                 </div>
         </div>
         </section>
-  
+
     </div>
-   
+
     <script src="js/searchExam.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var classSelect = document.getElementById('classe_id');
+            var subjectSelect = document.getElementById('subject_id');
+            var classSubjects = @json($classes);
+    
+            classSelect.addEventListener('change', function() {
+                var selectedClassId = this.value;
+    
+                // Clear existing options
+                subjectSelect.innerHTML = '';
+    
+                // Filter subjects based on the selected class
+                var filteredSubjects = classSubjects.filter(function(classSubject) {
+                    return classSubject.classe && classSubject.classe.id == selectedClassId;
+                });
+    
+                // Populate subjects dropdown with filtered subjects
+                filteredSubjects.forEach(function(classSubject) {
+                    if (classSubject.subject) {
+                        var option = document.createElement('option');
+                        option.value = classSubject.subject.id;
+                        option.textContent = classSubject.subject.name;
+                        subjectSelect.appendChild(option);
+                    }
+                });
+            });
+        });
+    </script>
     
 @endsection

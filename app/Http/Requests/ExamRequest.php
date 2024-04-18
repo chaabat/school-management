@@ -23,6 +23,9 @@ class ExamRequest extends FormRequest
     {
         return [
             'name' => 'required|min:4|unique:classes,name',
+            'date' => 'required',
+            'classe_id' => 'required',
+            'subject_id' => 'required',
             'statut' => 'required|in:activer,desactiver',
         ];
     }
