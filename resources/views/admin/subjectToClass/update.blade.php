@@ -20,7 +20,7 @@
                                           </div>
                             </div>
 
-                            <form action="{{ route('updateSubjectToClasse', ['id' => $subjetToClasse->id]) }}" method="POST">
+                            <form action="{{ route('subject-to-class.update',$subjetToClasse->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div>

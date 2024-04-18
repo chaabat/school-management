@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 @section('class')
 
-    <div class="p-4 h-screen sm:ml-64"
-        style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
-        <div class="p-4  rounded-lg  mt-14">
+<div class="p-4 h-screen sm:ml-64"
+    style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
+    <div class="p-4 rounded-lg mt-14">
             @if (session('success'))
                 <script>
                     Swal.fire({
@@ -14,7 +14,7 @@
                     });
                 </script>
             @endif
-            <form action="{{ route('create.class') }}" method="POST">
+            <form action="{{ route('classes.store') }}" method="POST">
                 @csrf
                 <div class="w-full flex items-center justify-center">
                     <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
@@ -115,7 +115,7 @@
             
                                                  
 
-                                                <a href="{{ route('edit.class', ['id' => $class->id]) }}">
+                                                <a href="{{ route('classes.edit', $class->id) }}">
                                                     <img src="{{ asset('photos/update.png') }}" class="h-6" alt="">
                                                 </a>
                                                 
@@ -128,7 +128,7 @@
                                                 </a>
 
                                                 <form id="delete-form-{{ $class->id }}"
-                                                    action="{{ route('delete.class', $class->id) }}" method="POST"
+                                                    action="{{ route('classes.destroy', $class->id) }}" method="POST"
                                                     style="display: none;">
                                                     @csrf
                                                     @method('DELETE')
@@ -140,6 +140,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="flex justify-center bg-white font-mono">
+                            {{ $classes->links('pagination::tailwind') }}
+                        </div>
                     </div>
                         </div>
                         <!-- "Nothing found" message -->
@@ -148,13 +151,7 @@
                             <p class="text-2xl md:text-3xl lg:text-5xl font-bold font-mono text-[#03045e] mt-4">Recherche introuvable</p>
                               
                         </div>
-                        <nav class="flex flex-col md:flex-row justify-end items-end md:items-center space-y-3 md:space-y-0 p-4"
-                            aria-label="Table navigation">
-
-                            <div class="mt-8 flex justify-center bg-white font-mono">
-                                {{ $classes->links('pagination::tailwind') }}
-                            </div>
-                        </nav>
+                      
                     </div>
                 </div>
             </section>

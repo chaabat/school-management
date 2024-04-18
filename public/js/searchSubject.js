@@ -2,7 +2,7 @@ $('#search').on('keyup', function() {
     var query = $(this).val();
 
     $.ajax({
-        url: "/subjects/search",
+        url: "/search-subjects",
         type: "GET",
         data: { 'search': query },
         headers: {

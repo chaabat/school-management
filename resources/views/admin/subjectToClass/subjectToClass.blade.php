@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 @section('subjectToClass')
-    <div class="p-4 h-screen sm:ml-64"
-        style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
-        <div class="p-4  rounded-lg  mt-14">
+<div class="p-4 h-screen sm:ml-64"
+style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
+<div class="p-4 rounded-lg mt-14">
 
             @if (session('success'))
                 <script>
@@ -14,7 +14,7 @@
                     });
                 </script>
             @endif
-            <form action="{{ route('createSubjectToClasse') }}" method="POST">
+            <form action="{{ route('subject-to-class.store') }}" method="POST">
                 @csrf
                 <div class="w-full flex items-center justify-center">
                     <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
@@ -138,7 +138,7 @@
 
                                             <td class="px-4 py-3">
                                                 <div class="flex space-x-4 items-right">
-                                                    <a href="{{ route('editSubjectToClasse', ['id' => $class->id]) }}">
+                                                    <a href="{{ route('subject-to-class.edit',$class->id) }}">
                                                         <img src="{{ asset('photos/update.png') }}" class="h-6"
                                                             alt="">
                                                     </a>
@@ -150,7 +150,7 @@
                                                     </a>
 
                                                     <form id="delete-form-{{ $class->id }}"
-                                                        action="{{ route('deleteSubjectToClasse', $class->id) }}"
+                                                        action="{{ route('subject-to-class.destroy', $class->id) }}"
                                                         method="POST" style="display: none;">
                                                         @csrf
                                                         @method('DELETE')

@@ -32,7 +32,7 @@ class UpdateParentRequest extends FormRequest
             'genre' => 'required',
             'phone' => 'required|min:8',
             'description' => 'required',
-            'child_id' => 'required'
+       
 
         ];
     }

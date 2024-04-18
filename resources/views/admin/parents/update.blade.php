@@ -78,6 +78,7 @@
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3"
                                 value="{{ $parent->adress }}" type="text" name="adress" placeholder="Jane">
                         </div>
+                       
                         <div class="md:w-1/2 px-3 mb-6 md:mb-0">
                             <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono" for="grid-state">
                                 Ville
@@ -87,15 +88,6 @@
                                     
                            
                             </div>
-                        </div> 
-                        <div class="md:w-1/2 px-3">
-                            <label
-                                class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Téléphone
-                            </label>
-
-                            <input
-                                class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-                                value="{{ $parent->phone }}" type="text" name="phone" placeholder="Doe">
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">
@@ -116,21 +108,16 @@
 
                             </div>
                         </div>
-                        <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                            <label class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono"
-                                for="grid-state">
-                                Student
+                        <div class="md:w-1/2 px-3">
+                            <label
+                                class="block uppercase tracking-wide text-grey-darker text-l font-bold mb-2 font-mono">Téléphone
                             </label>
-                            <div class="relative">
-                                <select name="child_id"
-                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected>Select Student</option>
-                                    @foreach($students as $student)
-                                        <option value="{{ $student->id }}">{{ $student->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+
+                            <input
+                                class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+                                value="{{ $parent->phone }}" type="text" name="phone" placeholder="Doe">
                         </div>
+                         
                     </div>
                     <div class="-mx-3 md:flex mb-6">
                         <div class="md:w-full px-3">

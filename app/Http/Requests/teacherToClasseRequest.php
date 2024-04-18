@@ -20,11 +20,24 @@ class teacherToClasseRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
+    {   
+        return [
+            'user_id' => 'required|unique:teacher_to_classes,user_id',  
+            'classe_id' => 'required|unique:teacher_to_classes,classe_id',
+            'statut' => 'required|in:activer,desactiver',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
     {
         return [
-            'user_id' => 'required',
-            'classe_id' => 'required',
-            'statut' => 'required|in:activer,desactiver',
+            'user_id.unique' => 'The teacher is already assigned to a class.',
+            'classe_id.unique' => 'The classe is already assigned to a teacher.',
         ];
     }
 }

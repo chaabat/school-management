@@ -39,6 +39,7 @@ class teacherRepository implements teacherRepositoryInterface
     public function destroyTeacher($id)
     {
         $teacher = User::findOrFail($id);
+        $teacher->teacherToClasse()->delete();
         $teacher->delete();
     }
 

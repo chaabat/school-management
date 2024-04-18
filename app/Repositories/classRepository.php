@@ -36,6 +36,9 @@ class classRepository implements classeRepositoryInterface
     public function destroyClasse($id)
     {
         $classe = Classe::findOrFail($id);
+        $classe->subjectToClass()->delete();
+        $classe->teacherToClasse()->delete();
+        $classe->timetable()->delete();
         $classe->delete();
     }
     public function searchClasses($query)

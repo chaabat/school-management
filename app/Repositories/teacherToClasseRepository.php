@@ -12,8 +12,11 @@ class teacherToClasseRepository implements teacherToClasseRepositoryInterface
 {
     public function create(array $data)
     {
+       TeacherToClasse::where('user_id', $data['user_id'])->exists() ;
+       TeacherToClasse::where('classe_id', $data['classe_id'])->exists() ;
         return TeacherToClasse::create($data);
     }
+    
 
     public function update(array $data, $id)
     {

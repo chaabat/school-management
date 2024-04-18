@@ -36,6 +36,8 @@ class subjectRepository implements subjectsRepositoryInterface
     public function destroySubject($id)
     {
         $subjects = Subject::findOrFail($id);
+        $subjects->subjectToClass()->delete();
+        $subjects->timetable()->delete();
         $subjects->delete();
     }
     public function searchSubjects($query)

@@ -18,7 +18,7 @@
                         <div class="text-center font-mono font-bold text-blue">Update Subject : <span class="text-orange">{{$subject->name}}</span> </div>
                     </div>
 
-                    <form action="{{ route('update.subject', ['id' => $subject->id]) }}" method="POST">
+                    <form action="{{ route('subjects.update',$subject->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div>

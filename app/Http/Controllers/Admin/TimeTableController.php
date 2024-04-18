@@ -68,7 +68,7 @@ class TimeTableController extends Controller
     public function edit($id)
     {
         $timetable = TimeTable::findOrFail($id);
-        $class = Classe::findOrFail($timetable->class_id);  
+        $class = Classe::findOrFail($timetable->classe_id);  
         $classSubjects = SubjetToClass::with('classe', 'subject')->get();
         $subjects = $class->subjectToClass()->get();
         return view('admin.timeTable.update', compact('timetable','class','subjects','classSubjects'));

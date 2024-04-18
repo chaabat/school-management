@@ -1,8 +1,10 @@
 @extends('layouts.teacher')
 
 @section('myTimeTable')
-    <div class="p-4 h-full sm:ml-64" style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
-        <div class="p-4 rounded-lg mt-14">
+<div class="p-4 h-screen sm:ml-64"
+style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
+<div class="p-4 rounded-lg mt-14">
+    @if ($teacherTable->count() > 0)
             @foreach ($teacherTable as $teacherClass)
                 <h1 class="font-mono font-bold text-xl text-orange mb-2">Classe: <span class="text-white">{{ $teacherClass->classe->name }}</span></h1>
 
@@ -36,11 +38,21 @@
                     </tbody>
                 </table>
             @endforeach
-             
-                <div class=" flex justify-center bg-white font-mono">
-                    {{ $teacherTable->links('pagination::tailwind') }}
+            @else
+            <div class="bg-blue rounded-lg shadow-xl pb-8">
+                <div class="w-full h-[200px]">
+                    <img src="{{ asset('photos/classe.jpg') }}" class="w-full h-full rounded-tl-lg rounded-tr-lg">
                 </div>
-             
+                <div class="flex flex-col items-center mt-4">
+
+                    <div class="flex items-center space-x-2 mt-2">
+                        <p class="text-xl text-white font-mono">No time table found. You should be assigned to a classes first</p>
+
+                    </div>
+
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 @endsection

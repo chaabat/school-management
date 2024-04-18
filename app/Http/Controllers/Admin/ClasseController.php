@@ -23,7 +23,7 @@ class ClasseController extends Controller
 
     public function index()
     {
-        $classes = $this->classeRepository->getAllClasses(4);
+        $classes = $this->classeRepository->getAllClasses(8);
         return view('admin.classe.class', compact('classes'));
     }
 

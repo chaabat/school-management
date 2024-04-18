@@ -39,6 +39,7 @@ class SubjectToClasseRepository implements SubjectToClasseRepositoryInterface
     public function delete($id)
     {
         $subjetToClasse = SubjetToClass::findOrFail($id);
+       
         $subjetToClasse->delete();
     }
 

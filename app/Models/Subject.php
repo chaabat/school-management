@@ -18,4 +18,8 @@ class Subject extends Model
     public function subjectToClass(){
         return $this->hasMany(SubjetToClass::class);
     }
+    public function timetable()
+    {
+        return $this->hasMany(TimeTable::class);
+    }
 }

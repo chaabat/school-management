@@ -5,12 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\teacherToClasseRequest;
 use App\Http\Requests\updateTeacherToClasseRequest;
-use App\Models\Classe;
-use App\Models\Role;
-use App\Models\TeacherToClasse;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Database\QueryException;
 use App\RepositoriesInterfaces\teacherToClasseRepositoryInterface;
 
 
