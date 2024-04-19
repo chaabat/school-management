@@ -96,9 +96,16 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{ route('administrationTeacher') }}"
+                    class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#fb5607] dark:hover:bg-gray-700 group">
+                    <img src="{{ asset('photos/administration.png') }}" class="h-6 " alt="">
 
+                    <span class="flex-1 ms-3 whitespace-nowrap">Administration</span>
+                </a>
+            </li>
 
-
+            
 
             <li>
                 <form method="POST" action="{{ route('logout') }}">

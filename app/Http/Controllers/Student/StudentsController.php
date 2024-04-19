@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
- 
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 
@@ -15,9 +13,10 @@ class StudentsController extends Controller
     public function index(){
         return view('student.dashboard');
     }
+
     public function administration() {
-        $canDownloadCertificate = $this->canDownloadCertificate();
-        return view('student.administration', compact('canDownloadCertificate'));
+        $certificate = $this->download();
+        return view('student.administration', compact('certificate'));
     }
 
     public function mySubject(){
@@ -37,11 +36,11 @@ class StudentsController extends Controller
 
     
 
-    private function canDownloadCertificate()
+    private function download()
     {
         $student = auth()->user();
     
-        // Check if the download_date attribute is null or if it's been more than a week since the last download
+         
         $lastDownloadDate = $student->download_date;
         $differenceInDays = $lastDownloadDate ? Carbon::now()->diffInDays($lastDownloadDate) : 7;
     
@@ -53,14 +52,11 @@ class StudentsController extends Controller
 public function downloadCertificate()
 {
     $student = auth()->user();
-
-    // Update the last download date to the current date
     $student->download_date = now();
     $student->save();
 
-    // Load the certificate PDF and return the download response
     $pdf = PDF::loadView('student.certificate', compact('student'));
-    return $pdf->download('certificate.pdf');
+    return $pdf->download('Attestation_de_scolarité.pdf');
 }
 
 

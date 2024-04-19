@@ -119,10 +119,10 @@ Route::group(['middleware' => ['auth', 'role:parent']], function () {
 
 Route::group(['middleware' => ['auth', 'role:student']], function () {
 Route::get('/student/dashboard',[StudentsController::class, 'index'])->name('studentDashboard');
-Route::get('/mySubjects',[StudentsController::class, 'mySubject'])->name('mySubject');
-Route::get('/Student-TimeTable',[StudentsController::class, 'myTimeTable'])->name('StudentTimeTable');
-Route::get('/download-certificate', [StudentsController::class, 'downloadCertificate'])->name('certificate');
-Route::get('/administration', [StudentsController::class, 'administration'])->name('administration');
+Route::get('/student/mySubjects',[StudentsController::class, 'mySubject'])->name('mySubject');
+Route::get('/student/timeTable',[StudentsController::class, 'myTimeTable'])->name('StudentTimeTable');
+Route::get('/student/certificate', [StudentsController::class, 'downloadCertificate'])->name('certificate');
+Route::get('/student/administration', [StudentsController::class, 'administration'])->name('administration');
 
 
 });
@@ -136,4 +136,7 @@ Route::group(['middleware' => ['auth', 'role:teacher']], function () {
     Route::get('/teacher/dashboard',[TeachersController::class, 'index'])->name('teacherDashboard');
     Route::get('/myClasse',[TeachersController::class, 'myClasse'])->name('myClasse');
     Route::get('/myTimeTable',[TeachersController::class, 'myTimeTable'])->name('myTimeTable');
+    Route::get('/teacher/certificate', [TeachersController::class, 'downloadCertificate'])->name('certificate');
+    Route::get('/teacher/administration', [TeachersController::class, 'administration'])->name('administrationTeacher');
+    
 });

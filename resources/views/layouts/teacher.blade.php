@@ -22,6 +22,7 @@
     @yield('dashboard')
     @yield('myClasse')
     @yield('myTimeTable')
+    @yield('administration')
 
     
      

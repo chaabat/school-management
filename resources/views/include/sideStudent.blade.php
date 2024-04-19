@@ -34,7 +34,7 @@
                     <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
                         id="dropdown-user">
                         <div class="px-4 py-3" role="none">
-                            >
+                             
                             <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                                 {{ Auth::user()->name }}
                             </p>
@@ -97,8 +97,16 @@
                     <span class="flex-1 ms-3 whitespace-nowrap">Time Table</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('administration') }}"
+                    class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-[#fb5607] dark:hover:bg-gray-700 group">
+                    <img src="{{ asset('photos/administration.png') }}" class="h-6 " alt="">
 
+                    <span class="flex-1 ms-3 whitespace-nowrap">Administration</span>
+                </a>
+            </li>
 
+            
             <li>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

@@ -142,12 +142,12 @@ class AuthentificationController extends Controller
 
     public function sendMessage(Request $request)
     {
-        // Validate the form data
+         
         $data = $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|min:3',
             'email' => 'required|email',
-            'role' => 'required|string',
-            'message' => 'required|string',
+            'role' => 'nullable',
+            'message' => 'required|min:5, max:200',
         ]);
 
         // Send email

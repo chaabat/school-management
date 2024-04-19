@@ -1,4 +1,4 @@
-@extends('layouts.student')
+@extends('layouts.teacher')
 
 @section('administration')
 <div class="p-4 h-screen sm:ml-64"
@@ -50,8 +50,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                     </div>
                     <h3 class="text-2xl text-gray-900 font-semibold">Let us call you!</h3>
                     <p class="text-gray-600">To help you choose your property</p>
-                    
-                    <input type="hidden" name="role" value="Student">
+                    <input type="hidden" name="role" value="Teacher">
                     
                     <input type="text" name="name" placeholder="Your Name" class="border p-2 w-full mt-3">
                     <input type="email" name="email" placeholder="Your Email" class="border p-2 w-full mt-3">
@@ -66,8 +65,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                             </ul>
                         @endif
                     </div>
-                    <input type="submit" value="Submit" class="w-full mt-6 bg-blue-900 hover:bg-orange text-white font-semibold p-3">
-               
+                    <button type="submit"  class="w-full mt-6 bg-blue-900 hover:bg-orange text-white font-semibold p-3"> Envoyer </button>
                 </form>
         </div>
     </div>
