@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Exam;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -23,12 +24,16 @@ class StudentsController extends Controller
     public function mySubject()
     {
         $student = Auth::user();  
-        $classes = $student->classe()->with('exam')->get();
+        $classes = $student->classe()->with(['exam' => function ($query) {
+            $query->where('date', '>=', now()->format('Y-m-d'));
+         }])->get();
     
-        return view('student.mySubject', compact('classes'));
+        $previousExams = Exam::where('date', '<', now()->format('Y-m-d'))->get(); 
+        
+        return view('student.mySubject', compact('classes', 'previousExams'));
     }
-    
 
+    
     public function myTimeTable()
     {
         $student = Auth::user();  
