@@ -21,33 +21,51 @@
                     <form action="{{ route('exams.update',  $exam->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <div>
-                            @if ($errors->any())
-                                <h2 class="text-xl font-mono font-bold text-[#fb5607]">Validation errors:</h2>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </div>
-                        <hr class="border-1 border-gray-300">
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
-                            <div class="grid grid-cols-1">
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Nom</label>
-                                <input type="text" value="{{ $exam->name }}" name="name" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
-                            </div>
-                            <div class="grid grid-cols-1">
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Statut</label>
-                                <select name="statut" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
-                                    <option value="activer">Activer</option>
-                                    <option value="desactiver">Desactiver</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-center  my-6">
-                            <button type="submit" class="font-mono font-bold py-2 px-8 bg-blue-900 rounded-full text-white  hover:bg-orange cursor-pointer">Ajouter</button>
+                        @csrf
+                         
+                            
+                                <div>
+                                    @if ($errors->any())
+                                        <h2 class="text-xl font-mono font-bold text-[#fb5607]">Validation errors:</h2>
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                </div>
+                                <hr class="border-1 border-gray-300">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
+                                    <div class="grid grid-cols-1">
+                                        <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Nom</label>
+                                        <input type="text" name="name" value="{{ $exam->name }}" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                    </div>
+                                    <div class="grid grid-cols-1">
+                                        <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Classe</label>
+                                        <select class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none" name="classe_id" id="classe_id">
+                                            <option>Choisir</option>
+                                            @foreach ($classes as $classe)
+                                                <option value="{{ $classe->id }}">{{ $classe->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="grid grid-cols-1">
+                                        <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Date</label>
+                                        <input type="date" value="{{ $exam->date }}" name="date" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                    </div>
+                                    <div class="grid grid-cols-1">
+                                        <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Statut</label>
+                                        <select name="statut" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                            <option value="activer">Activer</option>
+                                            <option value="desactiver">Desactiver</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-center my-6">
+                                    <button type="submit" class="font-mono font-bold py-2 px-8 bg-blue-900 rounded-full text-white hover:bg-orange cursor-pointer">
+                                        Update
+                                    </button>
+                          
                         </div>
                     </form>
                 </div>

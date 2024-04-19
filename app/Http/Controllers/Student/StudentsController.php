@@ -8,6 +8,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 
 
+
 class StudentsController extends Controller
 {
     public function index(){
@@ -19,12 +20,14 @@ class StudentsController extends Controller
         return view('student.administration', compact('certificate'));
     }
 
-    public function mySubject(){
+    public function mySubject()
+    {
         $student = Auth::user();  
-        $classes = $student->classe()->get();
-
-    return view('student.mySubject', compact('classes'));
+        $classes = $student->classe()->with('exam')->get();
+    
+        return view('student.mySubject', compact('classes'));
     }
+    
 
     public function myTimeTable()
     {

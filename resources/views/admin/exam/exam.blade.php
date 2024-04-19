@@ -28,60 +28,41 @@
                             @endif
                         </div>
                         <hr class="border-1 border-gray-300">
-                        <div class="grid grid-cols-1 mt-2">
-                            <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Nom</label>
-                            <input type="text" name="name"
-                                class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
-
-                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
-
-
-
                             <div class="grid grid-cols-1">
-
-
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Classe</label>
-                                <select class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none" name="classe_id"
-                                    id="classe_id">
-                                    <option>Choisir</option>
-                                    @foreach ($classes->groupBy('classe_id') as $classId => $subjects)
-                                        @if ($subjects->first()->classe)
-                                            <option value="{{ $classId }}">{{ $subjects->first()->classe->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Date</label>
-                                <input type="date" name="date"
-                                    class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
-
-
+                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Nom</label>
+                                <input type="text" name="name" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                             </div>
                             <div class="grid grid-cols-1">
-
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Subject</label>
-                                <select class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none" name="subject_id"
-                                    id="subject_id">
-                                  
+                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Classe</label>
+                                <select class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none" name="classe_id" id="classe_id">
+                                    <option>Choisir</option>
+                                    @foreach ($classes as $classe)
+                                        <option value="{{ $classe->id }}">{{ $classe->name }}</option>
+                                    @endforeach
                                 </select>
-
+                            </div>
+                            <div class="grid grid-cols-1">
+                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Date</label>
+                                <input type="date" name="date" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                            </div>
+                            <div class="grid grid-cols-1">
                                 <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Statut</label>
                                 <select name="statut" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                     <option value="activer">Activer</option>
                                     <option value="desactiver">Desactiver</option>
                                 </select>
-
                             </div>
                         </div>
-                        <div class="flex items-center justify-center  my-6">
-                            <button type="submit"
-                                class="font-mono font-bold py-2 px-8 bg-blue-900 rounded-full text-white  hover:bg-orange cursor-pointer">
+                        <div class="flex items-center justify-center my-6">
+                            <button type="submit" class="font-mono font-bold py-2 px-8 bg-blue-900 rounded-full text-white hover:bg-orange cursor-pointer">
                                 Ajouter
                             </button>
                         </div>
                     </div>
                 </div>
             </form>
+            
             <section class=" p-3 sm:p-5">
                 <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
 
@@ -129,7 +110,6 @@
                                         <th scope="col" class="px-4 py-3">Id</th>
                                         <th scope="col" class="px-4 py-3">Exam</th>
                                         <th scope="col" class="px-4 py-3">Classe</th>
-                                        <th scope="col" class="px-4 py-3">Subject</th>
                                         <th scope="col" class="px-4 py-3">Status</th>
                                         <th scope="col" class="px-4 py-3">Date  </th>
                                         <th scope="col" class="px-4 py-3">Actions</th>
@@ -145,8 +125,7 @@
                                           
                                             <td class="px-4 py-3 font-mono text-black font-bold">{{ $exam->classe->name }}
                                             </td>
-                                            <td class="px-4 py-3 font-mono text-black font-bold">{{ $exam->subject->name }}
-                                            </td>
+                                      
                                             <td class="px-4 py-3 font-mono text-black font-bold">{{ $exam->statut }}</td>
                                             <td class="px-4 py-3 font-mono text-black font-bold">{{ $exam->date }}
                                             </td>

@@ -23,6 +23,8 @@ class ExamUpdateRequest extends FormRequest
     {
         return [
             'name' => 'required|min:4|unique:classes,name,' . $this->route('parent'), 
+            'date' => 'required',
+            'classe_id' => 'required',
             'statut' => 'required|in:activer,desactiver',
         ];
     }

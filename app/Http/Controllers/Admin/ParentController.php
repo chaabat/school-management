@@ -26,7 +26,7 @@ class ParentController extends Controller
 
     public function index()
     {
-        $parents = $this->parentRepository->getAllParents(5);
+        $parents = $this->parentRepository->getAllParents(8);
 
         return view('admin/parents/show', compact('parents'));
     }

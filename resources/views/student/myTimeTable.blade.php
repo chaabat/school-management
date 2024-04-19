@@ -1,11 +1,10 @@
 @extends('layouts.student')
 @section('myTimeTable')
-<div class="p-4 h-screen sm:ml-64"
-style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
-<div class="p-4 rounded-lg mt-14">
+    <div class="p-4 h-screen sm:ml-64"
+        style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
+        <div class="p-4 rounded-lg mt-14">
             @foreach ($classeTable as $class)
-                <h1 class="font-mono font-bold text-xl text-orange mb-2">Class: <span
-                        class="text-white">{{ $class->name }}</span></h1>
+              
 
                 @if ($class->timetable->count() > 0)
                     <table class="w-full">
@@ -39,12 +38,25 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                             @endfor
                         </tbody>
                     </table>
-                @else
-                    <p class="font-mono font-bold text-white">No timetable available for this class.</p>
+                    @else
+                    <div class="bg-blue rounded-lg shadow-xl pb-8">
+                        <div class="w-full h-[200px]">
+                            <img src="{{ asset('photos/classe.jpg') }}" class="w-full h-full rounded-tl-lg rounded-tr-lg">
+                        </div>
+                        <div class="flex flex-col items-center mt-4">
+
+                            <div class="flex items-center space-x-2 mt-2">
+                                <p class="text-xl text-white font-mono">No time table found. You should be assigned to a
+                                    classes first</p>
+
+                            </div>
+
+                        </div>
+                    </div>
                 @endif
-            @endforeach
 
 
+                @endforeach
         </div>
     </div>
 @endsection

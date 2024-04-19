@@ -1,40 +1,47 @@
-$('#search').on('keyup', function() {
+$("#search").on("keyup", function () {
     var query = $(this).val();
 
     $.ajax({
-        url: "search-exams",
+        url: "/search-exams",
         type: "GET",
-        data: { 'search': query },
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(data) {
-            $('.class-card').remove();  
-            $('.search-not-found').hide();
+        data: { query: query },
+        success: function (data) {
+            $(".class-row").remove();
+            $(".search-not-found").hide();
 
             if (data.length > 0) {
-                data.forEach(function(examsData) {
+                data.forEach(function (examClass) {
                     var rowHtml = `
-                    <div class="class-card border-4 border-[#fb5607] relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
-                    <div class="bg-white py-4 px-3" style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('photos/classe2.jpg') no-repeat center; background-size: cover;">
-                            <h1 class="text-3xl text-white text-center mb-2 font-bold font-mono">${examsData.name}</h1>
-                            <div class="flex justify-between">
-                                <a href="/exams/${examsData.id}/edit">
-                                    <img src="/photos/update.png" class="h-6" alt="">
-                                </a>
-                                <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this subject?')) { document.getElementById('delete-form-${examsData.id}').submit(); }"><img src="/photos/delete.png" class="h-6" alt=""></a>
-                                <form id="delete-form-${examsData.id}" action="/exams/${examsData.id}" method="POST" style="display: none;">
-                                    <input type="hidden" name="_method" value="DELETE">
-                                    <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
-                                </form>
-                            </div>
-                        </div>
-                    </div>`;
-                    $('.display').append(rowHtml);
+                        <tr class="class-row">
+                            <td class="px-4 py-3 font-mono text-[#fb5607] font-bold">${examClass.id}</td>
+                            <td class="px-4 py-3 font-mono text-black font-bold">${examClass.name}</td>
+                            <td class="px-4 py-3 font-mono text-black font-bold">${examClass.date}</td>
+                            <td class="px-4 py-3 font-mono text-black font-bold">${examClass.classe.name}</td>
+                            <td class="px-4 py-3 font-mono text-black font-bold">${examClass.statut}</td>
+                            <td class="px-4 py-3 font-mono text-black font-bold">${examClass.created_at}</td>
+                            <td class="px-4 py-3">
+                                <div class="flex space-x-4 items-right">
+                                    <a href="/exams/${examClass.id}/edit">
+                                        <img src="/photos/update.png" class="h-6" alt="">
+                                    </a>
+                                    <a href="#" onclick="event.preventDefault(); if(confirm('Are you sure you want to delete this subject?')) { document.getElementById('delete-form-${examClass.id}').submit(); }">
+                                        <img src="/photos/delete.png" class="h-6" alt="">
+                                    </a>
+                                    <form id="delete-form-${examClass.id}" action="/exams/${examClass.id}" method="POST" style="display: none;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="${$('meta[name="csrf-token"]').attr('content')}">
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>`;
+                    $("tbody").append(rowHtml);
                 });
             } else {
-                $('.search-not-found').show();
+                $(".search-not-found").show();
             }
+        },
+        error: function (xhr, status, error) {
+            console.error(xhr.responseText);
         }
     });
 });

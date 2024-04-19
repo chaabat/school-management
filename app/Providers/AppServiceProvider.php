@@ -34,7 +34,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(subjectsRepositoryInterface::class, subjectRepository::class);   
         $this->app->bind(examRepositoryInterface::class, examRepository::class);   
         $this->app->bind(subjectToClasseRepositoryInterface::class, subjectToClasseRepository::class);   
-        $this->app->bind(teacherToClasseRepositoryInterface::class, teacherToClasseRepository::class);   
+        $this->app->bind(teacherToClasseRepositoryInterface::class, teacherToClasseRepository::class);  
+         
      }
 
     /**

@@ -111,6 +111,7 @@
                             <div class="mt-8 flex justify-center bg-white font-mono">
                                 {{ $teachers->links('pagination::tailwind') }}
                             </div>
+                       
                         </nav>
                     </div>
                 </div>

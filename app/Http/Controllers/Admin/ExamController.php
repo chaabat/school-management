@@ -24,11 +24,12 @@ class ExamController extends Controller
 
     public function index()
     {
+        $exams = Exam::with('classe')->paginate(4);
+        $classes = Classe::where('statut', 'activer')->get();  
         
-        $exams =  Exam::with('classe', 'subject')->paginate(4);
-        $classes = SubjetToClass::with('classe', 'subject')->get();
-       return view('admin.exam.exam',compact('exams','classes'));
+        return view('admin.exam.exam', compact('exams', 'classes'));
     }
+    
 
 
     /**
@@ -51,8 +52,9 @@ class ExamController extends Controller
      */
     public function edit(string $id)
     {
+        $classes = Classe::where('statut', 'activer')->get(); 
          $exam = $this->examRepository->getExamById($id);
-        return view('admin.exam.update', compact('exam'));
+        return view('admin.exam.update', compact('exam','classes'));
     }
 
     /**
