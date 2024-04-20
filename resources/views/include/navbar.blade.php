@@ -1,4 +1,4 @@
-<nav class="bg-[#03045e] shadow shadow-gray-300 w-100 px-8 md:px-auto">
+<nav class="bg-gray-200 shadow shadow-gray-300 w-100 px-8 md:px-auto">
     <div class="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
 
         <div class="text-[#fb5607] md:order-1">
