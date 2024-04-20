@@ -13,7 +13,13 @@ use Carbon\Carbon;
 class StudentsController extends Controller
 {
     public function index(){
-        return view('student.dashboard');
+        $student = auth()->user();
+
+        $classe = $student->classe()
+            ->withCount('subjectToClass', 'exam')
+            ->get(['id', 'name']);  
+
+        return view('student.dashboard', compact('classe'));
     }
 
     public function administration() {
@@ -33,7 +39,7 @@ class StudentsController extends Controller
         return view('student.mySubject', compact('classes', 'previousExams'));
     }
 
-    
+
     public function myTimeTable()
     {
         $student = Auth::user();  

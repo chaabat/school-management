@@ -10,8 +10,11 @@ use Illuminate\Support\Facades\Auth;
 class ParentsController extends Controller
 {
     public function index(){
-        return view('parent.dashboard');
+        $parent = Auth::user();
+        $children = $parent->children()->count(); 
+        return view('parent.dashboard', compact('children'));
     }
+    
 
     public function myChildren() {
         $parent = Auth::user();  

@@ -55,7 +55,7 @@ class TeacherToClasseController extends Controller
         
         $this->teacherToClassRepository->update($teacherToClasse, $id);
         
-        return redirect()->route('teacherToClasse')->with('success', 'Teacher-to-class relationship updated successfully');
+        return redirect()->route('teacher-to-class.index')->with('success', 'Teacher-to-class relationship updated successfully');
     }
 
    

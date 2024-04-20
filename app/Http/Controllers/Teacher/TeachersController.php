@@ -10,10 +10,25 @@ use Carbon\Carbon;
 class TeachersController extends Controller
 {
     public function index(){
-        
-        return view('teacher.dashboard');
+        $teacher = Auth::user();
+        $classe = $teacher->teacherToClasse()->first();  
+    
+        if($classe) {
+            $className = $classe->classe->name;
+            $subjectCount = $classe->classe->subjectToClass->count();
+            $examCount = $classe->classe->exam->count();
+            $studentCount = $classe->classe->user->count();
+        } else {
+            $className = 'No Class found';
+            $subjectCount = 0;
+            $examCount = 0;
+            $studentCount = 0;
+        }
+    
+        return view('teacher.dashboard', compact('className', 'subjectCount', 'examCount', 'studentCount'));
     }
-
+    
+    
     public function administration() {
         $certificate = $this->download();
         return view('teacher.administration', compact('certificate'));
