@@ -29,9 +29,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/unauthorized', function () {
     return response()->view('errors.403', [], 403);
 })->name('unauthorized');
-
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
 Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
-
+});
 
 Route::get('/', function () {   
     return view('home');

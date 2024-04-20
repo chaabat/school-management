@@ -1,106 +1,161 @@
 @extends('layouts.admin')
 @section('dashboard')
-    <div class="p-4 sm:ml-64">
-        <div class="p-4  rounded-lg  mt-14">
+<div class="p-4 h-screen sm:ml-64"
+style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
+<div class="p-4 rounded-lg mt-14">
 
-            <div class="grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 mt-3">
-                <div class="bg-blue-200 p-8 rounded-xl shadow-xl flex items-center justify-between mt-4">
+            <div class="grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 mt-4">
+                <div class=" bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between border-4   border-blue  ">
                     <div class="flex space-x-6 items-center">
-                        <img src="{{ asset('photos/administrateur.png') }}" class="w-auto h-24 rounded-lg" />
+                        <img src="{{ asset('photos/teacher.png') }}" class="w-auto h-14 rounded-lg" />
                         <div>
-                            <p class="font-bold font-mono  text-xl">250</p>
-                            <p class="font-bold font-mono  text-l text-gray-400">Total Admin</p>
+                            <p class="font-bold font-mono text-orange  text-xl">{{$teachers}}</p>
+                            <p class="font-bold font-mono  text-l text-black">Teachers</p>
                         </div>
                     </div>
 
                     <div class="flex space-x-2 items-center">
-                        <div class="bg-gray-300 rounded-md p-2 flex items-center">
-                            <i class="fas fa-chevron-right fa-l text-black"></i>
+                        <div class="bg-blue  rounded-md p-2 flex items-center">
+                           <a href="{{route('teachers.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a> 
                         </div>
                     </div>
                 </div>
-                <div class="bg-red-200 p-8 rounded-xl shadow-xl flex items-center justify-between mt-4">
+                <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
-                        <img src="https://i.pinimg.com/originals/25/0c/a0/250ca0295215879bd0d53e3a58fa1289.png"
-                            class="w-auto h-24 rounded-lg" />
+                        <img src="{{ asset('photos/students.png') }}" class="w-auto h-14 rounded-lg" />
+
                         <div>
-                            <p class="font-bold font-mono  text-xl">250</p>
-                            <p class="font-bold font-mono  text-l text-gray-400">Total Teachers</p>
+                            <p class="font-bold font-mono text-orange text-xl">{{$students}}</p>
+                            <p class="font-bold font-mono  text-l text-black">Students</p>
                         </div>
                     </div>
 
                     <div class="flex space-x-2 items-center">
-                        <div class="bg-gray-300 rounded-md p-2 flex items-center">
-                            <i class="fas fa-chevron-right fa-l text-black"></i>
-                        </div>
+                        <div class="bg-blue rounded-md p-2 flex items-center">
+                            <a href="{{route('students.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
                     </div>
                 </div>
-                <div class="bg-green-200 p-8 rounded-xl shadow-xl flex items-center justify-between mt-4">
+                <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
-                        <img src="https://i.pinimg.com/originals/25/0c/a0/250ca0295215879bd0d53e3a58fa1289.png"
-                            class="w-auto h-24 rounded-lg" />
+                        <img src="{{ asset('photos/parents.png') }}" class="w-auto h-14 rounded-lg" />
+
                         <div>
-                            <p class="font-bold font-mono  text-xl">250</p>
-                            <p class="font-bold font-mono  text-l text-gray-400">Total Students</p>
+                            <p class="font-bold font-mono text-orange text-xl">{{$parents}}</p>
+                            <p class="font-bold font-mono  text-l text-black">parents</p>
                         </div>
                     </div>
 
                     <div class="flex space-x-2 items-center">
-                        <div class="bg-gray-300 rounded-md p-2 flex items-center">
-                            <i class="fas fa-chevron-right fa-l text-black"></i>
+                        <div class="bg-blue rounded-md p-2 flex items-center">
+                            <a href="{{route('parents.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="bg-orange-200 p-8 rounded-xl shadow-xl flex items-center justify-between mt-4">
+                <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between   border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
-                        <img src="https://i.pinimg.com/originals/25/0c/a0/250ca0295215879bd0d53e3a58fa1289.png"
-                            class="w-auto h-24 rounded-lg" />
+                        <img src="{{ asset('photos/salle-de-classe.png') }}" class="w-auto h-14 rounded-lg" />
+
                         <div>
-                            <p class="font-bold font-mono  text-xl">250</p>
-                            <p class="font-bold font-mono  text-l text-gray-400">Total Parents</p>
+                            <p class="font-bold font-mono text-orange text-xl">{{$classes}}</p>
+                            <p class="font-bold font-mono  text-l text-black">Classes</p>
                         </div>
                     </div>
 
                     <div class="flex space-x-2 items-center">
-                        <div class="bg-gray-300 rounded-md p-2 flex items-center">
-                            <i class="fas fa-chevron-right fa-l text-black"></i>
-                        </div>
+                        <div class="bg-blue rounded-md p-2 flex items-center">
+                            <a href="{{route('classes.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
                     </div>
                 </div>
-                <div class="bg-orange-200 p-8 rounded-xl shadow-xl flex items-center justify-between mt-4">
+                <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
-                        <img src="https://i.pinimg.com/originals/25/0c/a0/250ca0295215879bd0d53e3a58fa1289.png"
-                            class="w-auto h-24 rounded-lg" />
+                        <img src="{{ asset('photos/bibliotheque.png') }}" class="w-auto h-14 rounded-lg" />
+
                         <div>
-                            <p class="font-bold font-mono  text-xl">250</p>
-                            <p class="font-bold font-mono  text-l text-gray-400">Total Parents</p>
+                            <p class="font-bold font-mono text-orange text-xl">{{$subjects}}</p>
+                            <p class="font-bold font-mono  text-l text-black">Subjects</p>
                         </div>
                     </div>
 
                     <div class="flex space-x-2 items-center">
-                        <div class="bg-gray-300 rounded-md p-2 flex items-center">
-                            <i class="fas fa-chevron-right fa-l text-black"></i>
-                        </div>
+                        <div class="bg-blue rounded-md p-2 flex items-center">
+                            <a href="{{route('subjects.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
                     </div>
                 </div>
-                <div class="bg-orange-200 p-8 rounded-xl shadow-xl flex items-center justify-between mt-4">
+                <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
-                        <img src="https://i.pinimg.com/originals/25/0c/a0/250ca0295215879bd0d53e3a58fa1289.png"
-                            class="w-auto h-24 rounded-lg" />
+                        <img src="{{ asset('photos/tester.png') }}" class="w-auto h-14 rounded-lg" />
+
                         <div>
-                            <p class="font-bold font-mono  text-xl">250</p>
-                            <p class="font-bold font-mono  text-l text-gray-400">Total Parents</p>
+                            <p class="font-bold font-mono text-orange  text-xl">{{$exams}}</p>
+                            <p class="font-bold font-mono  text-l text-black">Exams</p>
                         </div>
                     </div>
 
                     <div class="flex space-x-2 items-center">
-                        <div class="bg-gray-300 rounded-md p-2 flex items-center">
-                            <i class="fas fa-chevron-right fa-l text-black"></i>
-                        </div>
+                        <div class="bg-blue rounded-md p-2 flex items-center">
+                            <a href="{{route('exams.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
                     </div>
                 </div>
-
             </div>
+      
+
+                <div class="mt-14 flex flex-row rounded-lg border-4 border-white bg-blue p-6">
+                  
+                    <div class="relative">
+                     
+                        <img class="w-40 h-40 rounded-md object-cover" src="{{ asset('users/' . Auth::user()->picture) }}"
+                            alt="User" />
+
+
+                    </div>
+
+               
+                    <div
+                        class=" w-full max-w-4xl flex flex-col sm:flex-row gap-3 sm:items-center  justify-between px-5 py-4 rounded-md">
+                        <div>
+                            <span class="text-orange font-mono font-bold text-m">Admin</span>
+                            <h3 class="font-bold font-mono mt-px text-white ">{{Auth::user()->name}}</h3>
+                            <div class="flex items-center gap-3 mt-2">
+                                <span
+                                    class=" bg-orange text-white font-mono font-bold rounded-full px-3 py-1 text-sm">{{Auth::user()->genre}}</span>
+                                <span class="text-white font-mono font-bold text-m"> {{Auth::user()->email}}</span>
+                            </div>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+
+
+                    <div class="w-100  flex flex-grow flex-col items-end justify-start">
+                        <div class="flex flex-row space-x-3">
+                            
+                                <div class="w-32 flex-none rounded-t lg:rounded-t-none lg:rounded-l text-center shadow-lg ">
+                                    <div class="block rounded-t overflow-hidden  text-center ">
+                                        <div class="bg-orange text-white font-bold font-mono text-l py-1">
+                                            {{ \Carbon\Carbon::now()->format('F') }}
+                                        </div>
+                                        <div class="pt-1 border-l border-r border-white bg-white">
+                                            <span class="text-5xl font-bold  font-mono">
+                                                {{ \Carbon\Carbon::now()->format('d') }}
+                                          </span>
+                                        </div>
+                                        <div class="border-l border-r border-b rounded-b-lg text-center border-white bg-white -pt-2 -mb-1">
+                                            <span class="font-bold font-mono text-l">
+                                                {{ \Carbon\Carbon::now()->format('l') }}
+                                          </span>
+                                        </div>
+                                        <div class="pb-2 border-l border-r border-b rounded-b-lg text-center border-white bg-white">
+                                            <span class="font-bold font-mono text-l text-blue">
+                                                {{ \Carbon\Carbon::now()->format('g:i ') }} 
+                                          </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            
         </div>
     </div>
 @endsection
