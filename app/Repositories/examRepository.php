@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Classe;
 use App\Models\Exam;
  
 use App\RepositoriesInterfaces\examRepositoryInterface;
@@ -38,4 +39,9 @@ class examRepository implements examRepositoryInterface
         $exam = Exam::findOrFail($id);
         $exam->delete();
     }
+
+    public function getActiveClasses(){
+        return Classe::where('statut', 'activer')->get();
+    }
+
 }

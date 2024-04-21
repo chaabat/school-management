@@ -22,6 +22,9 @@
     @yield('dashboard')
     @yield('myChildren')
     @yield('myChildrenSubjects')
+    @yield('administration')
+
+    
 
     
 

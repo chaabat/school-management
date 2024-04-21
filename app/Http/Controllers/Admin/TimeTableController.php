@@ -3,102 +3,72 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TimeTableRequest;
+use App\Http\Requests\TimeTableUpdateRequest;
+use App\RepositoriesInterfaces\TimeTableRepositoryInterface;  
+use Illuminate\Http\Request;
 use App\Models\Classe;
 use App\Models\Subject;
 use App\Models\SubjetToClass;
 use App\Models\TimeTable;
-use Illuminate\Http\Request;
 
 class TimeTableController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function create()
+    private $timeTableRepository;
+
+    public function __construct(TimeTableRepositoryInterface $timeTableRepository)
     {
-      
-
+        $this->timeTableRepository = $timeTableRepository;
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
+    
     public function index()
     {
-        $classSubjects = SubjetToClass::with('classe', 'subject')->get();
-        $tables = TimeTable::paginate(5);
+        $classSubjects =  $this->timeTableRepository->getClassSubjects();
+        $tables = $this->timeTableRepository->getAllTimeTable(5); 
     
         return view('admin.timeTable.create', compact('classSubjects', 'tables'));
     }
     
-    
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(TimeTableRequest $request)
     {
-        $request->validate([
-            'classe_id' => 'required|exists:classes,id',
-            'subject_id' => 'required|exists:subjects,id',
-            'days' => 'required|in:monday,tuesday,wednesday,thursday,friday',
-            'time' => 'required|regex:/^\d{2}:\d{2}$/'
-        ]);
-
-        TimeTable::create($request->all());
+        $validatedData = $request->validated();  
+        
+        $this->timeTableRepository->createTimeTable($validatedData);  
 
         return redirect()->route('timeTable.index', $request->class_id)->with('success', 'Timetable entry added successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($classId)
     {
-        $class = Classe::findOrFail($classId);
-        $timetable = TimeTable::where('classe_id', $classId)->get();
-        $subjects = Classe::findOrFail($classId)->subjectToClass()->get();
+       $class = $this->timeTableRepository->getClassById($classId);
+        $timetable = $this->timeTableRepository->getTimeTableByClassId($classId);
+        $subjects = $this->timeTableRepository->getSubjectsByClassId($classId);
      
         return view('admin.timeTable.details', compact('class', 'timetable', 'subjects'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
-        $timetable = TimeTable::findOrFail($id);
-        $class = Classe::findOrFail($timetable->classe_id);  
-        $classSubjects = SubjetToClass::with('classe', 'subject')->get();
+        $timetable = $this->timeTableRepository->getTimeTableById($id);
+        $class = $this->timeTableRepository->getClassById($timetable->classe_id);
+        $classSubjects = $this->timeTableRepository->getSubjectsForClass($timetable->classe_id);
         $subjects = $class->subjectToClass()->get();
+        
         return view('admin.timeTable.update', compact('timetable','class','subjects','classSubjects'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+    public function update(TimeTableUpdateRequest $request, $id)
     {
-        $request->validate([
-            'classe_id' => 'required|exists:classes,id',
-            'subject_id' => 'required|exists:subjects,id',
-            'days' => 'required|in:monday,tuesday,wednesday,thursday,friday',
-            'time' => 'required|regex:/^\d{2}:\d{2}$/'
-        ]);
-    
-        $timetable = TimeTable::findOrFail($id);
-        $timetable->update($request->all());
+        $validatedData = $request->validated();  
+
+        $this->timeTableRepository->updateTimeTable($id, $validatedData); 
     
         return redirect()->route('timeTable.index')->with('success', 'Timetable entry updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-        $timetable = TimeTable::findOrFail($id);
-        $timetable->delete();
+        $this->timeTableRepository->destroyTimeTable($id); 
     
         return redirect()->route('timeTable.index')->with('success', 'Timetable entry deleted successfully.');
     }

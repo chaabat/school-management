@@ -7,21 +7,17 @@ use App\Http\Requests\ClasseRequest;
 use App\Http\Requests\UpdateClasseRequest;
 use Illuminate\Http\Request;
  
-use App\RepositoriesInterfaces\classeRepositoryInterface;
-
+use App\Services\classeService;
 
 class ClasseController extends Controller
 {
-    private $classeRepository;
-
-    public function __construct(classeRepositoryInterface $classeRepository)
+    public function __construct(protected classeService $classeService)
     {
-        $this->classeRepository = $classeRepository;
     }
 
     public function index()
     {
-        $classes = $this->classeRepository->getAllClasses(8);
+        $classes = $this->classeService->getAllClasses(8);
         return view('admin.classe.class', compact('classes'));
     }
 
@@ -31,7 +27,7 @@ class ClasseController extends Controller
          
             $class = $request->validated();
 
-            $this->classeRepository->createClasse($class);
+            $this->classeService->createClasse($class);
 
             return redirect()->route('classes.index')->with('success','Classe créé avec success');
         
@@ -39,7 +35,7 @@ class ClasseController extends Controller
 
     public function edit($id)
     {
-        $class = $this->classeRepository->getClasseById($id);
+        $class = $this->classeService->getClasseById($id);
     
         return view('admin.classe.update', compact('class'));
     }
@@ -51,7 +47,7 @@ class ClasseController extends Controller
     {
         $classData = $request->validated();
         
-        $this->classeRepository->updateClasse($id, $classData);
+        $this->classeService->updateClasse($id, $classData);
         
         return redirect()->route('classes.index')->with('success', 'Classe modifiée avec succès');
     }
@@ -59,7 +55,7 @@ class ClasseController extends Controller
    
     public function destroy(string $id)
     {
-        $this->classeRepository->destroyClasse($id);
+        $this->classeService->destroyClasse($id);
 
         return redirect()->route('classes.index')->with('success','Classe supprimé avec success');
     }
@@ -67,7 +63,7 @@ class ClasseController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('search');
-        $classes = $this->classeRepository->searchClasses($query);
+        $classes = $this->classeService->searchClasses($query);
         return response()->json($classes);
     }
 

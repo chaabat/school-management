@@ -10,22 +10,19 @@ use App\Models\Exam;
 use App\Models\Subject;
 use App\Models\SubjetToClass;
 use Illuminate\Http\Request;
-use App\RepositoriesInterfaces\examRepositoryInterface;
-
+ 
+use App\Services\examService;
 
 class ExamController extends Controller
 {
-    private $examRepository;
-
-    public function __construct(examRepositoryInterface $examRepository)
+    public function __construct(protected examService $examService)
     {
-        $this->examRepository = $examRepository;
     }
 
     public function index()
     {
-        $exams = Exam::with('classe')->paginate(4);
-        $classes = Classe::where('statut', 'activer')->get();  
+        $exams = $this->examService->getAllExams(4);
+        $classes = $this->examService->getActiveClasses(); 
         
         return view('admin.exam.exam', compact('exams', 'classes'));
     }
@@ -39,7 +36,7 @@ class ExamController extends Controller
     {
        $exam = $request->validated();
 
-       $this->examRepository->createExam($exam);
+       $this->examService->createExam($exam);
 
         return redirect()->route('exams.index')->with('success', 'Exam added successfully.');
     
@@ -52,8 +49,8 @@ class ExamController extends Controller
      */
     public function edit(string $id)
     {
-        $classes = Classe::where('statut', 'activer')->get(); 
-         $exam = $this->examRepository->getExamById($id);
+        $classes = $this->examService->getActiveClasses();
+        $exam = $this->examService->getExamById($id);
         return view('admin.exam.update', compact('exam','classes'));
     }
 
@@ -64,7 +61,7 @@ class ExamController extends Controller
     {
         $exams = $request->validated();
     
-        $this->examRepository->updateExam($id, $exams);
+        $this->examService->updateExam($id, $exams);
  
     
         return redirect()->route('exams.index')->with('success', 'Exam updated successfully.');
@@ -75,7 +72,7 @@ class ExamController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->examRepository->destroyExam($id);
+        $this->examService->destroyExam($id);
         return redirect()->route('exams.index')->with('success', 'Exam deleted successfully.');
 
     }

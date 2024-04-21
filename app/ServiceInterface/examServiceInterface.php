@@ -1,7 +1,8 @@
 <?php
 
-namespace App\repositoriesInterfaces;
-interface examRepositoryInterface
+namespace App\ServiceInterface;
+
+interface  examServiceInterface
 {
     public function createExam(array $data);
     public function getAllExams($perPage);
@@ -12,3 +13,6 @@ interface examRepositoryInterface
     
    
 }
+
+
+

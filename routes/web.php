@@ -26,14 +26,15 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/unauthorized', function () {
     return response()->view('errors.403', [], 403);
 })->name('unauthorized');
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
-Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
 });
 
-Route::get('/', function () {   
+Route::get('/', function () {
     return view('home');
 });
 /*************************************************** AUTHENTIFICATION ***********************************************************************/
@@ -77,22 +78,22 @@ Route::get('/parent-student/{id}', [ParentController::class, 'myStudent'])->name
 /*************************************************** ADMIN CLASSES ***********************************************************************/
 
 Route::resource('classes', ClasseController::class);
-Route::get('/search-classes',[ClasseController::class, 'search'])->name('search.class');
+Route::get('/search-classes', [ClasseController::class, 'search'])->name('search.class');
 
 /*************************************************** ADMIN SUBJECTS ***********************************************************************/
 
 
 Route::resource('subjects', SubjectController::class);
-Route::get('/search-subjects',[SubjectController::class, 'search'])->name('search.subject');
+Route::get('/search-subjects', [SubjectController::class, 'search'])->name('search.subject');
 /*************************************************** ADMIN EXAMS ***********************************************************************/
 
 Route::resource('exams', ExamController::class);
-Route::get('/search-exams',[ExamController::class, 'search'])->name('search.exams');
+Route::get('/search-exams', [ExamController::class, 'search'])->name('search.exams');
 
 /*************************************************** ADMIN SUBJECT TO CLASSE ***********************************************************************/
 
 Route::resource('subject-to-class', SubjectToClasseController::class);
-Route::get('/search-subject-to-class',[SubjectToClasseController::class, 'search'])->name('searchSubjectToClasse');
+Route::get('/search-subject-to-class', [SubjectToClasseController::class, 'search'])->name('searchSubjectToClasse');
 
 
 
@@ -101,30 +102,29 @@ Route::get('/search-subject-to-class',[SubjectToClasseController::class, 'search
 
 Route::resource('teacher-to-class', TeacherToClasseController::class);
 
-Route::get('/search-teacher-to-class',[TeacherToClasseController::class, 'search'])->name('searchTeacherToClasse');
+Route::get('/search-teacher-to-class', [TeacherToClasseController::class, 'search'])->name('searchTeacherToClasse');
 
 /*************************************************** ADMIN TIME TABLE ***********************************************************************/
 
-Route::resource('timeTable',TimeTableController::class);
+Route::resource('timeTable', TimeTableController::class);
 
 /*************************************************** PARENTS ***********************************************************************/
 
 Route::group(['middleware' => ['auth', 'role:parent']], function () {
-    Route::get('/parent/dashboard',[ParentsController::class, 'index'])->name('parentDashboard');
-    Route::get('/myChildren',[ParentsController::class, 'myChildren'])->name('myChildren');
-    Route::get('/myChildren/classe-subjects/{id}',[ParentsController::class, 'myChildrenSubjects'])->name('myChildrenSubjects');
+    Route::get('/parent/dashboard', [ParentsController::class, 'index'])->name('parentDashboard');
+    Route::get('/myChildren', [ParentsController::class, 'myChildren'])->name('myChildren');
+    Route::get('/myChildren/classe-subjects/{id}', [ParentsController::class, 'myChildrenSubjects'])->name('myChildrenSubjects');
+    Route::get('/parents/administration', [ParentsController::class, 'administration'])->name('administrationParent');
 });
 
 /*************************************************** STUDENTS ***********************************************************************/
 
 Route::group(['middleware' => ['auth', 'role:student']], function () {
-Route::get('/student/dashboard',[StudentsController::class, 'index'])->name('studentDashboard');
-Route::get('/student/mySubjects',[StudentsController::class, 'mySubject'])->name('mySubject');
-Route::get('/student/timeTable',[StudentsController::class, 'myTimeTable'])->name('StudentTimeTable');
-Route::get('/student/certificate', [StudentsController::class, 'downloadCertificate'])->name('certificate');
-Route::get('/student/administration', [StudentsController::class, 'administration'])->name('administration');
-
-
+    Route::get('/student/dashboard', [StudentsController::class, 'index'])->name('studentDashboard');
+    Route::get('/student/mySubjects', [StudentsController::class, 'mySubject'])->name('mySubject');
+    Route::get('/student/timeTable', [StudentsController::class, 'myTimeTable'])->name('StudentTimeTable');
+    Route::get('/student/certificate', [StudentsController::class, 'downloadCertificate'])->name('certificate');
+    Route::get('/student/administration', [StudentsController::class, 'administration'])->name('administration');
 });
 
 
@@ -133,10 +133,9 @@ Route::get('/student/administration', [StudentsController::class, 'administratio
 
 
 Route::group(['middleware' => ['auth', 'role:teacher']], function () {
-    Route::get('/teacher/dashboard',[TeachersController::class, 'index'])->name('teacherDashboard');
-    Route::get('/myClasse',[TeachersController::class, 'myClasse'])->name('myClasse');
-    Route::get('/myTimeTable',[TeachersController::class, 'myTimeTable'])->name('myTimeTable');
+    Route::get('/teacher/dashboard', [TeachersController::class, 'index'])->name('teacherDashboard');
+    Route::get('/myClasse', [TeachersController::class, 'myClasse'])->name('myClasse');
+    Route::get('/myTimeTable', [TeachersController::class, 'myTimeTable'])->name('myTimeTable');
     Route::get('/teacher/certificate', [TeachersController::class, 'downloadCertificate'])->name('certificate');
     Route::get('/teacher/administration', [TeachersController::class, 'administration'])->name('administrationTeacher');
-    
 });

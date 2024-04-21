@@ -10,21 +10,17 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
  
-use App\RepositoriesInterfaces\teacherRepositoryInterface;
-
+ use App\Services\teacherService;
 
 class TeacherController extends Controller
 {
-    private $teacherRepository;
-
-    public function __construct(teacherRepositoryInterface $teacherRepository)
+    public function __construct(protected teacherService $teacherService)
     {
-        $this->teacherRepository = $teacherRepository;
     }
 
     public function index()
     {
-        $teachers = $this->teacherRepository->getAllTeachers(8);
+        $teachers = $this->teacherService->getAllTeachers(8);
 
         return view('admin/teachers/show', compact('teachers'));
     }
@@ -53,7 +49,7 @@ class TeacherController extends Controller
             $request->picture->move(public_path('users'), $fileName);
             $teacher = array_merge($teacher, ['picture' => $fileName]);
 
-            $user = $this->teacherRepository->createTeacher($teacher);
+            $user = $this->teacherService->createTeacher($teacher);
 
             Auth::login($user);
 
@@ -69,7 +65,7 @@ class TeacherController extends Controller
      */
     public function show($id)
     {
-        $teacher = $this->teacherRepository->getTeacherById($id);
+        $teacher = $this->teacherService->getTeacherById($id);
         return view('admin/teachers/details', compact('teacher'));
     }
 
@@ -79,7 +75,7 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        $teacher = $this->teacherRepository->getTeacherById($id);
+        $teacher = $this->teacherService->getTeacherById($id);
         return view('admin/teachers/update', compact('teacher'));
     }
 
@@ -88,7 +84,7 @@ class TeacherController extends Controller
      */
     public function update(UpdateteacherRequest $request, $id)
     {
-        $teacher = $this->teacherRepository->getTeacherById($id);
+        $teacher = $this->teacherService->getTeacherById($id);
     
         $updateTeacher = $request->validated();
     
@@ -103,7 +99,7 @@ class TeacherController extends Controller
         }
     
         
-        $this->teacherRepository->updateTeacher($id, $updateTeacher);
+        $this->teacherService->updateTeacher($id, $updateTeacher);
     
         return redirect()->route('teachers.index')->with('success', 'Teacher updated successfully');
     }
@@ -114,7 +110,7 @@ class TeacherController extends Controller
      */
     public function destroy($id)
     {
-        $teacher = $this->teacherRepository->getTeacherById($id);
+        $teacher = $this->teacherService->getTeacherById($id);
         $teacher->delete();
         return redirect()->route('teachers.index')->with('success', 'Teacher deleted successfully');
     }
@@ -123,7 +119,7 @@ class TeacherController extends Controller
     {
         $search = $request->input('search');
 
-        $teachers = $this->teacherRepository->searchTeachers($search);
+        $teachers = $this->teacherService->searchTeachers($search);
 
         return response()->json($teachers);
     }

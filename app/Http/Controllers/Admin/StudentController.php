@@ -12,20 +12,18 @@ use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\RepositoriesInterfaces\studentRepositoryInterface;
+
+use App\Services\studentService;
 
 class StudentController extends Controller
 {
-    private $studentRepository;
-
-    public function __construct(studentRepositoryInterface $studentRepository)
+    public function __construct(protected studentService $studentService)
     {
-        $this->studentRepository = $studentRepository;
     }
 
     public function index()
     {
-        $students = $this->studentRepository->getAllStudents(8);
+        $students = $this->studentService->getAllStudents(8);
 
         return view('admin/students/show', compact('students'));
     }
@@ -35,8 +33,8 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $classes = $this->studentRepository->getActiveClasses();
-        $parents = $this->studentRepository->getParents();
+        $classes = $this->studentService->getActiveClasses();
+        $parents = $this->studentService->getParents();
         return view('admin.students.add', compact('parents', 'classes'));
     }
 
@@ -47,7 +45,7 @@ class StudentController extends Controller
     public function store(studentRequest $request)
     {
 
-        try {
+      
             $student = $request->validated();
 
             $student['password'] = Hash::make($request->password);
@@ -56,13 +54,12 @@ class StudentController extends Controller
             $request->picture->move(public_path('users'), $fileName);
             $student = array_merge($student, ['picture' => $fileName]);
             
-            $user = $this->studentRepository->createStudent($student);
+            $user = $this->studentService->createStudent($student);
+           
             Auth::login($user);
 
             return redirect()->route('students.index');
-        } catch (QueryException $e) {
-            dd($e->getMessage());
-        }
+        
     }
 
 
@@ -71,7 +68,7 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        $student = $this->studentRepository->getStudentWithParent($id);
+        $student = $this->studentService->getStudentWithParent($id);
         $child = $student;
         $parent = $student->parent;
         return view('admin/students/details', compact('student', 'parent', 'child'));
@@ -82,9 +79,9 @@ class StudentController extends Controller
      */
     public function edit(string $id)
 {
-    $classes = $this->studentRepository->getActiveClasses();
-    $parents = $this->studentRepository->getParents();
-    $student = $this->studentRepository->getStudentById($id);
+    $classes = $this->studentService->getActiveClasses();
+    $parents = $this->studentService->getParents();
+    $student = $this->studentService->getStudentById($id);
     return view('admin.students.update', compact('student', 'parents', 'classes'));
 }
 
@@ -93,7 +90,7 @@ class StudentController extends Controller
      */
     public function update(UpdatestudentRequest $request, $id)
     {
-        $student = $this->studentRepository->getStudentById($id);
+        $student = $this->studentService->getStudentById($id);
 
         $updateStudent = $request->validated();
 
@@ -108,7 +105,7 @@ class StudentController extends Controller
         }
 
 
-        $this->studentRepository->updateStudent($id, $updateStudent);
+        $this->studentService->updateStudent($id, $updateStudent);
 
         return redirect()->route('students.index')->with('success', 'Student updated successfully');
     }
@@ -119,8 +116,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        $student = $this->studentRepository->getStudentById($id);
-        $student->delete();
+        
+        $this->studentService->destroyStudent($id);
         return redirect()->route('students.index')->with('success', 'Student deleted successfully');
     }
 
@@ -128,7 +125,7 @@ class StudentController extends Controller
     {
         $search = $request->input('search');
 
-        $students = $this->studentRepository->searchStudents($search);
+        $students = $this->studentService->searchStudents($search);
 
         return response()->json($students);
     }

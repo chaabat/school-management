@@ -12,21 +12,19 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-use App\RepositoriesInterfaces\parentRepositoryInterface;
+
+use App\Services\parentservice;
 
 class ParentController extends Controller
 {
 
-    private $parentRepository;
-
-    public function __construct(parentRepositoryInterface $parentRepository)
+    public function __construct(protected parentservice $parentservice)
     {
-        $this->parentRepository = $parentRepository;
     }
 
     public function index()
     {
-        $parents = $this->parentRepository->getAllParents(8);
+        $parents = $this->parentservice->getAllParents(8);
 
         return view('admin/parents/show', compact('parents'));
     }
@@ -36,7 +34,7 @@ class ParentController extends Controller
      */
     public function create()
     {
-       
+
         return view('admin.parents.add');
     }
 
@@ -61,7 +59,7 @@ class ParentController extends Controller
 
             $parent = array_merge($parent, ['picture' => $fileName]);
 
-            $user = $this->parentRepository->createParent($parent);
+            $user = $this->parentservice->createParent($parent);
 
             Auth::login($user);
 
@@ -76,12 +74,12 @@ class ParentController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-{
-    $parent = $this->parentRepository->getParentWithChildren($id);
-    $children = $parent->children;
+    {
+        $parent = $this->parentservice->getParentWithChildren($id);
+        $children = $parent->children;
 
-    return view('admin.parents.details', compact('parent', 'children'));
-}
+        return view('admin.parents.details', compact('parent', 'children'));
+    }
 
 
     /**
@@ -89,9 +87,9 @@ class ParentController extends Controller
      */
     public function edit(string $id)
     {
-        $students = $this->parentRepository->getStudents();
-        $parent = $this->parentRepository->getParentById($id);
-    
+        $students = $this->parentservice->getStudents();
+        $parent = $this->parentservice->getParentById($id);
+
         return view('admin.parents.update', compact('parent', 'students'));
     }
 
@@ -100,7 +98,7 @@ class ParentController extends Controller
      */
     public function update(UpdateParentRequest $request, $id)
     {
-        $parent = $this->parentRepository->getParentById($id);
+        $parent = $this->parentservice->getParentById($id);
         try {
             $updateParent = $request->validated();
 
@@ -115,7 +113,7 @@ class ParentController extends Controller
             }
 
 
-            $this->parentRepository->updateParent($id, $updateParent);
+            $this->parentservice->updateParent($id, $updateParent);
 
             return redirect()->route('parents.index')->with('success', 'Parent updated successfully');
         } catch (QueryException $e) {
@@ -129,13 +127,11 @@ class ParentController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            $this->parentRepository->destroyParent($id);
+         
+            $this->parentservice->destroyParent($id);
 
             return redirect()->route('parents.index')->with('success', 'Parent deleted successfully');
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
+        
     }
 
 
@@ -143,7 +139,7 @@ class ParentController extends Controller
     {
         $search = $request->input('search');
 
-        $parents = $this->parentRepository->searchParents($search);
+        $parents = $this->parentservice->searchParents($search);
 
         return response()->json($parents);
     }
@@ -153,11 +149,8 @@ class ParentController extends Controller
     {
         $parent = User::find($id);
         $children = $parent->children;
-        
-    
+
+
         return view('admin.parents.parentStudent', compact('parent', 'children'));
     }
-    
-
- 
 }

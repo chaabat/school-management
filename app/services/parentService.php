@@ -4,7 +4,7 @@ namespace  App\Services;
 
 use App\RepositoriesInterfaces\parentRepositoryInterface;
 
-class  parentservice 
+class  parentService 
 {
 
     private $parentRepository;

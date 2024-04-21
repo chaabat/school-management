@@ -2,30 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Database\QueryException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\subjectToClasseRequest;
 use App\Http\Requests\UpdateSubjectToClasseRequest;
-use App\Models\Classe;
-use App\Models\Subject;
-use App\Models\SubjetToClass;
 use Illuminate\Http\Request;
-use App\RepositoriesInterfaces\subjectToClasseRepositoryInterface;
+use App\Services\subjectToClasseService;
+
 class SubjectToClasseController extends Controller
 {
 
-    private $subjectToClassRepository;
-
-    public function __construct(subjectToClasseRepositoryInterface $subjectToClassRepository)
+    public function __construct(protected subjectToClasseService $subjectToClasseService)
     {
-        $this->subjectToClassRepository = $subjectToClassRepository;
     }
 
     public function index()
     {
-        $classes = $this->subjectToClassRepository->getAllClasses();
-        $subjects = $this->subjectToClassRepository->getAllSubjects();
-        $subjetToClasse = $this->subjectToClassRepository->getAllSubjectToClassPaginated(6);
+        $classes = $this->subjectToClasseService->getAllClasses();
+        $subjects = $this->subjectToClasseService->getAllSubjects();
+        $subjetToClasse = $this->subjectToClasseService->getAllSubjectToClassPaginated(6);
         return view('admin.subjectToClass.subjectToClass', compact('subjetToClasse', 'subjects', 'classes'));
     }
 
@@ -34,16 +28,16 @@ class SubjectToClasseController extends Controller
         $data = $request->validated();
     
          
-        $this->subjectToClassRepository->create($data);
+        $this->subjectToClasseService->create($data);
     
         return redirect()->back()->with('success', 'Subjects added to class successfully.');
     }
 
     public function edit($id)
     {
-        $classes = $this->subjectToClassRepository->getAllClasses();
-        $subjects = $this->subjectToClassRepository->getAllSubjects();
-        $subjetToClasse = $this->subjectToClassRepository->subjetToClassID($id);
+        $classes = $this->subjectToClasseService->getAllClasses();
+        $subjects = $this->subjectToClasseService->getAllSubjects();
+        $subjetToClasse = $this->subjectToClasseService->subjetToClassID($id);
     
         return view('admin.subjectToClass.update', compact('subjects','classes','subjetToClasse'));
     }
@@ -53,12 +47,10 @@ class SubjectToClasseController extends Controller
         $subjectData = $request->validated();
         
         
-        $this->subjectToClassRepository->update($subjectData, $id);
+        $this->subjectToClasseService->update($subjectData, $id);
         
         return redirect()->route('subject-to-class.index')->with('success', 'Subject-to-class relationship updated successfully');
     }
-    
-
     
 
 
@@ -66,13 +58,13 @@ class SubjectToClasseController extends Controller
     public function search(Request $request)
     {
         $searchQuery = $request->get('query');
-        $results = $this->subjectToClassRepository->search($searchQuery);
+        $results = $this->subjectToClasseService->search($searchQuery);
         return response()->json($results);
     }
 
     public function destroy($id)
     {
-        $this->subjectToClassRepository->delete($id);
+        $this->subjectToClasseService->delete($id);
 
         return redirect()->back()->with('success', 'Subject-to-class relationship deleted successfully.');
     }

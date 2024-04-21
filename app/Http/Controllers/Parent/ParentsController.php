@@ -14,6 +14,11 @@ class ParentsController extends Controller
         $children = $parent->children()->count(); 
         return view('parent.dashboard', compact('children'));
     }
+
+    public function administration() {
+         
+        return view('parent.administration');
+    }
     
 
     public function myChildren() {
@@ -27,17 +32,16 @@ class ParentsController extends Controller
     {
         $child = User::findOrFail($id);
     
-        // Fetch upcoming exams for the child's classes
+       
         $upcomingExams = $child->classe()->with(['exam' => function ($query) {
             $query->where('date', '>=', now()->format('Y-m-d'));
         }])->get();
     
-        // Fetch previous exams for the child's classes
+         
         $previousExams = $child->classe()->with(['exam' => function ($query) {
             $query->where('date', '<', now()->format('Y-m-d'));
         }])->get();
-    
-        // Fetch classes and timetable for the child
+     
         $classeTable = $child->classe()->with('timetable')->get();
         $classes = $child->classe()->with('subjectToClass.subject')->get();
     
