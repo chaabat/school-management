@@ -17,6 +17,7 @@
                         <div class="flex mx-auto border-2 border-orange-500 rounded overflow-hidden mt-6">
                             <button class="py-1 px-4 bg-orange-500 text-white" onclick="openTab(event, 'subject')">Subjects</button>
                             <button class="py-1 px-4 text-white" onclick="openTab(event, 'exam')">Exams</button>
+                            <button class="py-1 px-4 text-white " onclick="openTab(event, 'absence')">Absence</button>
                         </div>
                     </div>
             </div>
@@ -44,6 +45,25 @@
                     </div>
                 </div>
             </div>
+            <div id="absence" class="tabcontent hidden">
+                <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
+                    <div class="w-full flex flex-col 2xl:w-1/3">
+                        <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
+                            <h4 class="text-xl text-blue font-bold">Absences</h4>
+                            <ul class="mt-2">
+                                @if ($absences->count() > 0)
+                                    @foreach ($absences as $absence)
+                                        <li class="font-mono font-bold text-l"><i class="fa-solid fa-minus mr-2" style="color: rgb(255, 0, 0);"></i>{{ $absence->date }}</li>
+                                    @endforeach
+                                @else
+                                    <li class="text-l text-black font-bold text-center mt-4">No absence assigned</li>
+                                @endif
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
 
             <div id="exam" class="tabcontent hidden">
                 <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
@@ -54,14 +74,14 @@
                                 @foreach ($classes as $class)
                                     @if ($class->exam->count() > 0)
                                         <table class="w-full text-center border-collapse rounded">
-                                            <!-- Table headers -->
+                                           
                                             <thead>
                                                 <tr class="text-md font-mono font-bold text-center tracking-wide text-white bg-blue uppercase">
                                                     <th class="px-4 py-3 border border-white w-1/2">Exam</th>
                                                     <th class="px-4 py-3 border border-white w-1/2">Date</th>
                                                 </tr>
                                             </thead>
-                                            <!-- Table body -->
+                                         
                                             <tbody class="bg-white">
                                                 @foreach ($class->exam as $exam)
                                                     <tr class="text-gray-700">
@@ -87,14 +107,14 @@
                             <div class="w-full overflow-x-auto">
                                 @if ($previousExams->count() > 0)
                                     <table class="w-full text-center border-collapse rounded">
-                                        <!-- Table headers -->
+                                     
                                         <thead>
                                             <tr class="text-md font-mono font-bold text-center tracking-wide text-white bg-blue uppercase">
                                                 <th class="px-4 py-3 border border-white w-1/2">Exam</th>
                                                 <th class="px-4 py-3 border border-white w-1/2">Date</th>
                                             </tr>
                                         </thead>
-                                        <!-- Table body -->
+                                       
                                         <tbody class="bg-white">
                                             @foreach ($previousExams as $exam)
                                                 <tr class="text-gray-700">

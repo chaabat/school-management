@@ -34,10 +34,14 @@ class StudentsController extends Controller
             $query->where('date', '>=', now()->format('Y-m-d'));
          }])->get();
     
+         
+        $absences = $student->absences()->where('statut', 'absent')->get();
+        
         $previousExams = Exam::where('date', '<', now()->format('Y-m-d'))->get(); 
         
-        return view('student.mySubject', compact('classes', 'previousExams'));
+        return view('student.mySubject', compact('classes', 'absences', 'previousExams'));
     }
+    
 
 
     public function myTimeTable()

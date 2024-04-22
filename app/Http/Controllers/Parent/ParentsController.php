@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Parent;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ParentsController extends Controller
@@ -23,6 +22,7 @@ class ParentsController extends Controller
 
     public function myChildren() {
         $parent = Auth::user();  
+
         $children = $parent->children()->get(); 
         return view('parent.myChildrens',compact('children'));
     }
@@ -44,8 +44,14 @@ class ParentsController extends Controller
      
         $classeTable = $child->classe()->with('timetable')->get();
         $classes = $child->classe()->with('subjectToClass.subject')->get();
+
+         
+          $children = $child->absences()->where('statut', 'absent')->get();
+ 
     
-        return view('parent.classeSubjects', compact('child', 'classes', 'classeTable', 'upcomingExams', 'previousExams'));
+    
+    
+        return view('parent.classeSubjects', compact('child', 'classes', 'classeTable', 'upcomingExams', 'previousExams','children'));
     }
     
 

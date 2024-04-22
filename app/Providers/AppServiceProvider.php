@@ -26,10 +26,13 @@ use App\Services\teacherService;
 use App\Services\studentService;
 use App\Repositories\TimeTableRepository;
 use App\RepositoriesInterfaces\TimeTableRepositoryInterface;
+use App\ServiceInterface\teacherToClasseServiceInterface;
 use App\Services\classeService;
 use App\Services\examService;
 use App\Services\subjectService;
 use App\Services\subjectToClasseService;
+use App\Services\teacherToClasseService;
+use App\Services\timeTableService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -43,8 +46,10 @@ class AppServiceProvider extends ServiceProvider
  
  
         $this->app->bind(TimeTableRepositoryInterface::class, TimeTableRepository::class);
+        $this->app->bind(timeTableService::class, function ($app) {
+            return new timeTableService($app->make(TimeTableRepositoryInterface::class));
+        });
          
-        $this->app->bind(teacherToClasseRepositoryInterface::class, teacherToClasseRepository::class);  
 
 
         $this->app->bind(parentRepositoryInterface::class, parentRepository::class);
@@ -82,7 +87,15 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(subjectToClasseService::class, function ($app) {
             return new subjectToClasseService($app->make(subjectToClasseRepositoryInterface::class));
         });
+
+        $this->app->bind(teacherToClasseRepositoryInterface::class, teacherToClasseRepository::class);
+        // $this->app->bind(teacherToClasseService::class, function ($app) {
+        //     return new teacherToClasseService($app->make(teacherToClasseRepositoryInterface::class));
+        // });
+        
+        
      }
+
 
     /**
      * Bootstrap any application services.

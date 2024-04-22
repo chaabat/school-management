@@ -25,7 +25,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                     <h3 class="text-2xl text-gray-900 font-semibold">Let us call you!</h3>
                     <p class="text-gray-600">To help you choose your property</p>
                     
-                    <input type="hidden" name="role" value="Student">
+                    <input type="hidden" name="role" value="parent">
                     
                     <input type="text" name="name" placeholder="Your Name" class="border p-2 w-full mt-3">
                     <input type="email" name="email" placeholder="Your Email" class="border p-2 w-full mt-3">

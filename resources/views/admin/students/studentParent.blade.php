@@ -1,18 +1,14 @@
 @extends('layouts.admin')
 @section('student-parent')
-    <div class="p-2 h-screen sm:ml-64"
-        style="background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center;background-size:cover">
-        <div class="p-4  rounded-lg  mt-14">
+<div class="p-4 h-screen sm:ml-64"
+style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
+<div class="p-4 rounded-lg mt-14">
 
 
             <section class=" p-3 sm:p-5">
-
                 <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
-
-
-
                     <div class="overflow-x-auto">
-                        {{-- card start  --}}
+                     
                         <div class="flex justify-center items-center mt-20  ">
 
                             @if ($parent)

@@ -22,6 +22,8 @@
                                     onclick="openTab(event, 'subject')">Subjects</button>
                                 <button class="py-1 px-4 text-white " onclick="openTab(event, 'exams')">Exams</button>
                                 <button class="py-1 px-4 text-white " onclick="openTab(event, 'time')">Time Table</button>
+                                <button class="py-1 px-4 text-white " onclick="openTab(event, 'absences')">Absence</button>
+                                
                             </div>
 
                         </div>
@@ -50,6 +52,30 @@
                             </div>
                         </div>
                     </div>
+                    <div id="absences" class="tabcontent hidden">
+                        <div class="w-full flex flex-col 2xl:w-1/3">
+                            <div class="flex-1 bg-white rounded-lg shadow-xl p-8">
+                                <h4 class="text-xl text-blue font-bold">Absences</h4>
+                                <ul class="mt-2">
+                                    <li class="flex py-2">
+                                        @if ($children->count() > 0)
+                                            <ul>
+                                                @foreach($children as $absence)
+                                                    <li class="font-mono font-bold text-l">
+                                                        <i class="fa-solid fa-minus mr-2" style="color: rgb(255, 0, 0);"></i>
+                                                        Date: {{ $absence->date }}
+                                                    </li>
+                                                @endforeach 
+                                           
+                                            </ul>
+                                        @else
+                                            No absences found
+                                        @endif
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div id="exams" class="tabcontent hidden">
                         <div class="my-4 flex flex-col 2xl:flex-row space-y-4 2xl:space-y-0 2xl:space-x-4">
                             <div class="w-full flex flex-col 2xl:w-1/3">
@@ -59,7 +85,7 @@
                                         @foreach ($upcomingExams as $class)
                                             @if ($class->exam->count() > 0)
                                                 <table class="w-full text-center border-collapse rounded">
-                                                    <!-- Table headers -->
+                                                    
                                                     <thead>
                                                         <tr
                                                             class="text-md font-mono font-bold text-center tracking-wide text-white bg-blue uppercase">
@@ -67,7 +93,7 @@
                                                             <th class="px-4 py-3 border border-white w-1/2">Date</th>
                                                         </tr>
                                                     </thead>
-                                                    <!-- Table body -->
+                                                    
                                                     <tbody class="bg-white">
                                                         @foreach ($class->exam as $exam)
                                                             <tr class="text-gray-700">

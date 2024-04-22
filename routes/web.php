@@ -114,7 +114,7 @@ Route::group(['middleware' => ['auth', 'role:parent']], function () {
     Route::get('/parent/dashboard', [ParentsController::class, 'index'])->name('parentDashboard');
     Route::get('/myChildren', [ParentsController::class, 'myChildren'])->name('myChildren');
     Route::get('/myChildren/classe-subjects/{id}', [ParentsController::class, 'myChildrenSubjects'])->name('myChildrenSubjects');
-    Route::get('/parents/administration', [ParentsController::class, 'administration'])->name('administrationParent');
+    Route::get('/administration', [ParentsController::class, 'administration'])->name('administrationParent');
 });
 
 /*************************************************** STUDENTS ***********************************************************************/
@@ -138,4 +138,11 @@ Route::group(['middleware' => ['auth', 'role:teacher']], function () {
     Route::get('/myTimeTable', [TeachersController::class, 'myTimeTable'])->name('myTimeTable');
     Route::get('/teacher/certificate', [TeachersController::class, 'downloadCertificate'])->name('certificate');
     Route::get('/teacher/administration', [TeachersController::class, 'administration'])->name('administrationTeacher');
+
 });
+// Route for adding absence
+    Route::post('/addAbsence', [TeachersController::class, 'addAbsence'])->name('addAbsence');
+   
+
+    
+ 

@@ -35,6 +35,7 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact('teachers', 'classes', 'subjects', 'exams','parents','students'));
     }
 
+     
     
     
 

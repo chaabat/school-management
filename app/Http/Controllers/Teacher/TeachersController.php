@@ -1,16 +1,20 @@
 <?php
-
 namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Absence;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+ 
 
 class TeachersController extends Controller
 {
     public function index(){
+         
         $teacher = Auth::user();
+        
         $classe = $teacher->teacherToClasse()->first();  
     
         if($classe) {
@@ -25,7 +29,7 @@ class TeachersController extends Controller
             $studentCount = 0;
         }
     
-        return view('teacher.dashboard', compact('className', 'subjectCount', 'examCount', 'studentCount'));
+        return view('teacher.dashboard', compact('className', 'subjectCount', 'examCount', 'studentCount',));
     }
     
     
@@ -35,9 +39,10 @@ class TeachersController extends Controller
     }
 
     public function myClasse(){
-        $user = Auth::user();
-        $teacherClasses = $user->teacherToClasse()->with('classe')->paginate(1);
-        return view('teacher.myClasse',compact('teacherClasses'));
+        $teacher = Auth::user();
+        $absences = Absence::where('user_id', $teacher->id)->get(); 
+        $teacherClasses = $teacher->teacherToClasse()->with('classe')->paginate(1);
+        return view('teacher.myClasse',compact('teacherClasses','absences'));
     }
     public function myTimeTable()
     {
@@ -72,6 +77,41 @@ public function downloadCertificate()
     $pdf = PDF::loadView('teacher.certificate', compact('teacher'));
     return $pdf->download('Attestation_de_travaille.pdf');
 }
+
+public function addAbsence(Request $request)
+{
+    $validatedData = $request->validate([
+        'user_id' => 'required|exists:users,id',
+        'date' => 'required|date',
+        'statut' => 'required|in:present,absent',
+    ]);
+
+    $user_id = $validatedData['user_id'];
+    $date = $validatedData['date'];
+    $statut = $validatedData['statut'];
+
+     
+    $absence = Absence::where('user_id', $user_id)
+                      ->where('date', $date)
+                      ->first();
+
+  
+    if ($absence) {
+        $absence->update(['statut' => $statut]);
+        $message = 'Absence updated successfully.';
+    } else {
+       
+        Absence::create($validatedData);
+        $message = 'Absence recorded successfully.';
+    }
+
+    return response()->json(['success' => true, 'message' => $message]);
+}
+
+
+
  
     
 }
+
+ 

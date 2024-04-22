@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\teacherRequest;
 use App\Http\Requests\UpdateteacherRequest;
+use App\Models\Absence;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
@@ -123,6 +124,9 @@ class TeacherController extends Controller
 
         return response()->json($teachers);
     }
+
+
+
 
   
 }
