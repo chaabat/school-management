@@ -4,78 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title></title>
  
 <body>
     <head>
-        <style type='text/css'>
-            body, html {
-                margin: 0;
-                padding: 0;
-            }
-            body {
-                color: black;
-                display: table;
-                font-family: Georgia, serif;
-                font-size: 24px;
-                text-align: center;
-            }
-            .container {
-                border: 20px solid tan;
-                width: 750px;
-                height: 563px;
-                display: table-cell;
-                vertical-align: middle;
-            }
-            .logo {
-                color: tan;
-            }
-
-            .marquee {
-                color: tan;
-                font-size: 48px;
-                margin: 20px;
-            }
-            .assignment {
-                margin: 20px;
-            }
-            .person {
-                border-bottom: 2px solid black;
-                font-size: 32px;
-                font-style: italic;
-                margin: 20px auto;
-                width: 400px;
-            }
-            .reason {
-                margin: 20px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="logo">
-                An Organization
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl font-semibold"> </h2>
+                
             </div>
-
-            <div class="marquee">
-                Certificate of Completion
-            </div>
-
-            <div class="assignment">
-                This certificate is presented to
-            </div>
-
-            <div class="person">
-                Joe Nathan
-            </div>
-
-            <div class="reason">
-                For deftly defying the laws of gravity<br/>
-                and flying high
+            <div>
+                <p class="text-sm text-gray-600">Téléphone : {{$teacher->phone}}</p>
+                <p class="text-sm text-gray-600">Email : {{$teacher->email}}</p>
+                <p class="text-sm text-gray-600">Adress : {{$teacher->adress}}</p>
             </div>
         </div>
-        </html>
-     
+
+        <div class="flex items-center justify-between">
+            <h1>ATTESTATION DE TRAVAIL</h1>
+            <p>Nous soussignés société  nom de la sociétédomiciliée à  adresse de la société, attestons par la présente que <br> {{$teacher->name}},<br> Immatriculé à la CNSS sous le numéro XXXXXXXXXX, est employé au sein de notre société en qualité de Nom du poste. <br>
+
+ 
+
+                Et ce depuis le {{ \Carbon\Carbon::parse($teacher->created_at)->format('Y-m-d') }} à ce jour.
+
+                
+                 <br>
+                
+                La présente attestation lui est délivrée à sa demande pour servir et valoir ce que de droit.
+                
+                 
+                <br>
+                 Fait à Lieu   Le :  {{ \Carbon\Carbon::now()->format('d') }} </p>
+        </div>
 </body>
 </html>
    

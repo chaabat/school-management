@@ -28,8 +28,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                             clip-rule="evenodd" />
                         </svg>
                       </span>
-                      Notice: Rookie uses cookies to provide necessary website functionality and improve your experience. By using
-                      our website, you agree to our Privacy Policy and our Cookies Policy.
+                      Notice: "Vous pouvez télécharger votre attestation de travail une fois par semaine. Si vous avez besoin d'aide, veuillez nous contacter."
                     </div>
                     <div class="flex flex-row gap-x-2 md:gap-x-5 mt-4 md:mt-0">
                         @if ($certificate)
@@ -37,7 +36,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         class="uppercase px-2 md:px-1 lg:px-3 rounded-md py-3 text-center text-sm bg-orange text-white font-bold font-mono">Télécharger ici</a>
                       @else
                          <button class="uppercase px-2 md:px-1 lg:px-3 rounded-md py-3 text-center text-sm bg-red-600 text-white font-bold font-mono cursor-not-allowed" disabled>
-                        You can't download
+                        Non valable
                            </button>
                       @endif
                     </div>
@@ -48,8 +47,8 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                     <div class="icon bg-blue text-white w-6 h-6 absolute flex items-center justify-center p-5" style="left:-40px">
                         <i class="fal fa-phone-volume fa-fw text-2xl transform -rotate-45"></i>
                     </div>
-                    <h3 class="text-2xl text-gray-900 font-semibold">Let us call you!</h3>
-                    <p class="text-gray-600">To help you choose your property</p>
+                    <h3 class="text-2xl text-gray-900 font-semibold">Contact Us</h3>
+                  
                     <input type="hidden" name="role" value="Teacher">
                     
                     <input type="text" name="name" placeholder="Your Name" class="border p-2 w-full mt-3">

@@ -1,9 +1,9 @@
 use Illuminate\Support\Facades\Auth;
 @extends('layouts.teacher')
 @section('myClasse')
-    <div class="p-4  sm:ml-64"
-        style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover;  ">
-        <div class="p-4 rounded-lg mt-14">
+<div class="p-4 h-screen sm:ml-64"
+style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
+<div class="p-4 rounded-lg mt-14">
 
             @if ($teacherClasses->count() > 0)
                 @foreach ($teacherClasses as $teacherClasses)
@@ -60,16 +60,16 @@ use Illuminate\Support\Facades\Auth;
                                             <table class="w-full">
                                                 <thead>
                                                     <tr
-                                                        class="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
-                                                        <th class="px-4 py-3">Student Name</th>
-                                                        <th class="px-4 py-3">Date</th>
-                                                        <th class="px-4 py-3">Statut</th>
-                                                        <th class="px-4 py-3">Actions</th>
+                                                        class="text-md font-bold tracking-wide font-mono text-center text-white bg-blue uppercase border-b border-white">
+                                                        <th class="px-4 py-3    ">Student Name</th>
+                                                        <th class="px-4 py-3 ">Date</th>
+                                                        <th class="px-4 py-3 ">Statut</th>
+                                                        <th class="px-4 py-3 ">Actions</th>
                                                 </thead>
                                                 <tbody class="bg-white">
                                                     @foreach ($teacherClasses->classe->user as $student)
                                                         <tr class="text-gray-700">
-                                                            <td class="px-4 py-3 border">
+                                                            <td class="px-4 py-3 font-mono text-center  border">
                                                                 <div class="flex items-center text-sm">
                                                                     <div
                                                                         class="relative w-8 h-8 mr-3 rounded-full md:block">
@@ -87,10 +87,10 @@ use Illuminate\Support\Facades\Auth;
                                                                 </div>
                                                             </td>
 
-                                                            <td class="px-4 py-3 text-sm border">{{ now()->toDateString() }}
+                                                            <td class="px-4 py-3 font-mono text-center  text-sm border">{{ now()->toDateString() }}
                                                             </td>
 
-                                                            <td class="px-4 py-3 text-xs border absence-status" id="absence-status-{{ $student->id }}">
+                                                            <td class="px-4 py-3 font-mono text-center  text-xs border absence-status" id="absence-status-{{ $student->id }}">
                                                                 @php
                                                                     $absence = $student->absences()->whereDate('date', now()->toDateString())->first();
                                                                 @endphp
@@ -108,7 +108,7 @@ use Illuminate\Support\Facades\Auth;
                                                             
 
 
-                                                            <td class="px-4 py-3 text-sm border">
+                                                            <td class="px-4 py-3 font-mono text-center  text-sm border">
                                                                 <form class="absence-form" action="{{ route('addAbsence') }}" method="POST" data-absence-id="{{ $student->absence_id }}">
                                                                     @csrf
                                                                     <input type="hidden" name="user_id" value="{{ $student->id }}">
@@ -155,41 +155,7 @@ use Illuminate\Support\Facades\Auth;
 
     </div>
     </div>
-    <script>
-document.querySelectorAll('.absence-btn').forEach(button => {
-    button.addEventListener('click', function() {
-        const form = button.closest('.absence-form');
-        const formData = new FormData(form);
-        formData.append('statut', button.dataset.statut);
-
-        fetch(form.action, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const studentId = form.querySelector('input[name="user_id"]').value;
-                const statusCell = document.getElementById('absence-status-' + studentId);
-                if (button.dataset.statut === 'present') {
-                    statusCell.innerHTML = '<span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm">Present</span>';
-                } else {
-                    statusCell.innerHTML = '<span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-sm">Absent</span>';
-                }
-             
-            } else {
-                alert('Error: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    });
-});
-
-
-
-    </script>
+    <script src="js/absenceTeacher.js"></script>
     <script src="js/buttonSwitcher.js"></script>
 
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClasseRequest;
 use App\Http\Requests\UpdateClasseRequest;
+use App\Models\Classe;
 use Illuminate\Http\Request;
  
 use App\Services\classeService;
@@ -19,6 +20,14 @@ class ClasseController extends Controller
     {
         $classes = $this->classeService->getAllClasses(8);
         return view('admin.classe.class', compact('classes'));
+    }
+
+    public function classesAbsence()
+    {
+        
+        $classes = Classe::with('user')->paginate(4);
+
+        return view('admin.classe.absence', compact('classes'));
     }
 
    

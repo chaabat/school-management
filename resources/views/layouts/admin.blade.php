@@ -22,6 +22,7 @@
     @include('include.sideAdmin')
 
     @yield('dashboard')
+    @yield('absence')
 
     @yield('exam')
     @yield('updateExam')
