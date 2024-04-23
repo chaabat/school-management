@@ -21,8 +21,10 @@ class ExamRequest extends FormRequest
      */
     public function rules(): array
     {
+        $examId = $this->route('exam') ? $this->route('exam')->id : null;
+        
         return [
-            'name' => 'required|min:4|unique:classes,name',
+            'name' => 'required|min:4|unique:exams,name,' . $examId . ',id,classe_id,' . $this->classe_id,
             'date' => 'required',
             'classe_id' => 'required',
             'statut' => 'required|in:activer,desactiver',
@@ -39,7 +41,7 @@ class ExamRequest extends FormRequest
         return [
             'name.required' => 'Le nom est requis.',
             'name.min' => 'Le nom doit comporter au moins 4 caractères.',
-            'name.unique' => 'Ce nom est déjà pris.',
+            'name.unique' => 'Ce nom est déjà pris pour cette classe.',
             'statut.required' => 'Le statut est requis.',
             'statut.in' => 'Le statut doit être "activer" ou "desactiver".',
         ];

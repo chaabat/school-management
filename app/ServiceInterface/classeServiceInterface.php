@@ -10,6 +10,7 @@ interface  classeServiceInterface
     public function updateClasse($id, array $data);
     public function destroyClasse($id);
     public function searchClasses($query);
+    public function absenceClasses($perPage);
     
    
 }

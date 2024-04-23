@@ -11,7 +11,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         <img src="{{ asset('photos/salle-de-classe.png') }}" class="w-auto h-14 rounded-lg" />
 
                         <div>
-                            <p class="font-bold font-mono text-orange text-xl"> {{ $classe->first()->name }}</p>
+                            <p class="font-bold font-mono text-orange text-xl"> {{ $classe->first()->name ??'' }}</p>
                             <p class="font-bold font-mono  text-l text-black">Classe</p>
                         </div>
                     </div>
@@ -26,7 +26,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         <img src="{{ asset('photos/bibliotheque.png') }}" class="w-auto h-14 rounded-lg" />
 
                         <div>
-                            <p class="font-bold font-mono text-orange text-xl">{{ $classe->first()->subjectToClass_count}} </p></p>
+                            <p class="font-bold font-mono text-orange text-xl">{{ $classe->first()->subjectToClass_count ?? ''}} </p> 
                             <p class="font-bold font-mono  text-l text-black">Subjects</p>
                         </div>
                     </div>
@@ -41,7 +41,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         <img src="{{ asset('photos/tester.png') }}" class="w-auto h-14 rounded-lg" />
 
                         <div>
-                            <p class="font-bold font-mono text-orange  text-xl">{{ $classe->first()->exam_count }}</p>
+                            <p class="font-bold font-mono text-orange  text-xl">{{ $classe->first()->exam_count ?? ''}}</p>
                             <p class="font-bold font-mono  text-l text-black">Exams</p>
                         </div>
                     </div>

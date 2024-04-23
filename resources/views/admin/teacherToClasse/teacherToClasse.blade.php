@@ -17,23 +17,25 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
         <form action="{{ route('teacher-to-class.store') }}" method="POST">
             @csrf
             <div class="w-full flex items-center justify-center">
-                <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
+                <div class="rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6"
+                style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe2.jpg') }}') no-repeat center; background-size: cover;">
+
                     <div>
                         @if ($errors->any())
-                            <h2 class="text-xl font-mono font-bold text-[#fb5607]">Validation errors:</h2>
+                            <h2 class="text-xl font-mono font-bold text-blue">Validation errors:</h2>
                             <ul>
                                 @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
+                                    <li class="text-white" >{{ $error }}</li>
                                 @endforeach
                             </ul>
                         @endif
                     </div>
-                    <hr class="border-1 border-gray-300">
+                
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
                         <div class="grid grid-cols-1">
 
-                            <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Teacher</label>
+                            <label class="md:text-sm text-xs text-white text-light font-semibold">Teacher</label>
                             <select name="user_id"  
                                 class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                 <option value="">Select Teacher</option>
@@ -43,7 +45,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                             </select>
                         </div>
                         <div class="grid grid-cols-1">
-                            <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Classe</label>
+                            <label class="md:text-sm text-xs text-white text-light font-semibold">Classe</label>
                             <select name="classe_id" id="classe"
                                 class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                 @foreach ($classes as $classe)
@@ -56,7 +58,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                     <div class="grid grid-cols-1">
 
 
-                        <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Time:</label>
+                        <label class="md:text-sm text-xs text-white text-light font-semibold mt-2">Statut</label>
                         <select name="statut" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                             <option value="activer">Activer</option>
                             <option value="desactiver">Desactiver</option>

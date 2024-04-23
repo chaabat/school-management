@@ -7,23 +7,25 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
             <form action="{{ route('timeTable.store') }}" method="POST">
                 @csrf
                 <div class="w-full flex items-center justify-center">
-                    <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
-                        <div>
-                            @if ($errors->any())
-                                <h2 class="text-xl font-mono font-bold text-[#fb5607]">Validation errors:</h2>
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </div>
-                        <hr class="border-1 border-gray-300">
+                    <div class=" rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6"
+                    style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe2.jpg') }}') no-repeat center; background-size: cover;">
+
+                    <div>
+                        @if ($errors->any())
+                            <h2 class="text-xl font-mono font-bold text-blue">Validation errors:</h2>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li class="text-white">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                     
             
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
                             <div class="grid grid-cols-1">
             
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Classe:</label>
+                                <label class="md:text-sm text-xs text-white text-light font-semibold">Classe:</label>
                                 <select name="classe_id" id="class_id" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                     <option>Choisir</option>
                                     @foreach ($classSubjects->groupBy('classe_id') as $classId => $subjects)
@@ -33,13 +35,13 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                     @endforeach
                                 </select>
             
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Subject:</label>
+                                <label class="md:text-sm text-xs text-white text-light font-semibold">Subject:</label>
                                 <select name="subject_id" id="subject_id" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                   
                                 </select>
                             </div>
-                            <div class="grid grid-cols-1">
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Day:</label>
+                            <div class="grid grid-cols-1 ">
+                                <label class="md:text-sm text-xs text-white text-light font-semibold">Day:</label>
                                 <select name="days" id="days" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                     <option value="monday">Monday</option>
                                     <option value="tuesday">Tuesday</option>
@@ -48,7 +50,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                     <option value="friday">Friday</option>
                                 </select>
             
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Time:</label>
+                                <label class="md:text-sm text-xs text-white text-light font-semibold">Statut:</label>
                                 <select name="time" id="time" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                 </select>
                             </div>
@@ -65,11 +67,11 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
             <table class="w-full mt-4">
                 <thead>
                   <tr class="text-md font-semibold tracking-wide text-left text-white bg-blue uppercase border-y  border-white">
-                    {{-- <th class="px-4 py-3 border-x ">Classe</th> --}}
+                    <th class="px-4 py-3 border-x ">Classe</th>
                     <th class="px-4 py-3 border-x ">Subject</th>
                     <th class="px-4 py-3 border-x ">Day</th>
                     <th class="px-4 py-3 border-x ">Time</th>
-                    <th class="px-4 py-3 border-x ">Actions</th>
+                    <th class="px-4 py-3 border-x text-center">Actions</th>
                   </tr>
                 </thead>
 
@@ -79,13 +81,13 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                            
                      
                             <tr>
-                                {{-- <td>{{ $table->classe->name }}</td> --}}
+                                <td class="px-4 py-3 text-m font-mono text-orange bg-gray-200 font-bold  border">{{ $table->classe->name }}</td>
 
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold  border">{{ $table->subject->name ?? 'No Subject' }}</td>
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold  border">{{ ucfirst($table->days) }}</td>
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold  border">{{ $table->time }}</td>
                                 <td class="px-4 py-3 text-m font-mono text-blue bg-gray-200 font-bold border">
-                                    <div class="flex mt-3 -mx-2 space-x-4">
+                                    <div class="flex mt-3 -mx-2 space-x-4 justify-center">
                                         <a href="{{ route('timeTable.show', $table->classe_id) }}"><img
                                             src="{{ asset('photos/show.png') }}" class="h-6" alt=""></a>
                                     <a href="{{ route('timeTable.edit', $table->id) }}"><img
@@ -102,13 +104,14 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                             </tr>
                         @endforeach
                     </tbody>
-                   
+                    
                 </table>
-           
-
                 <div class="mt-8 flex justify-center bg-white font-mono">
                     {{ $tables->links('pagination::tailwind') }}
                 </div>
+           
+
+                
              
             </div>
         </div>
@@ -121,9 +124,9 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
             var timeSelect = document.getElementById('time');
             var classSubjects = @json($classSubjects);
 
-            // Function to populate the time dropdown
+         
             function populateTimeDropdown() {
-                timeSelect.innerHTML = ''; // Clear existing options
+                timeSelect.innerHTML = ''; 
                 for (var hour = 8; hour <= 17; hour++) {
                     for (var minute = 0; minute < 60; minute += 60) {
                         var timeString = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2);
@@ -136,21 +139,21 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                 }
             }
 
-            // Initial population of time dropdown
+          
             populateTimeDropdown();
 
             classSelect.addEventListener('change', function() {
                 var selectedClassId = this.value;
 
-                // Clear existing options
+      
                 subjectSelect.innerHTML = '';
 
-                // Filter subjects based on the selected class
+                
                 var filteredSubjects = classSubjects.filter(function(classSubject) {
                     return classSubject.classe && classSubject.classe.id == selectedClassId;
                 });
 
-                // Populate subjects dropdown with filtered subjects
+          
                 filteredSubjects.forEach(function(classSubject) {
                     if (classSubject.subject) {
                         var option = document.createElement('option');

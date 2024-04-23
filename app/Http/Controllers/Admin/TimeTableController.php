@@ -5,26 +5,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TimeTableRequest;
 use App\Http\Requests\TimeTableUpdateRequest;
-use App\RepositoriesInterfaces\TimeTableRepositoryInterface;  
-use Illuminate\Http\Request;
-use App\Models\Classe;
-use App\Models\Subject;
-use App\Models\SubjetToClass;
-use App\Models\TimeTable;
+use App\Services\timeTableService;
 
 class TimeTableController extends Controller
 {
-    private $timeTableRepository;
-
-    public function __construct(TimeTableRepositoryInterface $timeTableRepository)
+    public function __construct(protected timeTableService $timeTableService)
     {
-        $this->timeTableRepository = $timeTableRepository;
     }
     
     public function index()
     {
-        $classSubjects =  $this->timeTableRepository->getClassSubjects();
-        $tables = $this->timeTableRepository->getAllTimeTable(5); 
+        $classSubjects =  $this->timeTableService->getClassSubjects();
+        $tables = $this->timeTableService->getAllTimeTable(5); 
     
         return view('admin.timeTable.create', compact('classSubjects', 'tables'));
     }
@@ -33,25 +25,25 @@ class TimeTableController extends Controller
     {
         $validatedData = $request->validated();  
         
-        $this->timeTableRepository->createTimeTable($validatedData);  
+        $this->timeTableService->createTimeTable($validatedData);  
 
         return redirect()->route('timeTable.index', $request->class_id)->with('success', 'Timetable entry added successfully.');
     }
 
     public function show($classId)
     {
-       $class = $this->timeTableRepository->getClassById($classId);
-        $timetable = $this->timeTableRepository->getTimeTableByClassId($classId);
-        $subjects = $this->timeTableRepository->getSubjectsByClassId($classId);
-     
+        $class = $this->timeTableService->getClassById($classId);
+        $timetable = $this->timeTableService->getTimeTableByClassId($classId);
+        $subjects = $this->timeTableService->getSubjectsForClass($classId);
+         
         return view('admin.timeTable.details', compact('class', 'timetable', 'subjects'));
     }
 
     public function edit($id)
     {
-        $timetable = $this->timeTableRepository->getTimeTableById($id);
-        $class = $this->timeTableRepository->getClassById($timetable->classe_id);
-        $classSubjects = $this->timeTableRepository->getSubjectsForClass($timetable->classe_id);
+        $timetable = $this->timeTableService->getTimeTableById($id);
+        $class = $this->timeTableService->getClassById($timetable->classe_id);
+        $classSubjects = $this->timeTableService->getSubjectsForClass($timetable->classe_id);
         $subjects = $class->subjectToClass()->get();
         
         return view('admin.timeTable.update', compact('timetable','class','subjects','classSubjects'));
@@ -61,14 +53,14 @@ class TimeTableController extends Controller
     {
         $validatedData = $request->validated();  
 
-        $this->timeTableRepository->updateTimeTable($id, $validatedData); 
+        $this->timeTableService->updateTimeTable($id, $validatedData); 
     
         return redirect()->route('timeTable.index')->with('success', 'Timetable entry updated successfully.');
     }
 
     public function destroy($id)
     {
-        $this->timeTableRepository->destroyTimeTable($id); 
+        $this->timeTableService->destroyTimeTable($id); 
     
         return redirect()->route('timeTable.index')->with('success', 'Timetable entry deleted successfully.');
     }

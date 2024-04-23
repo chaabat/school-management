@@ -36,8 +36,13 @@ class teacherToClasseRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'user_id.required' => 'The teacher field is required.',
             'user_id.unique' => 'The teacher is already assigned to a class.',
-            'classe_id.unique' => 'The classe is already assigned to a teacher.',
+            'classe_id.required' => 'The class field is required.',
+            'classe_id.unique' => 'The class is already assigned to a teacher.',
+            'statut.required' => 'The status field is required.',
+            'statut.in' => 'The status must be either "activer" or "desactiver".',
         ];
     }
+    
 }

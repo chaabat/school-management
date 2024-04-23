@@ -22,6 +22,7 @@ class teacherRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'name' => 'required | min:4|unique:users,name',
             'email' => 'required|email|unique:users,email',
             'password' => 'required | min:8 ',
@@ -32,7 +33,6 @@ class teacherRequest extends FormRequest
             'date' => 'required',
             'genre' => 'required',
             'description' => 'required',
-            'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
     /**

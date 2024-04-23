@@ -18,7 +18,8 @@ class timeTableRepository implements timeTableRepositoryInterface
     public function getAllTimeTable($perPage)
     {
 
-        return TimeTable::paginate($perPage);
+        return TimeTable::orderByDesc('created_at')->paginate($perPage);
+
     }
     public function getTimeTableById($id)
     {

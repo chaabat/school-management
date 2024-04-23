@@ -6,24 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\teacherToClasseRequest;
 use App\Http\Requests\updateTeacherToClasseRequest;
 use Illuminate\Http\Request;
-use App\RepositoriesInterfaces\teacherToClasseRepositoryInterface;
-
-
+use App\Services\teacherToClasseService;
 
 class TeacherToClasseController extends Controller
 {
 
-    private $teacherToClassRepository;
-
-    public function __construct(teacherToClasseRepositoryInterface $teacherToClassRepository)
+    public function __construct(protected teacherToClasseService $teacherToClasseService)
     {
-        $this->teacherToClassRepository = $teacherToClassRepository;
     }
     public function index()
     {
-        $classes = $this->teacherToClassRepository->getAllClasses();
-        $teachers = $this->teacherToClassRepository->getAllTeachers();
-        $teacherToClasse = $this->teacherToClassRepository->getAllTeachersToClassPaginated(6);
+        $classes = $this->teacherToClasseService->getAllClasses();
+        $teachers = $this->teacherToClasseService->getAllTeachers();
+        $teacherToClasse = $this->teacherToClasseService->getAllTeachersToClassPaginated(6);
 
         return view('admin.teacherToClasse.teacherToClasse', compact('classes', 'teachers', 'teacherToClasse'));
     }
@@ -33,7 +28,7 @@ class TeacherToClasseController extends Controller
     {
         $teacherToClasse = $request->validated();
 
-        $this->teacherToClassRepository->create($teacherToClasse);
+        $this->teacherToClasseService->create($teacherToClasse);
 
 
         return redirect()->back()->with('success', 'Subjects added to class successfully.');
@@ -41,9 +36,9 @@ class TeacherToClasseController extends Controller
 
     public function edit($id)
     {
-        $classes = $this->teacherToClassRepository->getAllClasses();
-        $teachers = $this->teacherToClassRepository->getAllTeachers();
-        $teacherToClasse = $this->teacherToClassRepository->teacherToClassID($id);
+        $classes = $this->teacherToClasseService->getAllClasses();
+        $teachers = $this->teacherToClasseService->getAllTeachers();
+        $teacherToClasse = $this->teacherToClasseService->teacherToClassID($id);
     
         return view('admin.teacherToClasse.update', compact('teachers','classes','teacherToClasse'));
     }
@@ -53,7 +48,7 @@ class TeacherToClasseController extends Controller
         $teacherToClasse = $request->validated();
         
         
-        $this->teacherToClassRepository->update($teacherToClasse, $id);
+        $this->teacherToClasseService->update($teacherToClasse, $id);
         
         return redirect()->route('teacher-to-class.index')->with('success', 'Teacher-to-class relationship updated successfully');
     }
@@ -64,7 +59,7 @@ class TeacherToClasseController extends Controller
     public function search(Request $request)
     {
         $searchQuery = $request->get('query');
-        $results = $this->teacherToClassRepository->search($searchQuery);
+        $results = $this->teacherToClasseService->search($searchQuery);
         return response()->json($results);
     }
 
@@ -72,7 +67,7 @@ class TeacherToClasseController extends Controller
 
     public function destroy($id)
     {
-        $this->teacherToClassRepository->delete($id);
+        $this->teacherToClasseService->delete($id);
 
         return redirect()->back()->with('success', 'Subject-to-class relationship deleted successfully.');
     }

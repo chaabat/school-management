@@ -45,4 +45,13 @@ class classRepository implements classeRepositoryInterface
     {
         return Classe::where('name', 'like', "%$query%")->get();
     }
+
+    public function absenceClasses($perPage){
+        
+        return Classe::with('user')->paginate($perPage);
+    }
+
+
+    
+
 }

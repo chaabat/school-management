@@ -18,6 +18,7 @@
     @yield('reset')
     @yield('waitPage')
     @yield('email')
+    @yield('errors')
 
 </body>
 

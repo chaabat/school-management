@@ -15,5 +15,6 @@ interface  timeTableServiceInterface
     public function getSubjectsByClassId($id);
     public function getSubjectsForClass($classId);
     
+    
    
 }

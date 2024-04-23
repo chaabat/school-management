@@ -27,4 +27,14 @@ class updateTeacherToClasseRequest extends FormRequest
                 'statut' => 'required|in:activer,desactiver',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'user_id.required' => 'The teacher field is required.',
+             'classe_id.required' => 'The class field is required.',
+             'statut.required' => 'The status field is required.',
+            'statut.in' => 'The status must be either "activer" or "desactiver".',
+        ];
+    }
 }

@@ -89,9 +89,9 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(teacherToClasseRepositoryInterface::class, teacherToClasseRepository::class);
-        // $this->app->bind(teacherToClasseService::class, function ($app) {
-        //     return new teacherToClasseService($app->make(teacherToClasseRepositoryInterface::class));
-        // });
+        $this->app->bind(teacherToClasseService::class, function ($app) {
+            return new teacherToClasseService($app->make(teacherToClasseRepositoryInterface::class));
+        });
         
         
      }

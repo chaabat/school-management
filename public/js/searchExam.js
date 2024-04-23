@@ -11,12 +11,13 @@ $("#search").on("keyup", function () {
 
             if (data.length > 0) {
                 data.forEach(function (examClass) {
+                    
                     var rowHtml = `
                         <tr class="class-row">
                             <td class="px-4 py-3 font-mono text-[#fb5607] font-bold">${examClass.id}</td>
                             <td class="px-4 py-3 font-mono text-black font-bold">${examClass.name}</td>
                             <td class="px-4 py-3 font-mono text-black font-bold">${examClass.date}</td>
-                            <td class="px-4 py-3 font-mono text-black font-bold">${examClass.classe.name}</td>
+                            <td class="px-4 py-3 font-mono text-black font-bold">${className}</td>
                             <td class="px-4 py-3 font-mono text-black font-bold">${examClass.statut}</td>
                             <td class="px-4 py-3 font-mono text-black font-bold">${examClass.created_at}</td>
                             <td class="px-4 py-3">

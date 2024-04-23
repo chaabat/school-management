@@ -17,23 +17,25 @@
             <form action="{{ route('classes.store') }}" method="POST">
                 @csrf
                 <div class="w-full flex items-center justify-center">
-                    <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
+                    <div class="rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6"
+                    style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe1.jpg') }}') no-repeat center; background-size: cover;">
+
                         <div>
                             @if ($errors->any())
-                                <h2 class="text-xl font-mono font-bold text-[#fb5607]">Validation errors:</h2>
+                                <h2 class="text-xl font-mono font-bold text-orange">Validation errors:</h2>
                                 <ul>
                                     @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
+                                        <li class="text-white">{{ $error }}</li>
                                     @endforeach
                                 </ul>
                             @endif
                         </div>
-                        <hr class="border-1 border-gray-300">
+              
             
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
                             <div class="grid grid-cols-1">
             
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Nom</label>
+                                <label class="md:text-sm text-xs text-white text-light font-semibold">Nom</label>
                                 <input type="text" name="name" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
             
                                  
@@ -41,7 +43,7 @@
                             <div class="grid grid-cols-1">
                                  
             
-                                <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Time:</label>
+                                <label class="md:text-sm text-xs text-white text-light font-semibold">Time:</label>
                                 <select name="statut"   class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                     <option value="activer">Activer</option>
                                         <option value="desactiver">Desactiver</option>
@@ -102,7 +104,7 @@
                         </div>
                         <div class="overflow-x-auto">
                             <div class="mx-auto max-w-screen-xl px-4 w-full mt-12 mb-12">
-                                <div class="display grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                                <div class="classData grid w-full sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                                     @foreach ($classes as $class)
                                      
                                         <div
@@ -138,29 +140,24 @@
                                     </div>
                                     @endforeach
                                 </div>
+                                <div style="display: none;" class="search-not-found bg-white flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg  ">
+                                    <p class="text-6xl md:text-7xl lg:text-9xl font-bold font-mono text-[#fb5607]">4<span class="text-[#03045e]">0</span>4</p>
+                                    <p class="text-2xl md:text-3xl lg:text-5xl font-bold font-mono text-[#03045e] mt-4">Recherche introuvable</p>
+                                      
+                                </div>
                             </div>
                         </div>
                         <div class="flex justify-center bg-white font-mono">
                             {{ $classes->links('pagination::tailwind') }}
                         </div>
+                        
                     </div>
                         </div>
                         <!-- "Nothing found" message -->
-                        <div style="display: none;" class="search-not-found bg-white flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg  ">
-                            <p class="text-6xl md:text-7xl lg:text-9xl font-bold font-mono text-[#fb5607]">4<span class="text-[#03045e]">0</span>4</p>
-                            <p class="text-2xl md:text-3xl lg:text-5xl font-bold font-mono text-[#03045e] mt-4">Recherche introuvable</p>
-                              
-                        </div>
                       
                     </div>
                 </div>
             </section>
 
-
-      
-
-
-
-            <script src="js/updateClasse.js"></script>
             <script src="js/searchClasse.js"></script>
         @endsection

@@ -43,10 +43,11 @@ class timeTableService
         return $this->timeTableRepository->getClassSubjects();
     }
 
-    public function getClassById($id)
+    public function getClassById($classId)
     {
-        return $this->timeTableRepository->getClassById($id);
+        return $this->timeTableRepository->getClassById($classId);
     }
+    
 
     public function getTimeTableByClassId($id)
     {
@@ -58,8 +59,12 @@ class timeTableService
         return $this->timeTableRepository->getSubjectsByClassId($id);
     }
 
-    public function getSubjectsForClass($timetable)
+    public function getSubjectsForClass($classId)
     {
-        return $this->timeTableRepository->getClassById($timetable->classe_id);
+        return $this->timeTableRepository->getSubjectsForClass($classId);
     }
+    
+    
 }
+
+ 

@@ -25,7 +25,7 @@ class ClasseController extends Controller
     public function classesAbsence()
     {
         
-        $classes = Classe::with('user')->paginate(4);
+        $classes = $this->classeService->absenceClasses(4);
 
         return view('admin.classe.absence', compact('classes'));
     }

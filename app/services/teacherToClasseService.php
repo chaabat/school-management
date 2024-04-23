@@ -2,6 +2,7 @@
 
 namespace  App\Services;
 
+use App\repositoriesInterfaces\teacherToClasseRepositoryInterface;
 use App\ServiceInterface\teacherToClasseServiceInterface;
 
 class  teacherToClasseService
@@ -9,7 +10,7 @@ class  teacherToClasseService
 
     private $teacherToClassRepository;
 
-    public function __construct(teacherToClasseServiceInterface $teacherToClassRepository)
+    public function __construct(teacherToClasseRepositoryInterface $teacherToClassRepository)
     {
         $this->teacherToClassRepository = $teacherToClassRepository;
     }

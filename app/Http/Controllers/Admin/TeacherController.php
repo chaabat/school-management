@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\teacherRequest;
 use App\Http\Requests\UpdateteacherRequest;
-use App\Models\Absence;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Hash;
@@ -40,24 +39,26 @@ class TeacherController extends Controller
     public function store(teacherRequest $request)
     {
 
-        try {
+     
             $teacher = $request->validated();
 
 
             $teacher['password'] = Hash::make($request->password);
-
-            $fileName = time() . '.' . $request->picture->extension();
-            $request->picture->move(public_path('users'), $fileName);
-            $teacher = array_merge($teacher, ['picture' => $fileName]);
-
+            if ($request->hasFile('picture') && $request->file('picture')->isValid()) {
+                // Handle picture upload
+                $fileName = time() . '.' . $request->picture->extension();
+                $request->picture->move(public_path('users'), $fileName);
+                $teacher = array_merge($teacher, ['picture' => $fileName]);
+            } else {
+                // No picture uploaded, use default
+                $teacher['picture'] = 'photos/aa.jpg';
+            }
             $user = $this->teacherService->createTeacher($teacher);
 
             Auth::login($user);
 
             return redirect()->route('teachers.index');
-        } catch (QueryException $e) {
-            dd($teacher);
-        }
+         
     }
 
 

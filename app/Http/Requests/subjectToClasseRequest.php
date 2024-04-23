@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\SubjetToClass;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class subjectToClasseRequest extends FormRequest
@@ -23,7 +25,18 @@ class subjectToClasseRequest extends FormRequest
     {
         return [
             'classe_id' => 'required',
-            'subject_id' => 'required',
+            'subject_id' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    $exists = SubjetToClass::where('classe_id', $this->classe_id)
+                        ->where('subject_id', $value)
+                        ->exists();
+    
+                    if ($exists) {
+                        $fail('The selected subject is already associated with this class.');
+                    }
+                },
+            ],
             'statut' => 'required',
         ];
     }

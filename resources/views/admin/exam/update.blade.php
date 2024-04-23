@@ -13,35 +13,36 @@
         @endif
         <div class="bg-gradient-to-r from-blue-100 via-blue-300 to-blue-500  py-8">
             <div class="w-full flex items-center justify-center">
-                <div class="bg-gray-100 rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6">
+                <div class=" rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6"
+                style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/classe2.jpg') }}') no-repeat center; background-size: cover;">
+            
                     <div class="px-5 py-3 mb-3 text-3xl font-medium text-gray-800 mt-6">
-                        <div class="text-center font-mono font-bold text-blue">Update Exam : <span class="text-orange">{{$exam->name}}</span> </div>
+                        <div class="text-center font-mono font-bold text-blue">Update Exam : <span class="text-white">{{$exam->name}}</span> </div>
                     </div>
 
                     <form action="{{ route('exams.update',  $exam->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         @csrf
-                         
-                            
-                                <div>
-                                    @if ($errors->any())
-                                        <h2 class="text-xl font-mono font-bold text-[#fb5607]">Validation errors:</h2>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-                                </div>
-                                <hr class="border-1 border-gray-300">
+                        <div>
+                            @if ($errors->any())
+                                <h2 class="text-xl font-mono font-bold text-blue">Validation errors:</h2>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                    <li class="text-white">{{ $error }}</li>
+        
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+                             
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mt-5">
                                     <div class="grid grid-cols-1">
-                                        <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Nom</label>
+                                        <label class="md:text-sm text-xs text-white text-light font-semibold">Nom</label>
                                         <input type="text" name="name" value="{{ $exam->name }}" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                     </div>
                                     <div class="grid grid-cols-1">
-                                        <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Classe</label>
+                                        <label class="md:text-sm text-xs text-white text-light font-semibold">Classe</label>
                                         <select class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none" name="classe_id" id="classe_id">
                                             <option>Choisir</option>
                                             @foreach ($classes as $classe)
@@ -50,11 +51,11 @@
                                         </select>
                                     </div>
                                     <div class="grid grid-cols-1">
-                                        <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Date</label>
+                                        <label class="md:text-sm text-xs text-white text-light font-semibold">Date</label>
                                         <input type="date" value="{{ $exam->date }}" name="date" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                     </div>
                                     <div class="grid grid-cols-1">
-                                        <label class="md:text-sm text-xs text-gray-600 text-light font-semibold">Statut</label>
+                                        <label class="md:text-sm text-xs text-white text-light font-semibold">Statut</label>
                                         <select name="statut" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                             <option value="activer">Activer</option>
                                             <option value="desactiver">Desactiver</option>

@@ -34,6 +34,11 @@ class  classeService
     }
     public function searchclasses($query)
     {
-        $this->classeRepository->searchclasses($query);
+       return $this->classeRepository->searchclasses($query);
     }
+
+    public function absenceClasses($perPage){
+        return $this->classeRepository->absenceClasses($perPage);
+    }
+    
 }
