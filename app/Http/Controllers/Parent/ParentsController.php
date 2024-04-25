@@ -3,62 +3,39 @@
 namespace App\Http\Controllers\Parent;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Services\paService;
 
 class ParentsController extends Controller
 {
-    public function index(){
-        $parent = Auth::user();
-        $children = $parent->children()->count(); 
+    public function __construct(protected paService $paService)
+    {
+    }
+    public function index()
+    {
+         
+        $children = $this->paService->index();  
         return view('parent.dashboard', compact('children'));
     }
 
-    public function administration() {
-         
+    public function administration()
+    {
         return view('parent.administration');
     }
-    
 
-    public function myChildren() {
-        $parent = Auth::user();  
-
-        $children = $parent->children()->get(); 
-        return view('parent.myChildrens',compact('children'));
+    public function myChildren()
+    {
+        $children = $this->paService->myChildren();  
+        return view('parent.myChildrens', compact('children'));
     }
-
 
     public function myChildrenSubjects($id)
     {
-        $child = User::findOrFail($id);
-    
-       
-        $upcomingExams = $child->classe()->with(['exam' => function ($query) {
-            $query->where('date', '>=', now()->format('Y-m-d'));
-        }])->get();
-    
-         
-        $previousExams = $child->classe()->with(['exam' => function ($query) {
-            $query->where('date', '<', now()->format('Y-m-d'));
-        }])->get();
-     
-        $classeTable = $child->classe()->with('timetable')->get();
-        $classes = $child->classe()->with('subjectToClass.subject')->get();
+        $upcomingExams = $this->paService->myChildrenSubjects($id)['upcomingExams'];
+        $previousExams = $this->paService->myChildrenSubjects($id)['previousExams'];
+        $classeTable = $this->paService->myChildrenSubjects($id)['classeTable'];
+        $classes = $this->paService->myChildrenSubjects($id)['classes'];
+        $children = $this->paService->myChildrenSubjects($id)['children'];
 
-         
-          $children = $child->absences()->where('statut', 'absent')->get();
- 
-    
-    
-    
-        return view('parent.classeSubjects', compact('child', 'classes', 'classeTable', 'upcomingExams', 'previousExams','children'));
+        return view('parent.classeSubjects', compact('upcomingExams', 'previousExams', 'classeTable', 'classes', 'children'));
     }
-    
-
-    
-
-
-
-
-   
 }

@@ -8,6 +8,7 @@ use App\Repositories\studentRepository;
 use App\Repositories\teacherRepository;
 use App\Repositories\classRepository;
 use App\Repositories\examRepository;
+use App\Repositories\PaRepository;
 use App\Repositories\subjectRepository;
 use App\Repositories\subjectToClasseRepository;
 use App\Repositories\teacherToClasseRepository;
@@ -25,6 +26,7 @@ use App\Services\teacherService;
  
 use App\Services\studentService;
 use App\Repositories\TimeTableRepository;
+use App\repositoriesInterfaces\paRepositoryInterface;
 use App\RepositoriesInterfaces\TimeTableRepositoryInterface;
 use App\ServiceInterface\teacherToClasseServiceInterface;
 use App\Services\classeService;
@@ -42,7 +44,10 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         
-
+        $this->app->bind(paRepositoryInterface::class, PaRepository::class);
+        $this->app->bind(parentService::class, function ($app) {
+            return new parentService($app->make(paRepositoryInterface::class));
+        });
  
  
         $this->app->bind(TimeTableRepositoryInterface::class, TimeTableRepository::class);
