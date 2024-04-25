@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="flex items-center justify-center  my-6">
-                            <button type="submit" class="font-mono font-bold py-2 px-8 bg-blue-900 rounded-full text-white  hover:bg-orange cursor-pointer">Ajouter</button>
+                            <button type="submit" class="font-mono font-bold py-2 px-8 bg-blue-900 rounded-full text-white  hover:bg-orange cursor-pointer">Update</button>
                         </div>
                     </form>
                 </div>

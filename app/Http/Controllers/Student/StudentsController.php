@@ -16,7 +16,7 @@ class StudentsController extends Controller
         $student = auth()->user();
 
         $classe = $student->classe()
-            ->withCount('subjectToClass', 'exam')
+            ->withCount( 'exam')
             ->get(['id', 'name']);  
 
         return view('student.dashboard', compact('classe'));

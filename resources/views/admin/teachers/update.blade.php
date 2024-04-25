@@ -70,7 +70,7 @@
 
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-                                id="password" type="password" name="password" placeholder="Doe">
+                                value="{{ $teacher->password }}" id="password" type="password" name="password" placeholder="Doe">
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">

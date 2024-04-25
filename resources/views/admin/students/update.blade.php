@@ -67,7 +67,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
 
                             <input
                                 class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
-                                id="password" type="password" name="password" placeholder="Doe">
+                                value="{{ $student->password }}" id="password" type="password" name="password" placeholder="Doe">
                         </div>
                     </div>
                     <div class="-mx-3 md:flex mb-6">

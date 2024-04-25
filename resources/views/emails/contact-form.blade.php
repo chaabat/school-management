@@ -10,3 +10,4 @@
 **Message:**
 {{ $data['message'] }}
 @endcomponent
+ 
