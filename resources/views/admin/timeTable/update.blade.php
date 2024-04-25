@@ -83,9 +83,9 @@
             var timeSelect = document.getElementById('time');
             var classSubjects = @json($classSubjects);
 
-            // Function to populate the time dropdown
+           
             function populateTimeDropdown() {
-                timeSelect.innerHTML = ''; // Clear existing options
+                timeSelect.innerHTML = '';
                 for (var hour = 8; hour <= 17; hour++) {
                     for (var minute = 0; minute < 60; minute += 60) {
                         var timeString = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2);
@@ -98,21 +98,17 @@
                 }
             }
 
-            // Initial population of time dropdown
             populateTimeDropdown();
 
             classSelect.addEventListener('change', function() {
                 var selectedClassId = this.value;
 
-                // Clear existing options
                 subjectSelect.innerHTML = '';
 
-                // Filter subjects based on the selected class
                 var filteredSubjects = classSubjects.filter(function(classSubject) {
                     return classSubject.classe && classSubject.classe.id == selectedClassId;
                 });
 
-                // Populate subjects dropdown with filtered subjects
                 filteredSubjects.forEach(function(classSubject) {
                     if (classSubject.subject) {
                         var option = document.createElement('option');

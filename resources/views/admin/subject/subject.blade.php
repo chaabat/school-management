@@ -154,13 +154,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
         </div>
         </section>
 
-
-        
-
-
     </div>
-    
-
-    <script src="js/updateSubject.js"></script>
+  
     <script src="js/searchSubject.js"></script>
 @endsection

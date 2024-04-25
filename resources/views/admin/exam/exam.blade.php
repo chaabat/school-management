@@ -199,16 +199,13 @@
             classSelect.addEventListener('change', function() {
                 var selectedClassId = this.value;
     
-                // Clear existing options
-                subjectSelect.innerHTML = '';
+                 subjectSelect.innerHTML = '';
     
-                // Filter subjects based on the selected class
-                var filteredSubjects = classSubjects.filter(function(classSubject) {
+                 var filteredSubjects = classSubjects.filter(function(classSubject) {
                     return classSubject.classe && classSubject.classe.id == selectedClassId;
                 });
     
-                // Populate subjects dropdown with filtered subjects
-                filteredSubjects.forEach(function(classSubject) {
+                 filteredSubjects.forEach(function(classSubject) {
                     if (classSubject.subject) {
                         var option = document.createElement('option');
                         option.value = classSubject.subject.id;

@@ -188,9 +188,6 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
             </section>
 
    
-          
- 
-            <script src="js/teacherToClasseUpdate.js"></script>
             <script src="js/teacherToClasseSearch.js"></script>
 
         </div>
