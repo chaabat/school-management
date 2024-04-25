@@ -128,8 +128,8 @@
                                 for="grid-password">
                                 Description
                             </label> 
-                            <textarea name="description" value="{{ $teacher->description }}"
-                                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"></textarea>
+                            <textarea name="description" 
+                                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"> {{ $teacher->description }}</textarea>
                         </div>
                     </div>
                     <button type="submit"

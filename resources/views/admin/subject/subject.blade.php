@@ -14,6 +14,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                 </script>
             @endif
             <form action="{{ route('subjects.store') }}" method="POST">
+                
                 @csrf
                 <div class="w-full flex items-center justify-center">
                     <div class="rounded-lg shadow-lg flex-col w-5/6 sm:max-w-2xl px-6"
@@ -41,7 +42,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                             <div class="grid grid-cols-1">
                                  
             
-                                <label class="md:text-sm text-xs text-white text-light font-semibold">Time:</label>
+                                <label class="md:text-sm text-xs text-white text-light font-semibold">Statut</label>
                                 <select name="statut"   class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                                     <option value="activer">Activer</option>
                                         <option value="desactiver">Desactiver</option>
@@ -81,16 +82,16 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                 
                             </div>
 
+                         
                             <div
                                 class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                           
-                                <div class="flex items-center space-x-3 w-full md:w-auto">
-                                    <button
-                                        class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-white dark:hover:text-white dark:hover:bg-gray-700"
-                                        type="button">
 
-                                        Actions
-                                    </button>
+                                <div class="flex items-center space-x-3 w-full md:w-auto">
+                                    <div
+                                    class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-l font-bold font-mono text-white focus:outline-none bg-blue rounded-lg      ">
+
+                                    Subjects
+                                </div>
 
                                 </div>
                             </div>

@@ -45,7 +45,7 @@ class StudentController extends Controller
     public function store(studentRequest $request)
     {
 
-      
+      try{
             $student = $request->validated();
 
             $student['password'] = Hash::make($request->password);
@@ -54,12 +54,14 @@ class StudentController extends Controller
             $request->picture->move(public_path('users'), $fileName);
             $student = array_merge($student, ['picture' => $fileName]);
             
-            $user = $this->studentService->createStudent($student);
-           
-            Auth::login($user);
+             $this->studentService->createStudent($student);
+       
+            // Auth::login($user);
 
             return redirect()->route('students.index');
-        
+        } catch (QueryException $e) {
+            dd($e->getMessage());
+        }
     }
 
 

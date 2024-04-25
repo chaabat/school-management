@@ -4,7 +4,7 @@
 style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
 <div class="p-4 rounded-lg mt-14">
 
-            <div class="grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 mt-4">
+            <div class="grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 mt-4">
               
                 <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between   border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
@@ -16,26 +16,9 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         </div>
                     </div>
 
-                    <div class="flex space-x-2 items-center">
-                        <div class="bg-blue rounded-md p-2 flex items-center">
-                            <a href="{{route('classes.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
-                    </div>
+                    
                 </div>
-                <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between border-4 border-blue ">
-                    <div class="flex space-x-6 items-center">
-                        <img src="{{ asset('photos/bibliotheque.png') }}" class="w-auto h-14 rounded-lg" />
-
-                        <div>
-                            <p class="font-bold font-mono text-orange text-xl">{{ $classe->first()->subjectToClass_count ?? ''}} </p> 
-                            <p class="font-bold font-mono  text-l text-black">Subjects</p>
-                        </div>
-                    </div>
-
-                    <div class="flex space-x-2 items-center">
-                        <div class="bg-blue rounded-md p-2 flex items-center">
-                            <a href="{{route('subjects.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
-                    </div>
-                </div>
+            
                 <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
                         <img src="{{ asset('photos/tester.png') }}" class="w-auto h-14 rounded-lg" />
@@ -46,10 +29,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         </div>
                     </div>
 
-                    <div class="flex space-x-2 items-center">
-                        <div class="bg-blue rounded-md p-2 flex items-center">
-                            <a href="{{route('exams.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
-                    </div>
+                     
                 </div>
             </div>
       

@@ -59,9 +59,9 @@ class ParentController extends Controller
 
             $parent = array_merge($parent, ['picture' => $fileName]);
 
-            $user = $this->parentservice->createParent($parent);
+             $this->parentservice->createParent($parent);
 
-            Auth::login($user);
+            // Auth::login($user);
 
             return redirect()->route('parents.index');
         } catch (QueryException $e) {

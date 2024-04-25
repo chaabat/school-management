@@ -1,4 +1,3 @@
-use Illuminate\Support\Facades\Auth;
 @extends('layouts.teacher')
 @section('myClasse')
 <div class="p-4 h-screen sm:ml-64"

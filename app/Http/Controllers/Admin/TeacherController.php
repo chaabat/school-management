@@ -45,17 +45,17 @@ class TeacherController extends Controller
 
             $teacher['password'] = Hash::make($request->password);
             if ($request->hasFile('picture') && $request->file('picture')->isValid()) {
-                // Handle picture upload
+                
                 $fileName = time() . '.' . $request->picture->extension();
                 $request->picture->move(public_path('users'), $fileName);
                 $teacher = array_merge($teacher, ['picture' => $fileName]);
             } else {
-                // No picture uploaded, use default
+                 
                 $teacher['picture'] = 'photos/aa.jpg';
             }
-            $user = $this->teacherService->createTeacher($teacher);
+            $this->teacherService->createTeacher($teacher);
 
-            Auth::login($user);
+        
 
             return redirect()->route('teachers.index');
          

@@ -31,9 +31,7 @@ Route::get('/unauthorized', function () {
     return response()->view('errors', [], 403);
 })->name('unauthorized');
 
-Route::group(['middleware' => ['auth', 'role:admin']], function () {
-    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
-});
+
 
 Route::get('/', function () {
     return view('home');
@@ -51,6 +49,11 @@ Route::get('/check-your-email', [AuthentificationController::class, 'waitPage'])
 Route::post('logout', [AuthentificationController::class, 'destroy'])->name('logout');
 
 Route::post('/send-message', [AuthentificationController::class, 'sendMessage'])->name('send-message');
+
+
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+
 
 /*************************************************** TEACHERS ***********************************************************************/
 
@@ -112,7 +115,7 @@ Route::get('/search-teacher-to-class', [TeacherToClasseController::class, 'searc
 /*************************************************** ADMIN TIME TABLE ***********************************************************************/
 
 Route::resource('timeTable', TimeTableController::class);
-
+});
 /*************************************************** PARENTS ***********************************************************************/
 
 Route::group(['middleware' => ['auth', 'role:parent']], function () {

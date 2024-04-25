@@ -15,6 +15,9 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                 });
             </script>
         @endif
+
+        <h3 class="text-4xl text-white font-bold text-center uppercase mt-4">Contact Us</h3>
+
              <div class="items-center  space-y-8 mx-4 mb-12">
                 
                 <form action="{{ route('send-message') }}" method="POST" class="form bg-white p-6 my-10 relative">
@@ -22,9 +25,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                     <div class="icon bg-blue text-white w-6 h-6 absolute flex items-center justify-center p-5" style="left:-40px">
                         <i class="fal fa-phone-volume fa-fw text-2xl transform -rotate-45"></i>
                     </div>
-                    <h3 class="text-2xl text-gray-900 font-semibold">Let us call you!</h3>
-                    <p class="text-gray-600">To help you choose your property</p>
-                    
+                     
                     <input type="hidden" name="role" value="parent">
                     
                     <input type="text" name="name" placeholder="Your Name" class="border p-2 w-full mt-3">

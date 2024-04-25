@@ -46,7 +46,9 @@
                             </div>
                             <div class="grid grid-cols-1">
                                 <label class="md:text-sm text-xs text-white text-light font-semibold">Date</label>
-                                <input type="date" name="date" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
+                                <input type="date"
+                                min="{{ now()->timezone('Africa/Casablanca')->format('Y-m-d') }}"
+                                max="{{ now()->timezone('Africa/Casablanca')->addMonth()->format('Y-m-d') }}" name="date" class="py-2 px-3 rounded-lg border-2 mt-1 focus:outline-none">
                             </div>
                             <div class="grid grid-cols-1">
                                 <label class="md:text-sm text-xs text-white text-light font-semibold">Statut</label>
@@ -90,16 +92,16 @@
                                 </form>
                             </div>
 
+                          
                             <div
                                 class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
 
                                 <div class="flex items-center space-x-3 w-full md:w-auto">
-                                    <button
-                                        class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                        type="button">
+                                    <div
+                                    class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-l font-bold font-mono text-white focus:outline-none bg-blue rounded-lg      ">
 
-                                        Actions
-                                    </button>
+                                    Exams
+                                </div>
 
                                 </div>
                             </div>

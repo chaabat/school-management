@@ -98,9 +98,9 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                 Genre
                             </label>
                             <div class="relative">
-                                <select name="genre" value="{{ $parent->genre }}"
+                                <select name="genre" 
                                     class=" block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected="">Select Genre</option>
+                                    <option disabled selected="">{{ $parent->genre }}</option>
                                     <option value="masculin">Masculin</option>
                                     <option value="feminin">Féminin</option>
 
@@ -125,8 +125,8 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                 for="grid-password">
                                 Description
                             </label>
-                            <textarea name="description" value="{{ $parent->description }}"
-                                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"></textarea>
+                            <textarea name="description"  
+                                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3">{{ $parent->description }}</textarea>
                         </div>
                     </div>
                     <button type="submit"

@@ -4,7 +4,19 @@
 style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('photos/school.jpg') }}') no-repeat center; background-size: cover; overflow-y: scroll;">
 <div class="p-4 rounded-lg mt-14">
             @if ($children->isEmpty())
-                <p>No children found.</p>
+            <div class="bg-blue rounded-lg shadow-xl pb-8">
+                <div class="w-full h-[200px]">
+                    <img src="{{ asset('photos/classe.jpg') }}" class="w-full h-full rounded-tl-lg rounded-tr-lg">
+                </div>
+                <div class="flex flex-col items-center mt-4">
+    
+                    <div class="flex items-center space-x-2 mt-2">
+                        <p class="text-xl text-white font-mono">No childrens available </p>
+    
+                    </div>
+    
+                </div>
+            </div>
             @else
                 @foreach ($children as $child)
                     <div class="mt-4 flex flex-row rounded-lg border-4 border-white bg-blue p-6">

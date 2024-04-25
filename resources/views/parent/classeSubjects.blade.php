@@ -124,7 +124,7 @@
                                         @foreach ($previousExams as $class)
                                             @if ($class->exam->count() > 0)
                                                 <table class="w-full text-center border-collapse rounded">
-                                                    <!-- Table headers -->
+                                                    
                                                     <thead>
                                                         <tr
                                                             class="text-md font-mono font-bold text-center tracking-wide text-white bg-blue uppercase">
@@ -132,7 +132,7 @@
                                                             <th class="px-4 py-3 border border-white w-1/2">Date</th>
                                                         </tr>
                                                     </thead>
-                                                    <!-- Table body -->
+                                                    
                                                     <tbody class="bg-white">
                                                         @foreach ($class->exam as $exam)
                                                             <tr class="text-gray-700">
@@ -209,7 +209,19 @@
                 </div>
             @endforeach
         @else
-            <p>No classes available.</p>
+        <div class="bg-blue rounded-lg shadow-xl pb-8">
+            <div class="w-full h-[200px]">
+                <img src="{{ asset('photos/classe.jpg') }}" class="w-full h-full rounded-tl-lg rounded-tr-lg">
+            </div>
+            <div class="flex flex-col items-center mt-4">
+
+                <div class="flex items-center space-x-2 mt-2">
+                    <p class="text-xl text-white font-mono">No classes available </p>
+
+                </div>
+
+            </div>
+        </div>
             @endif
 
         </div>

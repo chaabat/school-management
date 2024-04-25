@@ -124,11 +124,9 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                 Classe
                             </label>
                             <div class="relative">
-                                <select name="classe_id"
-                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected>Select Classe</option>
+                                <select name="classe_id" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
                                     @foreach($classes as $classe)
-                                        <option value="{{ $classe->id }}">{{ $classe->name }}</option>
+                                        <option value="{{ $classe->id }}" {{ $classe->id == $student->classe_id ? 'selected' : '' }}>{{ $classe->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -139,11 +137,9 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                 Parent
                             </label>
                             <div class="relative">
-                                <select name="parent_id"
-                                    class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
-                                    <option disabled selected>Select Student</option>
+                                <select name="parent_id" class="block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4">
                                     @foreach($parents as $parent)
-                                        <option value="{{ $parent->id }}">{{ $parent->name }}</option>
+                                        <option value="{{ $parent->id }}" {{ $parent->id == $student->parent_id ? 'selected' : '' }}>{{ $parent->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -155,8 +151,8 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                 for="grid-password">
                                 Description
                             </label>
-                            <textarea name="description"  value="{{ $student->description }}" 
-                                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3"></textarea>
+                            <textarea name="description"   
+                                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3">{{ $student->description }}</textarea>
                         </div>
                     </div>
                     <button type="submit"
