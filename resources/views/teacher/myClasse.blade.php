@@ -60,7 +60,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                                 <thead>
                                                     <tr
                                                         class="text-md font-bold tracking-wide font-mono text-center text-white bg-blue uppercase border-b border-white">
-                                                        <th class="px-4 py-3    ">Student Name</th>
+                                                        <th class="px-4 py-3 ">Student Name</th>
                                                         <th class="px-4 py-3 ">Date</th>
                                                         <th class="px-4 py-3 ">Statut</th>
                                                         <th class="px-4 py-3 ">Actions</th>
@@ -74,7 +74,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                                                         class="relative w-8 h-8 mr-3 rounded-full md:block">
                                                                         <img class="object-cover w-full h-full rounded-full"
                                                                             src="{{ asset('users/' . $student->picture) }}"
-                                                                            alt="Student Image" loading="lazy" />
+                                                                            alt="Student Image"  />
                                                                         <div class="absolute inset-0 rounded-full shadow-inner"
                                                                             aria-hidden="true"></div>
                                                                     </div>
