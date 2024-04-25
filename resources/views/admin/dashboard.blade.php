@@ -14,11 +14,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         </div>
                     </div>
 
-                    <div class="flex space-x-2 items-center">
-                        <div class="bg-blue  rounded-md p-2 flex items-center">
-                           <a href="{{route('teachers.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a> 
-                        </div>
-                    </div>
+                 
                 </div>
                 <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
@@ -30,10 +26,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         </div>
                     </div>
 
-                    <div class="flex space-x-2 items-center">
-                        <div class="bg-blue rounded-md p-2 flex items-center">
-                            <a href="{{route('students.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
-                    </div>
+                    
                 </div>
                 <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
@@ -45,11 +38,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         </div>
                     </div>
 
-                    <div class="flex space-x-2 items-center">
-                        <div class="bg-blue rounded-md p-2 flex items-center">
-                            <a href="{{route('parents.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>
-                        </div>
-                    </div>
+                   
                 </div>
                 <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between   border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
@@ -61,10 +50,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         </div>
                     </div>
 
-                    <div class="flex space-x-2 items-center">
-                        <div class="bg-blue rounded-md p-2 flex items-center">
-                            <a href="{{route('classes.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
-                    </div>
+                     
                 </div>
                 <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
@@ -76,10 +62,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         </div>
                     </div>
 
-                    <div class="flex space-x-2 items-center">
-                        <div class="bg-blue rounded-md p-2 flex items-center">
-                            <a href="{{route('subjects.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
-                    </div>
+                  
                 </div>
                 <div class="bg-gray-200 p-8 rounded-xl shadow-xl flex items-center justify-between border-4 border-blue ">
                     <div class="flex space-x-6 items-center">
@@ -90,11 +73,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                             <p class="font-bold font-mono  text-l text-black">Exams</p>
                         </div>
                     </div>
-
-                    <div class="flex space-x-2 items-center">
-                        <div class="bg-blue rounded-md p-2 flex items-center">
-                            <a href="{{route('exams.index')}}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
-                    </div>
+ 
                 </div>
             </div>
       

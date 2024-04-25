@@ -42,17 +42,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                                     </svg>
                                     Add Student
                                 </a>
-                                <div class="flex items-center space-x-3 w-full md:w-auto">
-                                    <button
-                                        class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                                        type="button">
-
-                                        Actions
-                                    </button>
-
-
-
-                                </div>
+                        
                             </div>
                         </div>
                         <div class="overflow-x-auto">
@@ -72,7 +62,8 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
 
                                         <div class="flex mt-3 -mx-2 space-x-4">
                                             <a href="{{ route('students.show', $student->id) }}">
-                                                <i class="fa-solid fa-eye"style="color: #ffffff;"></i>
+                                                <img
+                                                src="{{ asset('photos/show.png') }}" class="h-6" alt="">
                                             </a>
 
                                             <a href="{{ route('myParent', $student->id) }}"><img

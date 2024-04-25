@@ -16,10 +16,7 @@ style="background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(
                         </div>
                     </div>
 
-                    <div class="flex space-x-2 items-center">
-                        <div class="bg-blue rounded-md p-2 flex items-center">
-                            <a href="{{ route('myChildren') }}"><i class="fas fa-chevron-right fa-l text-white"></i></a>                        </div>
-                    </div>
+                  
                 </div>
               
               
